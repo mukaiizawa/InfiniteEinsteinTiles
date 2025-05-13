@@ -1,0 +1,268 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: default Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: default
+  m_TableCollectionNameGuidString: d545b90e5be3a914f940bc5b44a565dd
+  m_Entries:
+  - m_Id: 798657884758016
+    m_Key: back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450797213360128
+    m_Key: cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31969288192
+    m_Key: click_to_continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10876905507299328
+    m_Key: congratulations
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3371763459465216
+    m_Key: continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767003684864
+    m_Key: copy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161346
+    m_Key: create
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056448
+    m_Key: created_by
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069765926912
+    m_Key: creation_date
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2029896264359936
+    m_Key: creative_mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977421279232
+    m_Key: credit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11690783170404352
+    m_Key: credit_content
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044992
+    m_Key: cut
+    m_Metadata:
+      m_Items: []
+  - m_Id: 225921852547072
+    m_Key: delete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465881063006208
+    m_Key: deletion_confirmation_message
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12390725723660288
+    m_Key: exit_without_save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12391566895521792
+    m_Key: exit_without_save_confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044994
+    m_Key: flip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704368433471488
+    m_Key: full_screen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056451
+    m_Key: game_engine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044995
+    m_Key: grab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15121970022883328
+    m_Key: hint_level_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15122424656076800
+    m_Key: hint_level_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15122665883082752
+    m_Key: hint_level_8
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056450
+    m_Key: icon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 611311722496
+    m_Key: language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069765926913
+    m_Key: last_modified_date
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044996
+    m_Key: move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056449
+    m_Key: music_and_sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1183473508352
+    m_Key: music_volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069749149696
+    m_Key: name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161344
+    m_Key: new
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450797238525952
+    m_Key: ok
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4872166744064
+    m_Key: open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465814499401728
+    m_Key: path
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044997
+    m_Key: put
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6753623015202816
+    m_Key: puzzle_complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2030641692844032
+    m_Key: puzzle_mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750576493436928
+    m_Key: quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044998
+    m_Key: redo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 225921831575552
+    m_Key: release_area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161348
+    m_Key: rename
+    m_Metadata:
+      m_Items: []
+  - m_Id: 705063509336064
+    m_Key: resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16573020307234816
+    m_Key: return_to_desktop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12394384918355968
+    m_Key: return_to_menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045000
+    m_Key: rotate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12390725706883072
+    m_Key: save_and_exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3233087266816
+    m_Key: save_and_return_to_menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3631879383457792
+    m_Key: save_data_does_not_exist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045001
+    m_Key: select_area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 725086323908608
+    m_Key: settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5371326668800
+    m_Key: slot1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2233899396931584
+    m_Key: slot2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2234358576750592
+    m_Key: slot3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1805442654208
+    m_Key: sound_volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056452
+    m_Key: special_thanks_to
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939392
+    m_Key: tile_count
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045002
+    m_Key: undo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3637982829780992
+    m_Key: untitled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939393
+    m_Key: zoom
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 3120650822352971
+  references:
+    version: 2
+    RefIds:
+    - rid: 3120650822352971
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1746880800469

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 3b0f699e65d14bd4fa8b5878e21dcf28
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - AudioMixer: {fileID: 24100000, guid: 8f34379404e548e498aafd760f2bda77, type: 2}
+  - SEOK: {fileID: 8300000, guid: f908ed08a3a7dbb4397334c3533caa99, type: 3}
+  - SECancel: {fileID: 8300000, guid: f3f1b67590a20b9459237568733f7644, type: 3}
+  - SEOnHoverUI: {fileID: 8300000, guid: 3683757f99d26134fabb377c840311c0, type: 3}
+  - SETitleClick: {fileID: 8300000, guid: f908ed08a3a7dbb4397334c3533caa99, type: 3}
+  - SETileRotate: {fileID: 8300000, guid: b8630ca2609474741a09f6fc685d8ca4, type: 3}
+  - SETilePut: {fileID: 8300000, guid: 4eeef881324af0146b8e539ac7d35765, type: 3}
+  - SETileGrab: {fileID: 8300000, guid: f3f1b67590a20b9459237568733f7644, type: 3}
+  - SETileRemove: {fileID: 8300000, guid: f3f1b67590a20b9459237568733f7644, type: 3}
+  - SEPuzzleComplete: {fileID: 8300000, guid: 1076a9b210157734b8dff6c49da103c1, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

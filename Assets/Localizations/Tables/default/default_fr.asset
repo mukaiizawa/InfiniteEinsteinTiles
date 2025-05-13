@@ -1,0 +1,272 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: default_fr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: d545b90e5be3a914f940bc5b44a565dd, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 15122665883082752
+    m_Localized: "Avez-vous remarqu\xE9 la sym\xE9trie de rotation ?\r\nVous n'avez
+      pas besoin de placer chaque tuile une par une.\r\nEssayez de s\xE9lectionner
+      une zone avec Ctrl + glisser et de la copier."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15122424656076800
+    m_Localized: "Vous avez du mal \xE0 le r\xE9soudre ?\r\nVous pouvez retourner
+      la tuile que vous avez saisie avec la touche F.\r\n\r\nVous avez mal plac\xE9
+      une tuile ?\r\nFaites un clic droit pour supprimer les tuiles inutiles."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15121970022883328
+    m_Localized: "1. Cliquez sur la tuile en bas \xE0 droite pour la saisir.\r\n2.
+      Utilisez la molette de la souris pour faire pivoter la tuile.\r\n3. Cliquez
+      pour placer la tuile."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939392
+    m_Localized: Nombre de tuiles
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939393
+    m_Localized: Zoom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767003684864
+    m_Localized: Copier
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044992
+    m_Localized: Couper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044994
+    m_Localized: RETOURNER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044995
+    m_Localized: SAISIR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044996
+    m_Localized: "D\xC9PLACER"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044997
+    m_Localized: Placer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044998
+    m_Localized: "R\xC9TABLIR"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 225921831575552
+    m_Localized: "Lib\xE9rer la zone"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045000
+    m_Localized: PIVOTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045001
+    m_Localized: "S\xE9lectionner la zone"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045002
+    m_Localized: Annuler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6753623015202816
+    m_Localized: "Puzzle termin\xE9!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31969288192
+    m_Localized: Cliquez pour continuer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16573020307234816
+    m_Localized: Retour au Bureau
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12394384918355968
+    m_Localized: Retour au menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12391566895521792
+    m_Localized: "Quitter sans enregistrer. \xCAtes-vous s\xFBr ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12390725706883072
+    m_Localized: Enregistrer et quitter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12390725723660288
+    m_Localized: Quitter sans enregistrer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3637982829780992
+    m_Localized: Sans titre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3631879383457792
+    m_Localized: "Aucune donn\xE9e de sauvegarde."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 611311722496
+    m_Localized: Langue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1183473508352
+    m_Localized: Volume de la musique
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1805442654208
+    m_Localized: Volume des effets
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704368433471488
+    m_Localized: "Plein \xE9cran"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 705063509336064
+    m_Localized: "R\xE9solution"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 725086323908608
+    m_Localized: "Param\xE8tres"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750576493436928
+    m_Localized: Quitter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798657884758016
+    m_Localized: Retour
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2029896264359936
+    m_Localized: "Mode Cr\xE9atif"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2030641692844032
+    m_Localized: Mode Puzzle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5371326668800
+    m_Localized: Emplacement 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2233899396931584
+    m_Localized: Emplacement 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2234358576750592
+    m_Localized: Emplacement 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11690783170404352
+    m_Localized: "Ce jeu n'aurait jamais \xE9t\xE9 achev\xE9 sans l'incroyable d\xE9couverte
+      de David Smith et le travail remarquable des co-auteurs de l'article, Joseph\_Samuel\_Myers,
+      Craig\_S.\_Kaplan et Chaim\_Goodman-Strauss. Nos remerciements les plus sinc\xE8res.\r\n\r\nNous
+      notons \xE9galement qu'aucun probl\xE8me dans ce jeu ne leur est li\xE9."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977421279232
+    m_Localized: "Cr\xE9dit"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056448
+    m_Localized: "Cr\xE9\xE9 par"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056449
+    m_Localized: Musique et son
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056450
+    m_Localized: "Ic\xF4ne"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056451
+    m_Localized: Moteur de jeu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056452
+    m_Localized: "Remerciements sp\xE9ciaux \xE0"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465814499401728
+    m_Localized: Chemin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069749149696
+    m_Localized: Nom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069765926912
+    m_Localized: "Date de cr\xE9ation"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069765926913
+    m_Localized: "Date de derni\xE8re modification"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10876905507299328
+    m_Localized: "F\xE9licitations!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3371763459465216
+    m_Localized: Continuer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465881063006208
+    m_Localized: Voulez-vous vraiment supprimer?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450797213360128
+    m_Localized: Annuler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450797238525952
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4872166744064
+    m_Localized: Ouvrir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161344
+    m_Localized: Nouveau
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161346
+    m_Localized: "Cr\xE9er"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161348
+    m_Localized: Renommer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3233087266816
+    m_Localized: Enregistrer et revenir au menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 225921852547072
+    m_Localized: Supprimer
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

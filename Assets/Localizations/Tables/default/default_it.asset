@@ -1,0 +1,276 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: default_it
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: it
+  m_SharedData: {fileID: 11400000, guid: d545b90e5be3a914f940bc5b44a565dd, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 15122665883082752
+    m_Localized: "Hai notato la simmetria rotazionale?\r\nNon \xE8 necessario posizionare
+      ogni tessera una per una.\r\nProva a selezionare un'area con Ctrl + trascinamento
+      e copiarla."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15122424656076800
+    m_Localized: "Hai difficolt\xE0 a risolverlo?\r\nPuoi capovolgere la tessera
+      che hai afferrato con il tasto F.\r\n\r\nHai posizionato la tessera sbagliata?\r\nFai
+      clic destro per eliminare le tessere inutili."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15121970022883328
+    m_Localized: '1. Clicca sulla tessera in basso a destra per afferrarla.
+
+      2.
+      Usa la rotella del mouse per ruotare la tessera.
+
+      3. Clicca per posizionarla.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939392
+    m_Localized: Numero di tessere
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939393
+    m_Localized: Zoom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767003684864
+    m_Localized: Copia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044992
+    m_Localized: Taglia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044994
+    m_Localized: CAPOVOLGI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044995
+    m_Localized: AFFERRA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044996
+    m_Localized: SPOSTA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044997
+    m_Localized: Posiziona
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044998
+    m_Localized: RIPRISTINA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 225921831575552
+    m_Localized: Rilascia area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045000
+    m_Localized: RUOTA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045001
+    m_Localized: Seleziona area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045002
+    m_Localized: Annulla
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6753623015202816
+    m_Localized: Puzzle completato!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31969288192
+    m_Localized: Clicca per continuare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16573020307234816
+    m_Localized: Torna al desktop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12394384918355968
+    m_Localized: Torna al menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12391566895521792
+    m_Localized: Esci senza salvare. Sei sicuro?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12390725706883072
+    m_Localized: Salva ed esci
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12390725723660288
+    m_Localized: Esci senza salvare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3637982829780992
+    m_Localized: Senza titolo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3631879383457792
+    m_Localized: Nessun dato di salvataggio.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 611311722496
+    m_Localized: Lingua
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1183473508352
+    m_Localized: Volume della musica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1805442654208
+    m_Localized: Volume effetti sonori
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704368433471488
+    m_Localized: Schermo intero
+    m_Metadata:
+      m_Items: []
+  - m_Id: 705063509336064
+    m_Localized: Risoluzione
+    m_Metadata:
+      m_Items: []
+  - m_Id: 725086323908608
+    m_Localized: Impostazioni
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750576493436928
+    m_Localized: Esci
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798657884758016
+    m_Localized: Indietro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2029896264359936
+    m_Localized: "Modalit\xE0 Creativa"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2030641692844032
+    m_Localized: "Modalit\xE0 Puzzle"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5371326668800
+    m_Localized: Slot 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2233899396931584
+    m_Localized: Slot 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2234358576750592
+    m_Localized: Slot 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11690783170404352
+    m_Localized: "Questo gioco non sarebbe stato completato senza l'incredibile scoperta
+      di David Smith e il meraviglioso lavoro dei coautori dell'articolo, Joseph\_Samuel\_Myers,
+      Craig\_S.\_Kaplan e Chaim\_Goodman-Strauss. I nostri sentiti ringraziamenti.\r\n\r\nNotiamo
+      inoltre che eventuali problemi in questo gioco non hanno alcuna relazione con
+      loro."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977421279232
+    m_Localized: Crediti
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056448
+    m_Localized: Creato da
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056449
+    m_Localized: Musica e suoni
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056450
+    m_Localized: Icona
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056451
+    m_Localized: Motore di gioco
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056452
+    m_Localized: Ringraziamenti speciali a
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465814499401728
+    m_Localized: Percorso
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069749149696
+    m_Localized: Nome
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069765926912
+    m_Localized: Data di creazione
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069765926913
+    m_Localized: Data dell'ultima modifica
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10876905507299328
+    m_Localized: Congratulazioni!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3371763459465216
+    m_Localized: Continua
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465881063006208
+    m_Localized: Sei sicuro di voler eliminare?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450797213360128
+    m_Localized: Annulla
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450797238525952
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4872166744064
+    m_Localized: Apri
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161344
+    m_Localized: Nuovo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161346
+    m_Localized: Crea
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161348
+    m_Localized: Rinomina
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3233087266816
+    m_Localized: Salva e torna al menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 225921852547072
+    m_Localized: Elimina
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

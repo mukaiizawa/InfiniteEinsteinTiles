@@ -1,0 +1,44 @@
+fileFormatVersion: 2
+guid: bea049729a38b3642b68797f2e4be85c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - BrushTexture: {fileID: 2800000, guid: b25b636de5f7d734cbfc75b5a387a5fc, type: 3}
+  - PipetteTexture: {fileID: 2800000, guid: bc123be90c35a1543bf459bfc183217c, type: 3}
+  - TileTexture: {fileID: 2800000, guid: 805d1c04e55d56848a97382fe97ce1b6, type: 3}
+  - TileOutlineTexture: {fileID: 2800000, guid: 3685ede5082560d449000a04b5486c72, type: 3}
+  - DefaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - HighlightMaterial: {fileID: -876546973899608171, guid: 8c9a9d43056605d42aa2af3828fd1daa, type: 3}
+  - DissolveMaterial: {fileID: -876546973899608171, guid: b2e62f19709540044b7f4556a413cd5f, type: 3}
+  - BGMTitle: {fileID: 8300000, guid: 1c0b1fe0d401ece4d970e728bd39f9ea, type: 3}
+  - BGMMenu: {fileID: 8300000, guid: 4bb4f812e5b11c34bb1ccd02bff3bf02, type: 3}
+  - BGMPuzzleMenu: {fileID: 8300000, guid: 4bb4f812e5b11c34bb1ccd02bff3bf02, type: 3}
+  - BGMTiling0: {fileID: 8300000, guid: 5357cfea66f84814d8c96a6afb289c43, type: 3}
+  - BGMTiling1: {fileID: 8300000, guid: 167db9c75c898d44e86621145b3f19a5, type: 3}
+  - BGMTiling2: {fileID: 8300000, guid: 88d5cf4df17259f4eb69c65d535a4abd, type: 3}
+  - BGMTiling3: {fileID: 8300000, guid: f6699ff59a60d304893b5f28b43e50b6, type: 3}
+  - BGMTiling4: {fileID: 8300000, guid: 9c89bd03ad3ea6f4cad19cb2eaf7b8a3, type: 3}
+  - BGMTiling5: {fileID: 8300000, guid: 412351e0df2804a49bc87c6dc273a1e9, type: 3}
+  - BGMTiling6: {fileID: 8300000, guid: 532655e8096ca8d43b93363378216b78, type: 3}
+  - BGMTiling7: {fileID: 8300000, guid: 532655e8096ca8d43b93363378216b78, type: 3}
+  - BGMTiling8: {fileID: 8300000, guid: 1363ab90e3afa8e49b8b36e9a2bf7a8c, type: 3}
+  - BGMTiling9: {fileID: 8300000, guid: 7145147ada2a75d4c914a2efc334056d, type: 3}
+  - BGMTiling10: {fileID: 8300000, guid: 89d5900925c2be24089ecf9e4624bf7f, type: 3}
+  - BGMTiling11: {fileID: 8300000, guid: 48121e799ff0d7b4d9df78ac5441360e, type: 3}
+  - BGMTiling12: {fileID: 8300000, guid: ecabff3e3ea2f714f875b33902fd7c26, type: 3}
+  - SEOK: {fileID: 8300000, guid: 454124853ad5dfc489d21de2b025f52b, type: 3}
+  - SECancel: {fileID: 8300000, guid: f3f1b67590a20b9459237568733f7644, type: 3}
+  - SEOnHoverUI: {fileID: 8300000, guid: fa1f6ef830ee63c4eb62b7f379e8c3e1, type: 3}
+  - SETileRotate: {fileID: 8300000, guid: 506e8bcba8beabd4987ca74c9b6ae20b, type: 3}
+  - SETilePut: {fileID: 8300000, guid: eca9b72549e43fa45b416dea76f797ca, type: 3}
+  - SETileCannotPut: {fileID: 8300000, guid: c30536aba5a65fb48ae53894d7c3cf64, type: 3}
+  - SETileGrab: {fileID: 8300000, guid: 1bf568b6eb40e6246a4745fa8f977f85, type: 3}
+  - SETileRemove: {fileID: 8300000, guid: 73f61013f8dd761449212b26a4def8cf, type: 3}
+  - SETileDissolve: {fileID: 8300000, guid: 460732aab1e52dc4dbab6248ad22cc15, type: 3}
+  - SEPuzzleComplete: {fileID: 8300000, guid: 1076a9b210157734b8dff6c49da103c1, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

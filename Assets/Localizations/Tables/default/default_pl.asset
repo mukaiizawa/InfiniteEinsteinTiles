@@ -1,0 +1,274 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: default_pl
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: pl
+  m_SharedData: {fileID: 11400000, guid: d545b90e5be3a914f940bc5b44a565dd, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 15122665883082752
+    m_Localized: "Czy zauwa\u017Cy\u0142e\u015B symetri\u0119 obrotow\u0105?\r\nNie
+      musisz uk\u0142ada\u0107 ka\u017Cdej p\u0142ytki pojedynczo.\r\nSpr\xF3buj
+      zaznaczy\u0107 obszar za pomoc\u0105 Ctrl + przeci\u0105gni\u0119cia i skopiowa\u0107."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15122424656076800
+    m_Localized: "Masz trudno\u015Bci z rozwi\u0105zaniem?\r\nMo\u017Cesz obr\xF3ci\u0107
+      chwycony kafelek za pomoc\u0105 klawisza F.\r\n\r\n\u0179le umie\u015Bci\u0142e\u015B
+      kafelek?\r\nKliknij prawym przyciskiem myszy, aby usun\u0105\u0107 niepotrzebne
+      kafelki."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15121970022883328
+    m_Localized: "1. Kliknij kafelek w prawym dolnym rogu, aby go chwyci\u0107.\r\n2.
+      U\u017Cyj k\xF3\u0142ka myszy, aby obr\xF3ci\u0107 kafelek.\r\n3. Kliknij,
+      aby umie\u015Bci\u0107 kafelek."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939392
+    m_Localized: "Liczba p\u0142ytek"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939393
+    m_Localized: Zoom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767003684864
+    m_Localized: Kopiuj
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044992
+    m_Localized: Wytnij
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044994
+    m_Localized: "ODWR\xD3\u0106"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044995
+    m_Localized: "CHWY\u0106"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044996
+    m_Localized: "PRZESU\u0143"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044997
+    m_Localized: "Umie\u015B\u0107"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044998
+    m_Localized: "PRZYWR\xD3\u0106"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 225921831575552
+    m_Localized: Zwolnij obszar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045000
+    m_Localized: "OBR\xD3\u0106"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045001
+    m_Localized: Wybierz obszar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045002
+    m_Localized: Cofnij
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6753623015202816
+    m_Localized: "Puzzle uko\u0144czone!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31969288192
+    m_Localized: "Kliknij, aby kontynuowa\u0107"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16573020307234816
+    m_Localized: "Powr\xF3t do pulpitu"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12394384918355968
+    m_Localized: "Powr\xF3t do menu"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12391566895521792
+    m_Localized: "Zako\u0144cz bez zapisywania. Czy na pewno?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12390725706883072
+    m_Localized: "Zapisz i zako\u0144cz"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12390725723660288
+    m_Localized: "Zako\u0144cz bez zapisywania"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3637982829780992
+    m_Localized: "Bez tytu\u0142u"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3631879383457792
+    m_Localized: Brak zapisanych danych.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 611311722496
+    m_Localized: "J\u0119zyk"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1183473508352
+    m_Localized: "G\u0142o\u015Bno\u015B\u0107 muzyki"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1805442654208
+    m_Localized: "G\u0142o\u015Bno\u015B\u0107 efekt\xF3w"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704368433471488
+    m_Localized: "Pe\u0142ny ekran"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 705063509336064
+    m_Localized: "Rozdzielczo\u015B\u0107"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 725086323908608
+    m_Localized: Ustawienia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750576493436928
+    m_Localized: "Wyj\u015Bcie"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798657884758016
+    m_Localized: Wstecz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2029896264359936
+    m_Localized: Tryb Kreatywny
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2030641692844032
+    m_Localized: Tryb Zagadek
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5371326668800
+    m_Localized: Slot 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2233899396931584
+    m_Localized: Slot 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2234358576750592
+    m_Localized: Slot 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11690783170404352
+    m_Localized: "Ta gra nie zosta\u0142aby uko\u0144czona bez niesamowitego odkrycia
+      David Smith i wspania\u0142ej pracy wsp\xF3\u0142autor\xF3w artyku\u0142u,
+      Joseph\_Samuel\_Myers, Craig\_S.\_Kaplan i Chaim\_Goodman-Strauss. Nasze serdeczne
+      podzi\u0119kowania.\r\n\r\nZauwa\u017Camy r\xF3wnie\u017C, \u017Ce wszelkie
+      problemy w tej grze nie maj\u0105 z nimi nic wsp\xF3lnego."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977421279232
+    m_Localized: Kredyty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056448
+    m_Localized: Utworzony przez
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056449
+    m_Localized: "Muzyka i d\u017Awi\u0119k"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056450
+    m_Localized: Ikona
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056451
+    m_Localized: Silnik gry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056452
+    m_Localized: "Szczeg\xF3lne podzi\u0119kowania dla"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465814499401728
+    m_Localized: "\u015Acie\u017Cka"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069749149696
+    m_Localized: Nazwa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069765926912
+    m_Localized: Data utworzenia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069765926913
+    m_Localized: Data ostatniej modyfikacji
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10876905507299328
+    m_Localized: Gratulacje!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3371763459465216
+    m_Localized: Kontynuuj
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465881063006208
+    m_Localized: "Czy na pewno chcesz usun\u0105\u0107?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450797213360128
+    m_Localized: Anuluj
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450797238525952
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4872166744064
+    m_Localized: "Otw\xF3rz"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161344
+    m_Localized: Nowy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161346
+    m_Localized: "utw\xF3rz"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161348
+    m_Localized: "Zmie\u0144 nazw\u0119"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3233087266816
+    m_Localized: "Zapisz i wr\xF3\u0107 do menu"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 225921852547072
+    m_Localized: "Usu\u0144"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

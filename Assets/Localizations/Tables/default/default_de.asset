@@ -1,0 +1,277 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: default_de
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: de
+  m_SharedData: {fileID: 11400000, guid: d545b90e5be3a914f940bc5b44a565dd, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 15122665883082752
+    m_Localized: "Haben Sie die Rotationssymmetrie bemerkt?\r\nSie m\xFCssen nicht
+      jede Kachel einzeln platzieren.\r\nVersuchen Sie, mit Strg + Ziehen einen Bereich
+      auszuw\xE4hlen und zu kopieren."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15122424656076800
+    m_Localized: "Haben Sie Probleme beim L\xF6sen?\r\nSie k\xF6nnen die gegriffene
+      Kachel mit der F-Taste umdrehen.\r\n\r\nFalsch platzierte Kachel?\r\nRechtsklick
+      zum Entfernen unn\xF6tiger Kacheln."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15121970022883328
+    m_Localized: '1. Klicken Sie auf die untere rechte Kachel, um sie zu greifen.
+
+      2.
+      Verwenden Sie das Mausrad, um die Kachel zu drehen.
+
+      3. Klicken Sie,
+      um die Kachel zu platzieren.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939392
+    m_Localized: Kachelanzahl
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939393
+    m_Localized: Zoom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767003684864
+    m_Localized: Kopieren
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044992
+    m_Localized: Ausschneiden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044994
+    m_Localized: SPIEGELN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044995
+    m_Localized: GREIFEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044996
+    m_Localized: VERSCHIEBEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044997
+    m_Localized: Platzieren
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044998
+    m_Localized: WIEDERHERSTELLEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 225921831575552
+    m_Localized: Bereich freigeben
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045000
+    m_Localized: DREHEN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045001
+    m_Localized: "Bereich ausw\xE4hlen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045002
+    m_Localized: "R\xFCckg\xE4ngig"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6753623015202816
+    m_Localized: Puzzle fertig!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31969288192
+    m_Localized: Klicken Sie, um fortzufahren
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16573020307234816
+    m_Localized: "Zur\xFCck zum Desktop"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12394384918355968
+    m_Localized: "Zur\xFCck zum Men\xFC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12391566895521792
+    m_Localized: Ohne Speichern beenden. Sind Sie sicher?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12390725706883072
+    m_Localized: Speichern und beenden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12390725723660288
+    m_Localized: Ohne Speichern beenden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3637982829780992
+    m_Localized: Unbenannt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3631879383457792
+    m_Localized: Keine gespeicherten Daten.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 611311722496
+    m_Localized: Sprache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1183473508352
+    m_Localized: "Musiklautst\xE4rke"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1805442654208
+    m_Localized: "Soundlautst\xE4rke"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704368433471488
+    m_Localized: Vollbild
+    m_Metadata:
+      m_Items: []
+  - m_Id: 705063509336064
+    m_Localized: "Aufl\xF6sung"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 725086323908608
+    m_Localized: Einstellungen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750576493436928
+    m_Localized: Beenden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798657884758016
+    m_Localized: "Zur\xFCck"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2029896264359936
+    m_Localized: Kreativmodus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2030641692844032
+    m_Localized: "R\xE4tselmodus"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5371326668800
+    m_Localized: Spielstandslot 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2233899396931584
+    m_Localized: Spielstandslot 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2234358576750592
+    m_Localized: Spielstandslot 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11690783170404352
+    m_Localized: "Dieses Spiel w\xE4re ohne die erstaunliche Entdeckung von David
+      Smith und die wundervolle Arbeit der Mitautoren des Papiers, Joseph\_Samuel\_Myers,
+      Craig\_S.\_Kaplan und Chaim\_Goodman-Strauss nicht fertiggestellt worden. Unser
+      herzlicher Dank.\r\n\r\nWir weisen au\xDFerdem darauf hin, dass etwaige Probleme
+      in diesem Spiel in keinem Zusammenhang mit ihnen stehen."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977421279232
+    m_Localized: Kredit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056448
+    m_Localized: Erstellt von
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056449
+    m_Localized: Musik & Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056450
+    m_Localized: Symbol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056451
+    m_Localized: Spiel-Engine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056452
+    m_Localized: Besonderer Dank an
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465814499401728
+    m_Localized: Pfad
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069749149696
+    m_Localized: Name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069765926912
+    m_Localized: Erstellungsdatum
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069765926913
+    m_Localized: "Datum der letzten \xC4nderung"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10876905507299328
+    m_Localized: "Gl\xFCckwunsch!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3371763459465216
+    m_Localized: Weiter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465881063006208
+    m_Localized: "M\xF6chten Sie wirklich l\xF6schen?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450797213360128
+    m_Localized: Abbrechen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450797238525952
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4872166744064
+    m_Localized: "\xD6ffnen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161344
+    m_Localized: Neu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161346
+    m_Localized: Erstellen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161348
+    m_Localized: Umbenennen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3233087266816
+    m_Localized: "Speichern und zum Men\xFC zur\xFCckkehren"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 225921852547072
+    m_Localized: "L\xF6schen"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

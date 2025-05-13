@@ -1,0 +1,276 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: default_es
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: d545b90e5be3a914f940bc5b44a565dd, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 15122665883082752
+    m_Localized: "\xBFHas notado la simetr\xEDa rotacional?\r\nNo es necesario colocar
+      cada pieza una por una.\r\nPrueba a seleccionar un \xE1rea con Ctrl + arrastrar
+      y copiarla."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15122424656076800
+    m_Localized: "\xBFTienes problemas para resolverlo?\r\nPuedes voltear la pieza
+      que has agarrado usando la tecla F.\r\n\r\n\xBFHas colocado la pieza incorrectamente?\r\nHaz
+      clic derecho para eliminar las piezas innecesarias."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15121970022883328
+    m_Localized: '1. Haz clic en la pieza inferior derecha para agarrarla.
+
+      2.
+      Usa la rueda del mouse para girar la pieza.
+
+      3. Haz clic para colocarla.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939392
+    m_Localized: "N\xFAmero de losetas"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939393
+    m_Localized: Zoom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767003684864
+    m_Localized: Copiar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044992
+    m_Localized: Cortar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044994
+    m_Localized: VOLTEAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044995
+    m_Localized: AGARRAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044996
+    m_Localized: MOVER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044997
+    m_Localized: Poner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033044998
+    m_Localized: REHACER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 225921831575552
+    m_Localized: "Liberar \xE1rea"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045000
+    m_Localized: ROTAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045001
+    m_Localized: "Seleccionar \xE1rea"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10147767033045002
+    m_Localized: Deshacer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6753623015202816
+    m_Localized: "\xA1Puzzle completo!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31969288192
+    m_Localized: Haga clic para continuar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16573020307234816
+    m_Localized: Volver al Escritorio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12394384918355968
+    m_Localized: "Volver al men\xFA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12391566895521792
+    m_Localized: "Salir sin guardar. \xBFEst\xE1 seguro?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12390725706883072
+    m_Localized: Guardar y salir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12390725723660288
+    m_Localized: Salir sin guardar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3637982829780992
+    m_Localized: "Sin t\xEDtulo"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3631879383457792
+    m_Localized: No hay datos guardados.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 611311722496
+    m_Localized: Idioma
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1183473508352
+    m_Localized: "Volumen de la m\xFAsica"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1805442654208
+    m_Localized: Volumen de efectos
+    m_Metadata:
+      m_Items: []
+  - m_Id: 704368433471488
+    m_Localized: Pantalla completa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 705063509336064
+    m_Localized: "Resoluci\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 725086323908608
+    m_Localized: "Configuraci\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 750576493436928
+    m_Localized: Salir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 798657884758016
+    m_Localized: "Atr\xE1s"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2029896264359936
+    m_Localized: Modo Creativo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2030641692844032
+    m_Localized: Modo Puzzle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5371326668800
+    m_Localized: Slot de guardado 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2233899396931584
+    m_Localized: Slot de guardado 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2234358576750592
+    m_Localized: Slot de guardado 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11690783170404352
+    m_Localized: "Este juego no se habr\xEDa completado sin el asombroso descubrimiento
+      de David Smith y el maravilloso trabajo de los coautores del art\xEDculo, Joseph\_Samuel\_Myers,
+      Craig\_S.\_Kaplan y Chaim\_Goodman-Strauss. Nuestro m\xE1s sincero agradecimiento.\r\n\r\nAdem\xE1s,
+      se\xF1alamos que cualquier problema en este juego no guarda relaci\xF3n con
+      ellos."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977421279232
+    m_Localized: "Cr\xE9ditos"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056448
+    m_Localized: Creado por
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056449
+    m_Localized: "M\xFAsica y sonido"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056450
+    m_Localized: "\xCDcono"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056451
+    m_Localized: Motor de juego
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11576977438056452
+    m_Localized: Agradecimientos especiales a
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465814499401728
+    m_Localized: Ruta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069749149696
+    m_Localized: Nombre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069765926912
+    m_Localized: "Fecha de creaci\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1069765926913
+    m_Localized: "Fecha de \xFAltima modificaci\xF3n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10876905507299328
+    m_Localized: "\xA1Felicidades!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3371763459465216
+    m_Localized: Continuar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 465881063006208
+    m_Localized: "\xBFEst\xE1 seguro de que desea eliminar?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450797213360128
+    m_Localized: Cancelar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 450797238525952
+    m_Localized: OK
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4872166744064
+    m_Localized: Abrir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161344
+    m_Localized: Nuevo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161346
+    m_Localized: Crear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2307119161348
+    m_Localized: Renombrar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3233087266816
+    m_Localized: "Guardar y volver al men\xFA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 225921852547072
+    m_Localized: Eliminar
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
