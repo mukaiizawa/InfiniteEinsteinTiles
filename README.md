@@ -17,4 +17,4 @@ This repository is entirely community-operated. This means you can help by submi
 Read [CONTRIBUTING.md](./CONTRIBUTING.md) for more information.
 
 ## License
-Unless otherwise noted, the code in this repository is licensed under `Apache-2.0`. Read [LICENSE.md](./LICENSE.md) for the full license.
+Unless otherwise noted, the code in this repository is licensed under `Apache-2.0`. Read [LICENSE](./LICENSE) for the full license.
