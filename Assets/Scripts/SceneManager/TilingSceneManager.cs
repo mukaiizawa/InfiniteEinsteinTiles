@@ -248,6 +248,7 @@ public class TilingSceneManager : MonoBehaviour
                 {
                     _audioManager.PlaySE(_assetManager.SETileRotate);
                     var tiles = CollectGrabbingTiles();
+                    ActiveTiles.transform.position =  _mousePos;
                     ActiveTiles.transform.Rotate(0, 0, angle);
                     ActiveTiles.transform.DetachChildren();
                     ActiveTiles.transform.Rotate(0, 0, -angle);
@@ -264,6 +265,7 @@ public class TilingSceneManager : MonoBehaviour
     {
         _audioManager.PlaySE(_assetManager.SETileRotate);
         var tiles = CollectGrabbingTiles();
+        ActiveTiles.transform.position =  _mousePos;
         Vector3 scale = ActiveTiles.transform.localScale;
         scale.x *= -1;
         ActiveTiles.transform.localScale = scale;
