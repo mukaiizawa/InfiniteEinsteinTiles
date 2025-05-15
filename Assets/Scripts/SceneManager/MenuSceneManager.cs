@@ -53,6 +53,10 @@ public class MenuSceneManager : MonoBehaviour
     public Button CreativeDeleteOKButton;
     public Button CreativeDeleteCancelButton;
 
+    /* Manual */
+    static string _manualPath = Path.Combine(Application.streamingAssetsPath, "Manual", "An_aperiodic_monotile.pdf");
+    public Button ManualButton;
+
     /* Credit */
     public GameObject CreditPanel;
     public Button CreditOpenButton;
@@ -204,6 +208,7 @@ public class MenuSceneManager : MonoBehaviour
                 if (_langCodes[i] == currLang) toggle.isOn = true;
             }
         }
+        ManualButton.onClick.AddListener(OnManualButtonClick);
         CreditOpenButton.onClick.AddListener(OnCreditOpenButtonClick);
         CreditCloseButton.onClick.AddListener(() => ChangeState(State.None));
         MenuOpenButton.onClick.AddListener(() => ChangeState(State.Menu));
@@ -253,6 +258,22 @@ public class MenuSceneManager : MonoBehaviour
     string MarkdownList(string[] vals)
     {
         return vals.Select(x => $"- {x}").Aggregate((x, y) => x + "\n" + y);
+    }
+
+    void OnManualButtonClick()
+    {
+        try {
+#if UNITY_STANDALONE_WIN
+            var proto = "file:///";
+#else
+            var proto = "file://";
+#endif
+            Application.OpenURL(proto + _manualPath);
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"MenuSceneManager#OnManualButtonClick: manual open failed {e.Message}");
+        }
     }
 
     void OnCreditOpenButtonClick()
