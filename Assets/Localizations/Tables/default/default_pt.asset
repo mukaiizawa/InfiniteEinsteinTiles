@@ -267,6 +267,10 @@ MonoBehaviour:
     m_Localized: Excluir
     m_Metadata:
       m_Items: []
+  - m_Id: 1815980817031168
+    m_Localized: "Artigo acad\xEAmico"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

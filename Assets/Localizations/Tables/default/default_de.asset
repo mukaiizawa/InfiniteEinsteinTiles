@@ -272,6 +272,10 @@ MonoBehaviour:
     m_Localized: "L\xF6schen"
     m_Metadata:
       m_Items: []
+  - m_Id: 1815980817031168
+    m_Localized: Wissenschaftliche Arbeit
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -269,6 +269,10 @@ MonoBehaviour:
     m_Localized: "Usu\u0144"
     m_Metadata:
       m_Items: []
+  - m_Id: 1815980817031168
+    m_Localized: "Artyku\u0142 naukowy"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -15,6 +15,10 @@ MonoBehaviour:
   m_TableCollectionName: default
   m_TableCollectionNameGuidString: d545b90e5be3a914f940bc5b44a565dd
   m_Entries:
+  - m_Id: 1815980817031168
+    m_Key: academic_paper
+    m_Metadata:
+      m_Items: []
   - m_Id: 798657884758016
     m_Key: back
     m_Metadata:

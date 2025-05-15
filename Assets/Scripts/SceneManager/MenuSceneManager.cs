@@ -287,6 +287,7 @@ public class MenuSceneManager : MonoBehaviour
         var credit = LocalizationSettings.StringDatabase.GetTableEntry("default", "credit").Entry.Value;
         var creditMessage = LocalizationSettings.StringDatabase.GetTableEntry("default", "credit_content").Entry.Value;
         var createdBy = LocalizationSettings.StringDatabase.GetTableEntry("default", "created_by").Entry.Value;
+        var paper = LocalizationSettings.StringDatabase.GetTableEntry("default", "academic_paper").Entry.Value;
         var musicAndSound = LocalizationSettings.StringDatabase.GetTableEntry("default", "music_and_sound").Entry.Value;
         var icon = LocalizationSettings.StringDatabase.GetTableEntry("default", "icon").Entry.Value;
         var gameEngine = LocalizationSettings.StringDatabase.GetTableEntry("default", "game_engine").Entry.Value;
@@ -298,6 +299,11 @@ public class MenuSceneManager : MonoBehaviour
             wr.WriteLine();
             wr.WriteLine($"# {createdBy}");
             wr.WriteLine(MarkdownList(_creditCreatedBy));
+            wr.WriteLine();
+            wr.WriteLine($"# {paper}");
+            wr.WriteLine("David Smith, Joseph Samuel Myers, Craig S. Kaplan, and Chaim Goodman-Strauss.");
+            wr.WriteLine("Copyright The authors. Released under the CC BY license (International 4.0).");
+            wr.WriteLine("https://escholarship.org/uc/item/3317z9z9");
             wr.WriteLine();
             wr.WriteLine($"# {icon}");
             wr.WriteLine(MarkdownList(_creditIcon));
