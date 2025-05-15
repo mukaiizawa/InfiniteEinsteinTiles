@@ -17,6 +17,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         None,
         Menu,
         Setting,
+        Loading,
     }
 
     /*
@@ -73,6 +74,8 @@ public class PuzzleMenuSceneManager : MonoBehaviour
                 break;
             case State.Setting:
                 SettingPanel.SetActive(true);
+                break;
+            case State.Loading:
                 break;
             default:
                 Debug.LogError("Unexpected _state" + to);
@@ -225,6 +228,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
                         GlobalData.Level = LevelsRequiredUnlock(o.Parent()) + 1;
                         GlobalData.GameMode = GameMode.Puzzle;
                         StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.Tiling, se.length));
+                        ChangeState(State.Loading);
                     }
                     break;
                 default:
