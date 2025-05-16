@@ -26,7 +26,6 @@ public class PersistentManager : MonoBehaviour
     string _prefKeyFullScreen = "FullScreen";
     string _prefKeyLocale = "Locale";
     string _prefKeyActiveSlot = "ActiveSlot";
-    string _prefKeyCurrentLevel = "CurrentLevel";
 
     /*
      * FileSystem
@@ -41,6 +40,7 @@ public class PersistentManager : MonoBehaviour
      *           - solution1.json
      *           - solution2.json
      *           ...
+     *           - progress.json
      *         - slot2/
      *         - slot3/
      */
@@ -139,30 +139,6 @@ public class PersistentManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void DeleteSlot(int slot)
-    {
-        PlayerPrefs.DeleteKey(_prefKeyCurrentLevel + slot);
-    }
-
-    public int GetActiveSlotCurrentLevel()
-    {
-        return GetCurrentLevel(GetActiveSlot());
-    }
-
-    public int GetCurrentLevel(int slot)
-    {
-#if UNITY_EDITOR
-        if (slot == 3) return GlobalData.TotalLevel;    // for debug slot.
-#endif
-        return PlayerPrefs.GetInt(_prefKeyCurrentLevel + slot, 0);
-    }
-
-    public void SetCurrentLevel(int val)
-    {
-        PlayerPrefs.SetInt(_prefKeyCurrentLevel + GetActiveSlot(), val);
-        PlayerPrefs.Save();
-    }
-
     /*
      * FileSystem
      */
@@ -238,27 +214,15 @@ public class PersistentManager : MonoBehaviour
         return result.OrderBy(x => x.UpdatedAt).ThenBy(x => x.Name).ToList();
     }
 
-    string PuzzleSolution(int level)
+    string PuzzleSolutionFile(int level)
     {
-        return Path.Combine(PuzzleDirs[GetActiveSlot() - 1], $"solution{level}");
-    }
-
-    public void DeletePuzzleSolution(int level)
-    {
-        var file = PuzzleSolution(level);
-        try {
-            if (File.Exists(file)) File.Delete(file);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"PersistentManager#DeletePuzzleSolution: {e.Message}");
-        }
+        return Path.Combine(PuzzleDirs[GetActiveSlot() - 1], $"solution{level}.json");
     }
 
     public void SavePuzzleSolution(int level, Solution solution)
     {
         try {
-            File.WriteAllText(PuzzleSolution(level), JsonUtility.ToJson(solution));
+            File.WriteAllText(PuzzleSolutionFile(level), JsonUtility.ToJson(solution));
         }
         catch (Exception e)
         {
@@ -268,7 +232,7 @@ public class PersistentManager : MonoBehaviour
 
     public Solution LoadPuzzleSolution(int level)
     {
-        var file = PuzzleSolution(level);
+        var file = PuzzleSolutionFile(level);
         try {
             if (File.Exists(file))
                 return JsonUtility.FromJson<Solution>(File.ReadAllText(file));
@@ -278,6 +242,57 @@ public class PersistentManager : MonoBehaviour
             Debug.LogError($"PersistentManager#LoadPuzzleSolution: {e.Message}");
         }
         return null;
+    }
+
+    public void DeletePuzzleSolution(int level)
+    {
+        var file = PuzzleSolutionFile(level);
+        try {
+            if (File.Exists(file)) File.Delete(file);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"PersistentManager#DeletePuzzleSolution: {e.Message}");
+        }
+    }
+
+    string PuzzleProgressFile(int slot)
+    {
+        return Path.Combine(PuzzleDirs[slot - 1], $"progress.json");
+    }
+
+    public int GetActiveSlotCurrentLevel()
+    {
+        return GetCurrentLevel(GetActiveSlot());
+    }
+
+    public int GetCurrentLevel(int slot)
+    {
+#if UNITY_EDITOR
+        if (slot == 3) return GlobalData.TotalLevel;    // for debug slot.
+#endif
+        try {
+            var progress = JsonUtility.FromJson<Progress>(File.ReadAllText(PuzzleProgressFile(slot)));
+            return progress.CurrentLevel;
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"PersistentManager#GetCurrentLevel: {e.Message}");
+        }
+        return 0;
+    }
+
+    public void SetCurrentLevel(int val)
+    {
+        var progress = new Progress();
+        progress.CurrentLevel = val;
+        try {
+            File.WriteAllText(PuzzleProgressFile(GetActiveSlot()), JsonUtility.ToJson(progress));
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"PersistentManager#SetCurrentLevel: {e.Message}");
+        }
     }
 
     public void Save(string file, object o, bool format=false)
