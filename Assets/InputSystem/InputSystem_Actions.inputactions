@@ -318,6 +318,17 @@
                 },
                 {
                     "name": "",
+                    "id": "e8aebe16-c58f-4d73-959e-47e7519956a6",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Flip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "6c733fef-0a65-4b64-a14d-c8b57738e83a",
                     "path": "<Keyboard>/f",
                     "interactions": "",
@@ -331,17 +342,6 @@
                     "name": "",
                     "id": "bf1e4054-0976-4b02-94d5-d4c17dbd3a57",
                     "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Copy",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e8aebe16-c58f-4d73-959e-47e7519956a6",
-                    "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",

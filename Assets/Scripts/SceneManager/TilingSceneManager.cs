@@ -134,7 +134,6 @@ public class TilingSceneManager : MonoBehaviour
     /*
      * Camera 
      */
-
     Camera _camera;    // Camera.main is slow due to internal use of Tag.
     float _cameraSpeed = 16f;
     float _cameraZoomSpeed = 400f;
@@ -146,7 +145,6 @@ public class TilingSceneManager : MonoBehaviour
     /*
      * board
      */
-
     Board _answerBoard;
     ConcurrentStack<Tuple<Action, TileMemory[], Color>> _histories = new ConcurrentStack<Tuple<Action, TileMemory[], Color>>();
     ConcurrentStack<Tuple<Action, TileMemory[], Color>> _undoHistories = new ConcurrentStack<Tuple<Action, TileMemory[], Color>>();
