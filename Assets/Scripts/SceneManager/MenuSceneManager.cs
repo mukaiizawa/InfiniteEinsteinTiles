@@ -76,9 +76,11 @@ public class MenuSceneManager : MonoBehaviour
     };
     static string[] _creditSpecialThanksTo = new string[] {
         "Kai Kimura",
-        "Kenichi Tokuoka",
+        "Ken'ichi Tokuoka",
         "Miki Yonemura",
         "Mituki Miharu aka Haru",
+        "Nobuaki Akasaka",
+        "Shinya Kato",
     };
 
     /* Languages */
