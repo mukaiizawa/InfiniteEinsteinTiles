@@ -120,6 +120,8 @@ public class TilingSceneManager : MonoBehaviour
     bool _isKeyModify1 = false;
     bool _isKeyModify2 = false;
     bool _isDrugging = false;
+    int _mouseWheelRotationInputCount = 0;
+    int _mouseWheelRotationThreshold = 2;
     float _clickStartTime = 0f;
     float _dragDistanceThreshold = 8f;
     float _dragTimeThreshold = 0.4f;
@@ -691,7 +693,8 @@ public class TilingSceneManager : MonoBehaviour
         {
             if (context.performed) 
             {
-                RotateActiveTiles(val.y > 0f? 60: -60);
+                if ((_mouseWheelRotationInputCount = _mouseWheelRotationInputCount + 1) % _mouseWheelRotationThreshold == 0)
+                    RotateActiveTiles(val.y > 0f? 60: -60);
             }
             _cameraZoomDelta = Vector2.zero;
         }
