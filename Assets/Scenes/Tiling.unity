@@ -1272,6 +1272,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4040460613060160770, guid: e6d4a7306d2326d429713b333f5066fd, type: 3}
   m_PrefabInstance: {fileID: 112422905}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &148678188 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8834934200799140582, guid: 0f10baa2dbe2c7645993369915c7be75, type: 3}
+  m_PrefabInstance: {fileID: 2091688478}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &160507706
 GameObject:
   m_ObjectHideFlags: 0
@@ -6630,6 +6641,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7624481908838624245, guid: fadb13c4f96235f4b8b6ad3e55569729, type: 3}
   m_PrefabInstance: {fileID: 931569937}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &955168325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4245018359079721746, guid: 0f10baa2dbe2c7645993369915c7be75, type: 3}
+  m_PrefabInstance: {fileID: 2091688478}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &985946472 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6575583888383819364, guid: 19b81036b11d6894fa6dfd3621e842eb, type: 3}
@@ -10412,6 +10428,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4308916636808231344, guid: 7d2a129aea814404da13944427e0ece2, type: 3}
   m_PrefabInstance: {fileID: 1519020321}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1526373934 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1689838209342296404, guid: 0f10baa2dbe2c7645993369915c7be75, type: 3}
+  m_PrefabInstance: {fileID: 2091688478}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1528417884
 GameObject:
   m_ObjectHideFlags: 0
@@ -11653,13 +11680,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1704219599}
-  - component: {fileID: 1704219602}
   - component: {fileID: 1704219603}
   - component: {fileID: 1704219605}
   - component: {fileID: 1704219606}
   - component: {fileID: 1704219607}
   - component: {fileID: 1704219608}
   - component: {fileID: 1704219609}
+  - component: {fileID: 1704219602}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -11710,6 +11737,7 @@ MonoBehaviour:
   UsageSelected: {fileID: 1624413283}
   Hint: {fileID: 1328221627}
   MenuPanel: {fileID: 2091688481}
+  ConfirmRestartPanel: {fileID: 955168325}
   ConfirmExitPanel: {fileID: 930122979}
   SettingPanel: {fileID: 2091688480}
   SolvedPanel: {fileID: 1505387992}
@@ -11720,9 +11748,12 @@ MonoBehaviour:
   MenuCloseButton: {fileID: 2091688483}
   SettingOpenButton: {fileID: 2091688484}
   SettingCloseButton: {fileID: 2091688482}
-  ConfirmOKButton: {fileID: 1275531510}
-  ConfirmCancelButton: {fileID: 689813983}
+  RestartButton: {fileID: 1842747584}
+  RestartConfirmOKButton: {fileID: 148678188}
+  RestartConfirmCancelButton: {fileID: 1526373934}
   ExitWithoutSaveButton: {fileID: 440220824}
+  ExitConfirmOKButton: {fileID: 1275531510}
+  ExitConfirmCancelButton: {fileID: 689813983}
   SaveAndExitButton: {fileID: 1355564666}
   ContinueToMenuButton: {fileID: 622494537}
   ColorPaletteOpenButton: {fileID: 1227861294}
@@ -13238,6 +13269,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1842747584 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1096441776784598968, guid: 0f10baa2dbe2c7645993369915c7be75, type: 3}
+  m_PrefabInstance: {fileID: 2091688478}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1871234819 stripped
