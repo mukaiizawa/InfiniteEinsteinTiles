@@ -383,6 +383,13 @@ public class TilingSceneManager : MonoBehaviour
                 if (_partialHexTable.Count() == _answerBoard.PartialHexes.Count() && _partialHexTable.ContainsAll(_answerBoard.PartialHexes))
                 {
                     _audioManager.PlaySE(_assetManager.SEPuzzleComplete);
+                    PuzzleFrame.SetActive(false);
+                    // Once put so that it works the same in both blueprint mode and grabbing mode.
+                    var grabingTiles = CollectGrabbingTiles();
+                    PutTiles(CopyTiles(grabingTiles));
+                    RemoveTiles(grabingTiles, false);
+                    foreach (var tile in CollectTiles())
+                        tile.AddComponent<RotatingProjectile>();
                     _persistentManager.SetCurrentLevel(Math.Max(_level, _persistentManager.GetActiveSlotCurrentLevel()));
                     _persistentManager.DeletePuzzleSolution(_level);
                     ChangeState(State.Solved);
