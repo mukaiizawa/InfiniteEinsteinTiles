@@ -237,6 +237,11 @@ public class TilingSceneManager : MonoBehaviour
         _audioManager.PlaySE(_assetManager.SETileGrab);
         if (isPlacedTiles)
             UpdateBoardWithHistory(Action.Remove, tiles);
+        var minX = tiles.Min(o => o.transform.position.x);
+        var maxX = tiles.Max(o => o.transform.position.x);
+        var minY = tiles.Min(o => o.transform.position.y);
+        var maxY = tiles.Max(o => o.transform.position.y);
+        ActiveTiles.transform.position = new Vector2((minX + maxX) / 2, (minY + maxY) / 2);
         foreach (GameObject tile in tiles)
         {
             tile.GetComponent<SpriteRenderer>().sortingOrder = 10;
@@ -253,7 +258,7 @@ public class TilingSceneManager : MonoBehaviour
                 {
                     _audioManager.PlaySE(_assetManager.SETileRotate);
                     var tiles = CollectGrabbingTiles();
-                    ActiveTiles.transform.position =  _mousePos;
+                    ActiveTiles.transform.position = _mousePos;
                     ActiveTiles.transform.Rotate(0, 0, angle);
                     ActiveTiles.transform.DetachChildren();
                     ActiveTiles.transform.Rotate(0, 0, -angle);
@@ -270,7 +275,7 @@ public class TilingSceneManager : MonoBehaviour
     {
         _audioManager.PlaySE(_assetManager.SETileRotate);
         var tiles = CollectGrabbingTiles();
-        ActiveTiles.transform.position =  _mousePos;
+        ActiveTiles.transform.position = _mousePos;
         Vector3 scale = ActiveTiles.transform.localScale;
         scale.x *= -1;
         ActiveTiles.transform.localScale = scale;
@@ -792,7 +797,6 @@ public class TilingSceneManager : MonoBehaviour
                     break;
                 case State.Selected:
                     Debug.Log("TilingSceneManager#OnCopy");
-                    ActiveTiles.transform.position = (_selectStartPos + _selectEndPos) / 2;
                     GrabTiles(BlueprintTiles(CopyTiles(UnselectTiles(CollectSelectedTiles()))), false);
                     ChangeState(State.Blueprint);
                     break;
@@ -811,7 +815,6 @@ public class TilingSceneManager : MonoBehaviour
             {
                 case State.Selected:
                     Debug.Log("TilingSceneManager#OnCut");
-                    ActiveTiles.transform.position = (_selectStartPos + _selectEndPos) / 2;
                     GrabTiles(BlueprintTiles(UnselectTiles(CollectSelectedTiles())), true);
                     ChangeState(State.Blueprint);
                     break;
@@ -985,9 +988,9 @@ public class TilingSceneManager : MonoBehaviour
                             var minY = Mathf.Min(_selectStartPos.y, _selectEndPos.y);
                             var maxY = Mathf.Max(_selectStartPos.y, _selectEndPos.y);
                             var selectedTiles = CollectTiles().Where(x => {
-                                    PolygonCollider2D collider = x.GetComponent<PolygonCollider2D>();
+                                PolygonCollider2D collider = x.GetComponent<PolygonCollider2D>();
                                     return collider.points.Select(p => x.transform.TransformPoint(p)).Any(p => minX <= p.x && p.x <= maxX && minY <= p.y && p.y <= maxY);
-                                    }).ToArray();
+                                }).ToArray();
                             if (selectedTiles.Length > 0) 
                             {
                                 SelectTiles(selectedTiles);
