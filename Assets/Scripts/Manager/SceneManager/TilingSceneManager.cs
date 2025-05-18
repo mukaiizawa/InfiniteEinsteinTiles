@@ -170,24 +170,9 @@ public class TilingSceneManager : MonoBehaviour
     {
         return XGameObject.AtWorldPoint(_clickedPos);
     }
-
-    GameObject[] CollectTiles()
-    {
-        return GameObject.FindGameObjectsWithTag(Tags.Tile);
-    }
-
     GameObject[] CollectSelectedTiles()
     {
         return GameObject.FindGameObjectsWithTag(Tags.SelectedTile);
-    }
-
-    GameObject[] CollectGrabbingTiles()
-    {
-        int n = ActiveTiles.transform.childCount;
-        GameObject[] children = new GameObject[n];
-        for (int i = 0; i < n; i++)
-            children[i] = ActiveTiles.transform.GetChild(i).gameObject;
-        return children;
     }
 
     GameObject[] MakeTiles(TileMemory[] memories)
@@ -257,7 +242,7 @@ public class TilingSceneManager : MonoBehaviour
             case State.Blueprint:
                 {
                     _audioManager.PlaySE(_assetManager.SETileRotate);
-                    var tiles = CollectGrabbingTiles();
+                    var tiles = ActiveTiles.Children();
                     ActiveTiles.transform.position = _mousePos;
                     ActiveTiles.transform.Rotate(0, 0, angle);
                     ActiveTiles.transform.DetachChildren();
@@ -274,7 +259,7 @@ public class TilingSceneManager : MonoBehaviour
     void FlipActiveTiles()
     {
         _audioManager.PlaySE(_assetManager.SETileRotate);
-        var tiles = CollectGrabbingTiles();
+        var tiles = ActiveTiles.Children();
         ActiveTiles.transform.position = _mousePos;
         Vector3 scale = ActiveTiles.transform.localScale;
         scale.x *= -1;
@@ -317,7 +302,7 @@ public class TilingSceneManager : MonoBehaviour
         {
             TileMemory memory = memories[0];    // support one tile.
             if (!isUndo) color = memory.Color;
-            foreach (GameObject tile in CollectTiles())
+            foreach (GameObject tile in PlacedTiles.Children())
             {
                 var componentTile = tile.GetComponent<Tile>(); 
                 if (componentTile.ExportMemory().Position == memory.Position)
@@ -335,7 +320,7 @@ public class TilingSceneManager : MonoBehaviour
         else
         {
             HashSet<Vector2Int> targetPositions = memories.Select(x => x.Position).ToHashSet();
-            foreach (GameObject tile in CollectTiles().Where(x => targetPositions.Contains(x.GetComponent<Tile>().ExportMemory().Position)))
+            foreach (GameObject tile in PlacedTiles.Children().Where(x => targetPositions.Contains(x.GetComponent<Tile>().ExportMemory().Position)))
                 Destroy(tile);
         }
     }
@@ -394,15 +379,15 @@ public class TilingSceneManager : MonoBehaviour
                 {
                     _audioManager.PlaySE(_assetManager.SEPuzzleComplete);
                     PuzzleFrame.SetActive(false);
-                    // Once put so that it works the same in both blueprint mode and grabbing mode.
-                    var grabingTiles = CollectGrabbingTiles();
-                    PutTiles(CopyTiles(grabingTiles));
-                    RemoveTiles(grabingTiles, false);
-                    foreach (var tile in CollectTiles())
+                    var tiles = ActiveTiles.Children();
+                    PutTiles(CopyTiles(tiles));
+                    RemoveTiles(tiles, false);
+                    foreach (var tile in PlacedTiles.Children())
                         tile.AddComponent<RotatingProjectile>();
                     _persistentManager.SetCurrentLevel(Math.Max(_level, _persistentManager.GetActiveSlotCurrentLevel()));
                     _persistentManager.DeletePuzzleSolution(_level);
                     ChangeState(State.Solved);
+                    return false;
                 }
                 break;
             default:
@@ -421,7 +406,7 @@ public class TilingSceneManager : MonoBehaviour
     {
         if (withSave)
         {
-            _solution.Board = new Board(CollectTiles().Select(x => x.GetComponent<Tile>().ExportMemory()).ToArray(), _colorPaletteColorImages.Select(x => x.color).ToArray());
+            _solution.Board = new Board(PlacedTiles.Children().Select(x => x.GetComponent<Tile>().ExportMemory()).ToArray(), _colorPaletteColorImages.Select(x => x.color).ToArray());
             _solution.UpdatedAt = DateTime.UnixTimeNow();
         }
         System.Action action = LoadingManager.OnLoadNone;
@@ -836,12 +821,12 @@ public class TilingSceneManager : MonoBehaviour
             switch (_state)
             {
                 case State.None:
-                    GameObject o = CursorObject();
+                    var o = CursorObject();
                     if (Tags.match(o, Tags.Tile)) RemoveTiles(new GameObject[] { o }, true);
                     break;
                 case State.Blueprint:
                 case State.Grabbing:
-                    RemoveTiles(CollectGrabbingTiles(), false);
+                    RemoveTiles(ActiveTiles.Children(), false);
                     ChangeState(State.None);
                     break;
                 case State.Selected:
@@ -940,7 +925,7 @@ public class TilingSceneManager : MonoBehaviour
                     case State.Blueprint:
                         {
                             // put as much as possible.
-                            var tiles = CollectGrabbingTiles().Where(x => !_partialHexTable.ContainsAny(x.GetComponent<Tile>().ExportMemory().PartialHexes())).ToArray();
+                            var tiles = ActiveTiles.Children().Where(x => !_partialHexTable.ContainsAny(x.GetComponent<Tile>().ExportMemory().PartialHexes())).ToArray();
                             if (!UpdateBoardWithHistory(Action.Put, tiles))
                             {
                                 Debug.LogWarning("TilingSceneManager#onClick#State.Blueprint: something wrong.");
@@ -951,7 +936,7 @@ public class TilingSceneManager : MonoBehaviour
                         break;
                     case State.Grabbing:
                         {
-                            var tiles = CollectGrabbingTiles();
+                            var tiles = ActiveTiles.Children();
                             if (!UpdateBoardWithHistory(Action.Put, tiles)) return;    // can't put.
                             PutTiles(tiles);
                             ChangeState(State.None);
@@ -987,7 +972,7 @@ public class TilingSceneManager : MonoBehaviour
                             var maxX = Mathf.Max(_selectStartPos.x, _selectEndPos.x);
                             var minY = Mathf.Min(_selectStartPos.y, _selectEndPos.y);
                             var maxY = Mathf.Max(_selectStartPos.y, _selectEndPos.y);
-                            var selectedTiles = CollectTiles().Where(x => {
+                            var selectedTiles = PlacedTiles.Children().Where(x => {
                                 PolygonCollider2D collider = x.GetComponent<PolygonCollider2D>();
                                     return collider.points.Select(p => x.transform.TransformPoint(p)).Any(p => minX <= p.x && p.x <= maxX && minY <= p.y && p.y <= maxY);
                                 }).ToArray();
@@ -1135,7 +1120,7 @@ public class TilingSceneManager : MonoBehaviour
                 break;
             case State.Blueprint:
             case State.Grabbing:
-                RemoveTiles(CollectGrabbingTiles(), false);
+                RemoveTiles(ActiveTiles.Children(), false);
                 ChangeState(State.None);
                 break;
             case State.Paint:
@@ -1168,8 +1153,8 @@ public class TilingSceneManager : MonoBehaviour
         if (!context.performed) return;
         Debug.Log("TilingSceneManager#OnDebug");
         Board board = new Board();
-        board.GrabingTiles = CollectGrabbingTiles().Select(x => x.GetComponent<Tile>().ExportMemory()).ToArray();
-        board.PlacedTiles = CollectTiles().Select(x => x.GetComponent<Tile>().ExportMemory()).ToArray();
+        board.GrabingTiles = ActiveTiles.Children().Select(x => x.GetComponent<Tile>().ExportMemory()).ToArray();
+        board.PlacedTiles = PlacedTiles.Children().Select(x => x.GetComponent<Tile>().ExportMemory()).ToArray();
         board.PartialHexes = _partialHexTable.ToArray();
         board.ColorPalette = _colorPaletteColorImages.Select(x => x.color).ToArray();
         _persistentManager.Save(System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".log", board, true);
