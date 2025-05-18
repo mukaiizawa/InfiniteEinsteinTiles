@@ -32,6 +32,7 @@ public class TilingSceneManager : MonoBehaviour
         None,
         Menu,
         Setting,
+        ConfirmRestart,
         ConfirmExit,
         Grabbing,
         Selecting,
@@ -66,6 +67,7 @@ public class TilingSceneManager : MonoBehaviour
     public GameObject UsageSelected;
     public GameObject Hint;
     public GameObject MenuPanel;
+    public GameObject ConfirmRestartPanel;
     public GameObject ConfirmExitPanel;
     public GameObject SettingPanel;
     public GameObject SolvedPanel;
@@ -76,9 +78,12 @@ public class TilingSceneManager : MonoBehaviour
     public Button MenuCloseButton;
     public Button SettingOpenButton;
     public Button SettingCloseButton;
-    public Button ConfirmOKButton;    // exit without save.
-    public Button ConfirmCancelButton;
+    public Button RestartButton;
+    public Button RestartConfirmOKButton;
+    public Button RestartConfirmCancelButton;
     public Button ExitWithoutSaveButton;
+    public Button ExitConfirmOKButton;
+    public Button ExitConfirmCancelButton;
     public Button SaveAndExitButton;
     public Button ContinueToMenuButton;    // solved.
 
@@ -401,6 +406,12 @@ public class TilingSceneManager : MonoBehaviour
         return true;
     }
 
+    void ReloadScene()
+    {
+        GlobalData.IsRestart = true;
+        StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.Tiling, 0.5f));
+    }
+
     void LoadPrevScene(bool withSave)
     {
         if (withSave)
@@ -456,6 +467,7 @@ public class TilingSceneManager : MonoBehaviour
                 OriginTile.SetActive(true);
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
                 ColorPalettePanel.SetActive(false);
+                ConfirmRestartPanel.SetActive(false);
                 ConfirmExitPanel.SetActive(false);
                 MenuPanel.SetActive(false);
                 break;
@@ -471,6 +483,9 @@ public class TilingSceneManager : MonoBehaviour
                 break;
             case State.Setting:
                 SettingPanel.SetActive(true);
+                break;
+            case State.ConfirmRestart:
+                ConfirmRestartPanel.SetActive(true);
                 break;
             case State.ConfirmExit:
                 ConfirmExitPanel.SetActive(true);
@@ -526,10 +541,13 @@ public class TilingSceneManager : MonoBehaviour
         RulerButton.onValueChanged.AddListener(OnRulerToggle);
         ColorPaletteOpenButton.onClick.AddListener(OnColorPaletteOpenButtonClick);
         PipetteButton.onClick.AddListener(() => ChangeState(State.Pipette));
+        RestartButton.onClick.AddListener(() => ChangeState(State.ConfirmRestart));
+        RestartConfirmOKButton.onClick.AddListener(ReloadScene);
+        RestartConfirmCancelButton.onClick.AddListener(() => ChangeState(State.None));
         ExitWithoutSaveButton.onClick.AddListener(() => ChangeState(State.ConfirmExit));
         SaveAndExitButton.onClick.AddListener(() => LoadPrevScene(true));
-        ConfirmOKButton.onClick.AddListener(() => LoadPrevScene(false));
-        ConfirmCancelButton.onClick.AddListener(() => ChangeState(State.None));
+        ExitConfirmOKButton.onClick.AddListener(() => LoadPrevScene(false));
+        ExitConfirmCancelButton.onClick.AddListener(() => ChangeState(State.None));
         ContinueToMenuButton.onClick.AddListener(() => LoadPrevScene(false));
         foreach (var slider in ColorPickerSliders)
             slider.onValueChanged.AddListener(OnColorPaletteSliderChange);
@@ -540,6 +558,7 @@ public class TilingSceneManager : MonoBehaviour
         {
             case GameMode.Creative:
                 _solution = GlobalData.Solution;
+                RestartButton.gameObject.SetActive(false);    // The restart button only available in puzzle mode.
                 break;
             case GameMode.Puzzle:
                 {
@@ -561,7 +580,7 @@ public class TilingSceneManager : MonoBehaviour
                             Hint.SetActive(false);
                             break;
                     }
-                    Debug.Log($"selected level {_level}");
+                    Debug.Log($"TilingSceneManager#Start: selected level {_level}");
                     _solution = _persistentManager.LoadPuzzleSolution(_level);
                     if (_solution == null) _solution = new Solution($"solution{_level}");
                     _answerBoard = _assetManager.LoadBoard(_level);
@@ -573,13 +592,14 @@ public class TilingSceneManager : MonoBehaviour
                 }
                 break;
             default:
-                Debug.LogWarning($"TilingSceneManager#Start Unexpected GameMode {_gameMode}");
+                Debug.LogWarning($"TilingSceneManager#Start: Unexpected GameMode {_gameMode}");
                 // _gameMode = GameMode.Creative;
                 _gameMode = GameMode.Puzzle;
                 LoadPrevScene(false);
                 return;
         }
-        if (_solution.Board.PlacedTiles != null)
+        if (GlobalData.IsRestart) GlobalData.IsRestart = false;
+        else if (_solution.Board.PlacedTiles != null)
         {
             var memories = _solution.Board.PlacedTiles;
             UpdateBoard(Action.Put, memories);

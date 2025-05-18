@@ -286,6 +286,18 @@ MonoBehaviour:
     m_Localized: Academic Paper
     m_Metadata:
       m_Items: []
+  - m_Id: 2814824287608832
+    m_Localized: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2814824312774656
+    m_Localized: Are you sure you want to restart?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2816513375772672
+    m_Localized: Are you sure you want to restart?
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

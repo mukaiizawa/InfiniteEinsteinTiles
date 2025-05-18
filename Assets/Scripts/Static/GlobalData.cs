@@ -9,4 +9,10 @@ public static class GlobalData
     public static GameMode GameMode = GameMode.Nil;
     public static Solution Solution;
 
+    /**
+     * When restarting with tiling scene.
+     * In order to leave the user the option to exit without saving after restarting, the saved data is not deleted and reloaded.
+     */
+    public static bool IsRestart;
+
 }

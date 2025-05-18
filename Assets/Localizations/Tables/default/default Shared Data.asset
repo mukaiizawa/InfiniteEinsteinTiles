@@ -15,6 +15,18 @@ MonoBehaviour:
   m_TableCollectionName: default
   m_TableCollectionNameGuidString: d545b90e5be3a914f940bc5b44a565dd
   m_Entries:
+  - m_Id: 2814824287608832
+    m_Key: restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2816513375772672
+    m_Key: restart_confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2814824312774656
+    m_Key: restart_confirm_message
+    m_Metadata:
+      m_Items: []
   - m_Id: 1815980817031168
     m_Key: academic_paper
     m_Metadata:

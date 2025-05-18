@@ -275,6 +275,18 @@ MonoBehaviour:
     m_Localized: "Art\xEDculo acad\xE9mico"
     m_Metadata:
       m_Items: []
+  - m_Id: 2814824287608832
+    m_Localized: Reiniciar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2814824312774656
+    m_Localized: "\xBFEst\xE1 seguro de que quiere reiniciar?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2816513375772672
+    m_Localized: "\xBFEst\xE1 seguro de que quiere reiniciar?"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

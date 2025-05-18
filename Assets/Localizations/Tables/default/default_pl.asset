@@ -273,6 +273,18 @@ MonoBehaviour:
     m_Localized: "Artyku\u0142 naukowy"
     m_Metadata:
       m_Items: []
+  - m_Id: 2814824287608832
+    m_Localized: Uruchom ponownie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2814824312774656
+    m_Localized: "Czy na pewno chcesz ponownie uruchomi\u0107?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2816513375772672
+    m_Localized: "Czy na pewno chcesz ponownie uruchomi\u0107?"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

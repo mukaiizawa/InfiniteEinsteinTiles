@@ -276,6 +276,18 @@ MonoBehaviour:
     m_Localized: Wissenschaftliche Arbeit
     m_Metadata:
       m_Items: []
+  - m_Id: 2814824287608832
+    m_Localized: Neustarten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2814824312774656
+    m_Localized: "Sind Sie sicher, dass Sie neu starten m\xF6chten?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2816513375772672
+    m_Localized: "Sind Sie sicher, dass Sie neu starten m\xF6chten?"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
