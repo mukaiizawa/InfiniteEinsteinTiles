@@ -1,5 +1,7 @@
-using System;
+using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
+using System;
 
 using UnityEngine;
 using UnityEngine.Audio;
@@ -11,8 +13,6 @@ public class AudioManager : MonoBehaviour
 
     PersistentManager _persistentManager;
 
-    float _time = 0f;
-    int _trackNo = 0;
     AudioSource _bgmSource;
     AudioSource _seSource;
     AudioClip[] _playlist;
@@ -23,30 +23,20 @@ public class AudioManager : MonoBehaviour
         return Mathf.Log10(volume) * 20f;
     }
 
-    void StopBGM()
+    IEnumerator StartBGMAsync()
     {
-        if (_bgmSource == null || !_bgmSource.isPlaying) return;
-        _bgmSource.Stop();
-    }
-
-    void PlayBGM()
-    {
-        if (_bgmSource == null || _bgmSource.isPlaying) return;
-        _bgmSource.time = _time;
-        _bgmSource.Play();
-    }
-
-    void PlayNextBGM()
-    {
-        if (_playlist == null || _playlist.Length == 0) return;
-        _time = 0f;
-        _bgmSource.clip = _playlist[(_trackNo = (_trackNo + 1)) % _playlist.Length];
-        PlayBGM();
+        while (true)
+        {
+            var clip = _playlist[UnityEngine.Random.Range(0, _playlist.Length)];
+            _bgmSource.clip = clip;
+            _bgmSource.Play();
+            yield return new WaitForSeconds(clip.length);
+        }
     }
 
     public void StartBGM()
     {
-        PlayNextBGM();
+        StartCoroutine(StartBGMAsync());
     }
 
     public AudioManager SetPlaylist(AudioClip[] playlist)
@@ -86,21 +76,6 @@ public class AudioManager : MonoBehaviour
         _seSource.outputAudioMixerGroup = AudioMixer.FindMatchingGroups("SE")[0];
         SetBGMVolume(_persistentManager.GetBGMVolume());
         SetSEVolume(_persistentManager.GetSEVolume());
-    }
-
-    void FixedUpdate()
-    {
-        if (_bgmSource != null && _bgmSource.clip != null)
-        {
-            _time = _bgmSource.time;
-            if (Mathf.Approximately(_bgmSource.clip.length, _time)) PlayNextBGM();
-        }
-    }
-
-    void OnApplicationFocus(bool onFocus)
-    {
-        if (onFocus) PlayBGM();
-        else StopBGM();
     }
 
 }
