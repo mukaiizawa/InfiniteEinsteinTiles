@@ -37,6 +37,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
     public Button SettingOpenButton;
     public Button SettingCloseButton;
     public Button ReturnToMenuButton;
+    public Button QuitButton;
 
     Camera _camera;
     Vector2 _mousePos;
@@ -113,6 +114,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         SettingOpenButton.onClick.AddListener(() => ChangeState(State.Setting));
         SettingCloseButton.onClick.AddListener(() => ChangeState(State.Menu));
         ReturnToMenuButton.onClick.AddListener(OnReturnToMenuButtonClick);
+        QuitButton.onClick.AddListener(OnPowerOff);
         _parentsH = GameObject.Find("/PlacedTiles/H").Children();
         var parentsT = GameObject.Find("/PlacedTiles/T").Children();
         var parentsF = GameObject.Find("/PlacedTiles/F").Children();
@@ -260,6 +262,15 @@ public class PuzzleMenuSceneManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    void OnPowerOff()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     public void OnDebug(InputAction.CallbackContext context)
