@@ -50,7 +50,7 @@ public class PersistentManager : MonoBehaviour
         CreativeDir = mkdir(Path.Combine(Application.persistentDataPath, "creative"));
         var puzzleDirRoot = mkdir(Path.Combine(Application.persistentDataPath, "puzzle"));
         for (int i = 0; i < SlotCount; i++)
-            PuzzleDirs[i] = mkdir(Path.Combine(puzzleDirRoot, $"slot{i}"));
+            PuzzleDirs[i] = mkdir(Path.Combine(puzzleDirRoot, $"slot{i + 1}"));
     }
 
     /*
