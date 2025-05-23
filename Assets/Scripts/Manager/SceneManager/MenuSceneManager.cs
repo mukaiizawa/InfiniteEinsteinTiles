@@ -19,9 +19,7 @@ public class MenuSceneManager : MonoBehaviour
     enum State
     {
         None,
-        Creative,
-        CreativeRename,
-        CreativeDeleteConfirm,
+        Solutions,
         Credit,
         Language,
         Menu,
@@ -29,29 +27,7 @@ public class MenuSceneManager : MonoBehaviour
     }
 
     /* Puzzle Mode */
-    public Button[] Slots;
-
-    /* Creative Mode */
-    int _solutionCount = 0;
-    CreativeCard _selectedCreativeCard;
-    public GameObject CreativePanel;
-    public Button CreativeOpenButton;
-    public Button CreativeCloseButton;
-    public Button CreativeNewButton;
-    public GameObject CreativeEmptyState;
-    public GameObject CreativeCards;
-    public GameObject PrefabCreativeCard;
-
-    /* Creative Mode (Rename) */
-    public GameObject CreativeRenamePanel;
-    public TMP_InputField CreativeRenameField;
-    public Button CreativeRenameOKButton;
-    public Button CreativeRenameCancelButton;
-
-    /* Creative Mode (Delete confirm) */
-    public GameObject CreativeDeleteConfirmPanel;
-    public Button CreativeDeleteOKButton;
-    public Button CreativeDeleteCancelButton;
+    public Button[] SlotButtons;
 
     /* Manual */
     static string _manualPath = Path.Combine(Application.streamingAssetsPath, "Manual", "An_aperiodic_monotile.pdf");
@@ -104,11 +80,16 @@ public class MenuSceneManager : MonoBehaviour
 
     /* Menu */
     public GameObject MenuPanel;
-    public GameObject SettingPanel;
     public Button MenuOpenButton;
     public Button MenuCloseButton;
+
+    public GameObject SettingPanel;
     public Button SettingOpenButton;
     public Button SettingCloseButton;
+
+    public GameObject SolutionsPanel;
+    public Button SolutionsOpenButton;
+    public Button SolutionsCloseButton;
     public Button QuitButton;
 
     State _state;
@@ -117,6 +98,7 @@ public class MenuSceneManager : MonoBehaviour
     LoadingManager _loadingManager;
     PersistentManager _persistentManager;
     SettingManager _settingManager;
+    SolutionsPanelManager _solutionsPanelManager;
 
     void ChangeState(State to)
     {
@@ -124,21 +106,13 @@ public class MenuSceneManager : MonoBehaviour
         switch (to)
         {
             case State.None:
-                CreativePanel.SetActive(false);
+                SolutionsPanel.SetActive(false);
                 MenuPanel.SetActive(false);
                 LanguagePanel.SetActive(false);
                 CreditPanel.SetActive(false);
                 break;
-            case State.Creative:
-                CreativePanel.SetActive(true);
-                CreativeRenamePanel.SetActive(false);
-                CreativeDeleteConfirmPanel.SetActive(false);
-                break;
-            case State.CreativeRename:
-                CreativeRenamePanel.SetActive(true);
-                break;
-            case State.CreativeDeleteConfirm:
-                CreativeDeleteConfirmPanel.SetActive(true);
+            case State.Solutions:
+                SolutionsPanel.SetActive(true);
                 break;
             case State.Credit:
                 CreditPanel.SetActive(true);
@@ -172,34 +146,27 @@ public class MenuSceneManager : MonoBehaviour
         _loadingManager = this.gameObject.GetComponent<LoadingManager>();
         _persistentManager = this.gameObject.GetComponent<PersistentManager>();
         _settingManager = this.gameObject.GetComponent<SettingManager>();
+        _solutionsPanelManager = this.gameObject.GetComponent<SolutionsPanelManager>();
     }
 
     void Start()
     {
         _audioManager.SetPlaylist(_assetManager.GetPlaylist(LoadingManager.Scene.Menu)).StartBGM();
-        CreativeOpenButton.onClick.AddListener(() => ChangeState(State.Creative));
-        CreativeCloseButton.onClick.AddListener(() => ChangeState(State.None));
-        var solutions = _persistentManager.LoadCreativeSolutions();
-        _solutionCount = solutions.Count;
-        foreach (var o in solutions) MakeCreativeCard(o);
-        CreativeEmptyState.SetActive(solutions.Count == 0);
-        CreativeNewButton.onClick.AddListener(OnCreativeNewClick);
-        CreativeRenameOKButton.onClick.AddListener(OnCreativeRenameOKClick);
-        CreativeRenameCancelButton.onClick.AddListener(() => ChangeState(State.Creative));
-        CreativeDeleteOKButton.onClick.AddListener(OnCreativeDeleteOKClick);
-        CreativeDeleteCancelButton.onClick.AddListener(() => ChangeState(State.Creative));
-        for (int i = 0; i < Slots.Length; i++)
+        _solutionsPanelManager.Reload(GameMode.Creative);
+        SolutionsOpenButton.onClick.AddListener(() => ChangeState(State.Solutions));
+        SolutionsCloseButton.onClick.AddListener(() => ChangeState(State.None));
+        for (int i = 0; i < SlotButtons.Length; i++)
         {
-            int slotNo = i + 1;
-            var slot = Slots[i];
-            slot.onClick.AddListener(() => OnClickSlot(slotNo));
-            foreach (var component in slot.GetComponentsInChildren<TextMeshProUGUI>())
+            int slot = i + 1;
+            var slotButton = SlotButtons[i];
+            slotButton.onClick.AddListener(() => OnClickSlot(slot));
+            foreach (var tmp in slotButton.GetComponentsInChildren<TextMeshProUGUI>())
             {
-                if (component.gameObject.name == "Progress")
-                    component.text = $"{_persistentManager.GetCurrentLevel(slotNo) * 100 / GlobalData.TotalLevel}%";
+                var progress = _persistentManager.LoadProgress(slot);
+                if (tmp.gameObject.name == "Progress")
+                    tmp.text = $"{progress.CurrentLevel * 100 / GlobalData.TotalLevel}%";
             }
         }
-        LanguageOpenButton.onClick.AddListener(() => ChangeState(State.Language));
         {
             var currLang = _persistentManager.GetLocale();
             for (int i = 0; i < Languages.Length; i++)
@@ -210,6 +177,7 @@ public class MenuSceneManager : MonoBehaviour
                 if (_langCodes[i] == currLang) toggle.isOn = true;
             }
         }
+        LanguageOpenButton.onClick.AddListener(() => ChangeState(State.Language));
         ManualButton.onClick.AddListener(OnManualButtonClick);
         CreditOpenButton.onClick.AddListener(OnCreditOpenButtonClick);
         CreditCloseButton.onClick.AddListener(() => ChangeState(State.None));
@@ -239,15 +207,14 @@ public class MenuSceneManager : MonoBehaviour
             case State.None:
                 ChangeState(State.Menu);
                 break;
+            case State.Solutions:
+                _solutionsPanelManager.Cancel();
+                if (!SolutionsPanel.activeSelf) ChangeState(State.None);
+                break;
             case State.Menu:
             case State.Credit:
             case State.Language:
-            case State.Creative:
                 ChangeState(State.None);
-                break;
-            case State.CreativeRename:
-            case State.CreativeDeleteConfirm:
-                ChangeState(State.Creative);
                 break;
             case State.Setting:
                 ChangeState(State.Menu);
@@ -324,113 +291,9 @@ public class MenuSceneManager : MonoBehaviour
         ChangeState(State.Credit);
     }
 
-    void MakeCreativeCard(Solution solution)
-    {
-        var tileCountLabel = LocalizationSettings.StringDatabase.GetTableEntry("default", "tile_count").Entry.Value;
-        var createdAtLabel = LocalizationSettings.StringDatabase.GetTableEntry("default", "creation_date").Entry.Value;
-        var updatedAtLabel = LocalizationSettings.StringDatabase.GetTableEntry("default", "last_modified_date").Entry.Value;
-        GameObject card = Instantiate(PrefabCreativeCard, CreativeCards.transform);
-        var cardComponent = card.GetComponent<CreativeCard>();
-        cardComponent.Solution = solution;
-        card.transform.SetAsFirstSibling();
-        card.GetComponentInChildren<TextMeshProUGUI>().text = string.Join("\n", new string[] {
-            solution.Name
-            , ""
-            , $"{tileCountLabel}: {solution.Board.PlacedTileCount()}"
-            , $"{createdAtLabel}: {DateTime.FromUnixTime(solution.CreatedAt)}"
-            , $"{updatedAtLabel}: {DateTime.FromUnixTime(solution.UpdatedAt)}"
-        });
-        foreach (var button in card.GetComponentsInChildren<Button>())
-        {
-            switch (button.gameObject.name)
-            {
-                case "Open":
-                    button.onClick.AddListener(() => {
-                        if (_state != State.Creative) return;
-                        GlobalData.GameMode = GameMode.Creative;
-                        GlobalData.Solution = solution;
-                        StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.Tiling));
-                    });
-                    break;
-                case "Copy":
-                    button.onClick.AddListener(() => {
-                        if (_state != State.Creative) return;
-                        _solutionCount++;
-                        var _solution = new Solution(UniqueName(solution.Name, _persistentManager.LoadCreativeSolutions().Select(x => x.Name).ToArray()));
-                        _solution.Board = solution.Board;    // Safe as it is immutable.
-                        _solution.UpdatedAt = solution.UpdatedAt;
-                        _persistentManager.SaveCreativeSolution(_solution);
-                        MakeCreativeCard(_solution);
-                    });
-                    break;
-                case "Rename":
-                    button.onClick.AddListener(() => {
-                        if (_state != State.Creative) return;
-                        _selectedCreativeCard = cardComponent;
-                        CreativeRenameField.text = _selectedCreativeCard.Solution.Name;
-                        ChangeState(State.CreativeRename);
-                    });
-                    break;
-                case "Delete":
-                    button.onClick.AddListener(() => {
-                        if (_state != State.Creative) return;
-                        _selectedCreativeCard = cardComponent;
-                        ChangeState(State.CreativeDeleteConfirm);
-                    });
-                    break;
-                default:
-                    Debug.LogAssertion(false);
-                    break;
-            }
-        }
-    }
-
-    string UniqueName(string name, string[] names)
-    {
-        var solutions = _persistentManager.LoadCreativeSolutions();
-        if (!names.Any(x => x == name)) return name;
-        int n = 1;
-        while (names.Any(x => x == $"{name} ({n})")) n++;
-        return $"{name} ({n})";
-    }
-
-    void OnCreativeNewClick()
-    {
-        _solutionCount++;
-        CreativeEmptyState.SetActive(false);
-        var name = LocalizationSettings.StringDatabase.GetTableEntry("default", "untitled").Entry.Value;
-        var solution = new Solution(UniqueName(name, _persistentManager.LoadCreativeSolutions().Select(x => x.Name).ToArray()));
-        _persistentManager.SaveCreativeSolution(solution);
-        MakeCreativeCard(solution);
-    }
-
-    void OnCreativeRenameOKClick()
-    {
-        var solution = _selectedCreativeCard.Solution;
-        solution.Name = CreativeRenameField.text.Trim();
-        if (string.IsNullOrEmpty(solution.Name)) 
-            solution.Name = LocalizationSettings.StringDatabase.GetTableEntry("default", "untitled").Entry.Value;
-        _persistentManager.SaveCreativeSolution(solution);
-        CreativeEmptyState.transform.SetParent(null);
-        CreativeCards.transform.DestroyAllChildren();
-        CreativeEmptyState.transform.SetParent(CreativeCards.transform);
-        var solutions = _persistentManager.LoadCreativeSolutions();
-        foreach (var o in solutions) MakeCreativeCard(o);
-        ChangeState(State.Creative);
-    }
-
-    void OnCreativeDeleteOKClick()
-    {
-        _solutionCount--;
-        CreativeEmptyState.SetActive(_solutionCount == 0);
-        _persistentManager.DeleteCreativeSolution(_selectedCreativeCard.Solution);
-        Destroy(_selectedCreativeCard.gameObject);
-        ChangeState(State.Creative);
-    }
-
     void OnClickSlot(int slot)
     {
-        StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.PuzzleMenu, 0.5f, () => _persistentManager.SetActiveSlot(slot)));
+        StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.PuzzleMenu, 0.5f, () => GlobalData.Slot = slot));
     }
 
     IEnumerator ChangeLocale(string localeCd)

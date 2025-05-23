@@ -13,8 +13,10 @@ public class PersistentManager : MonoBehaviour
 
     public static int SlotCount = 3;    // [1,3]
 
-    public static string CreativeDir;
-    public static string[] PuzzleDirs = new string[SlotCount];
+    public string ScreenshotDir;
+    public string CreativeModeDir;
+    public string PuzzleModeDir;
+    public string[] PuzzleModeSlotDirs = new string[SlotCount];
 
     /*
      * PlayerPrefs
@@ -25,32 +27,18 @@ public class PersistentManager : MonoBehaviour
     string _prefKeyResolution = "Resolution";
     string _prefKeyFullScreen = "FullScreen";
     string _prefKeyLocale = "Locale";
-    string _prefKeyActiveSlot = "ActiveSlot";
-
-    /*
-     * FileSystem
-     *
-     *     Application.persistentDataPath/
-     *       - creative/
-     *         - bc9b300b853e4282aa360d29902fd7e5.json
-     *         - 0a02677036754a08a464f4af769ebc3a.json.backup
-     *         - a1f0ef59b60f400ab6957f1f647a976e.json.backup
-     *       - puzzle/
-     *         - slot1/
-     *           - solution1.json
-     *           - solution2.json
-     *           ...
-     *           - progress.json
-     *         - slot2/
-     *         - slot3/
-     */
 
     void Start()
     {
-        CreativeDir = mkdir(Path.Combine(Application.persistentDataPath, "creative"));
-        var puzzleDirRoot = mkdir(Path.Combine(Application.persistentDataPath, "puzzle"));
+        Directory.CreateDirectory(ScreenshotDir = Path.Combine(Application.persistentDataPath, "Screenshots"));
+        Directory.CreateDirectory(CreativeModeDir = Path.Combine(Application.persistentDataPath, "Creative"));
+        Directory.CreateDirectory(PuzzleModeDir = Path.Combine(Application.persistentDataPath, "Puzzle"));
         for (int i = 0; i < SlotCount; i++)
-            PuzzleDirs[i] = mkdir(Path.Combine(puzzleDirRoot, $"slot{i + 1}"));
+        {
+            Directory.CreateDirectory(PuzzleModeSlotDirs[i] = Path.Combine(PuzzleModeDir, $"Slot{i + 1}"));
+            for (int j = 0; j < GlobalData.TotalLevel; j++)
+                Directory.CreateDirectory(SolutionDir(GameMode.Puzzle, i + 1, j + 1));
+        }
     }
 
     /*
@@ -59,7 +47,8 @@ public class PersistentManager : MonoBehaviour
 
     public Resolution GetResolution()
     {
-        try {
+        try
+        {
             var res = PlayerPrefs.GetString(_prefKeyResolution);
             var vals = res.Split("x");
             return new Resolution { width = int.Parse(vals[0]), height = int.Parse(vals[1]) };
@@ -121,39 +110,53 @@ public class PersistentManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public int GetActiveSlot()
-    {
-        var slot = PlayerPrefs.GetInt(_prefKeyActiveSlot, 1);
-        Debug.Log($"PersistentManager#GetActiveSlot {slot}");
-        return slot;
-    }
-
-    public void SetActiveSlot(int val)
-    {
-        if (!(1 <= val && val <= SlotCount))
-        {
-            Debug.LogError($"PersistentManager#SetActiveSlot: invalid slot {val}");
-            return;
-        }
-        PlayerPrefs.SetInt(_prefKeyActiveSlot, val);
-        PlayerPrefs.Save();
-    }
-
     /*
      * FileSystem
+     *
+     *     Application.persistentDataPath/
+     *       - Creative/
+     *         - bc9b300b853e4282aa360d29902fd7e5.json
+     *         - 0a02677036754a08a464f4af769ebc3a.json.backup
+     *         - a1f0ef59b60f400ab6957f1f647a976e.json.backup
+     *       - Puzzle/
+     *         - Slot1/
+     *           - Puzzle1
+     *               - adfpoip2134jspfisdal2po9902fd7e5.json
+     *               - bc9b30adfpoip2134jspfisdal2po7e5.json
+     *               ...
+     *           - Puzzle2
+     *               ...
+     *           ...
+     *           - Progress.json
+     *         - slot2/
+     *         - slot3/
      */
 
-    string mkdir(string path)
+    string SolutionDir(GameMode gameMode, int slot, int level)
     {
-        if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-        return path;
+        switch (gameMode)
+        {
+            case GameMode.Creative:
+                return CreativeModeDir;
+            case GameMode.Puzzle:
+                return Path.Combine(PuzzleModeSlotDirs[slot - 1], $"Puzzle{level}");
+            default:
+                Debug.LogError($"PersistentManager#SolutionDir: invalid GameMode {gameMode}");
+                return null;
+        }
+    }
+
+    string SolutionFile(Solution solution)
+    {
+        return Path.Combine(SolutionDir(solution.GameMode, solution.Slot, solution.Level), solution.PhysicalName);
     }
 
     void BackupIfExists(string file)
     {
         if (File.Exists(file))
         {
-            try {
+            try
+            {
                 File.Copy(file, file + ".backup", true);
             }
             catch (Exception e)
@@ -163,137 +166,99 @@ public class PersistentManager : MonoBehaviour
         }
     }
 
-    void SaveWithBackup(string file, string contents)
+    public void SaveSolution(Solution solution)
     {
+        var file = SolutionFile(solution);
         BackupIfExists(file);
-        try {
-            mkdir(Path.GetDirectoryName(file));
-            File.WriteAllText(file, contents);
+        try
+        {
+            File.WriteAllText(file, JsonUtility.ToJson(solution));
         }
         catch (Exception e)
         {
-            Debug.LogError($"PersistentManager#SaveWithBackup: {e.Message}");
+            Debug.LogError($"PersistentManager#SaveSolution: {e.Message}");
         }
     }
 
-    public void DeleteCreativeSolution(Solution solution)
-    {
-        string file = Path.Combine(CreativeDir, solution.PhysicalName);
-        if (file == null || !File.Exists(file)) return;
-        try {
-            BackupIfExists(file);
-            File.Delete(file);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"PersistentManager#DeleteCreativeSolution: {e.Message}");
-        }
-    }
-
-    public void SaveCreativeSolution(Solution solution)
-    {
-        SaveWithBackup(Path.Combine(CreativeDir, solution.PhysicalName), JsonUtility.ToJson(solution));
-    }
-
-    public List<Solution> LoadCreativeSolutions()
+    public List<Solution> LoadSolutions(GameMode gameMode, int slot, int level)
     {
         var result = new List<Solution>();
-        foreach (var file in Directory.GetFiles(CreativeDir))
+        foreach (var file in Directory.GetFiles(SolutionDir(gameMode, slot, level)))
         {
             if (!file.EndsWith("json")) continue;
-            try {
+            try
+            {
                 var solution = JsonUtility.FromJson<Solution>(File.ReadAllText(file));
-                solution.PhysicalName = Path.GetFileName(file);
+                solution.GameMode = gameMode;
+                solution.Slot = slot;
+                solution.Level = level;
+                solution.PhysicalName = Path.GetFileName(file);    // basename.
                 result.Add(solution);
             }
             catch (Exception e)
             {
-                Debug.LogError($"PersistentManager#LoadCreativeSolutions: {e.Message}");
+                Debug.LogError($"PersistentManager#LoadSolutions: {e.Message}");
             }
         }
         return result.OrderBy(x => x.UpdatedAt).ThenBy(x => x.Name).ToList();
     }
 
-    string PuzzleSolutionFile(int level)
+    public void DeleteSolution(Solution solution)
     {
-        return Path.Combine(PuzzleDirs[GetActiveSlot() - 1], $"solution{level}.json");
-    }
-
-    public void SavePuzzleSolution(int level, Solution solution)
-    {
-        try {
-            File.WriteAllText(PuzzleSolutionFile(level), JsonUtility.ToJson(solution));
+        var file = SolutionFile(solution);
+        if (!File.Exists(file)) return;
+        try
+        {
+            BackupIfExists(file);
+            File.Delete(file);
         }
         catch (Exception e)
         {
-            Debug.LogError($"PersistentManager#SavePuzzleSolution: {e.Message}");
+            Debug.LogError($"PersistentManager#DeleteSolution: {e.Message}");
         }
     }
 
-    public Solution LoadPuzzleSolution(int level)
-    {
-        var file = PuzzleSolutionFile(level);
-        try {
-            if (File.Exists(file))
-                return JsonUtility.FromJson<Solution>(File.ReadAllText(file));
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"PersistentManager#LoadPuzzleSolution: {e.Message}");
-        }
-        return null;
-    }
-
-    public void DeletePuzzleSolution(int level)
-    {
-        var file = PuzzleSolutionFile(level);
-        try {
-            if (File.Exists(file)) File.Delete(file);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"PersistentManager#DeletePuzzleSolution: {e.Message}");
-        }
-    }
+    /*
+     * Progress
+     */
 
     string PuzzleProgressFile(int slot)
     {
-        return Path.Combine(PuzzleDirs[slot - 1], $"progress.json");
+        return Path.Combine(PuzzleModeSlotDirs[slot - 1], $"Progress.json");
     }
 
-    public int GetActiveSlotCurrentLevel()
-    {
-        return GetCurrentLevel(GetActiveSlot());
-    }
-
-    public int GetCurrentLevel(int slot)
+    public Progress LoadProgress(int slot)
     {
 #if UNITY_EDITOR
-        if (slot == 3) return GlobalData.TotalLevel;    // for debug slot.
+        if (slot == 2) return new Progress(0);    // for debug slot.
+        if (slot == 3) return new Progress(GlobalData.TotalLevel);    // for debug slot.
 #endif
-        try {
-            var progress = JsonUtility.FromJson<Progress>(File.ReadAllText(PuzzleProgressFile(slot)));
-            return progress.CurrentLevel;
+        try
+        {
+            return JsonUtility.FromJson<Progress>(File.ReadAllText(PuzzleProgressFile(slot)));
         }
         catch (Exception e)
         {
-            Debug.LogWarning($"PersistentManager#GetCurrentLevel: {e.Message}");
+            Debug.LogWarning($"PersistentManager#LoadProgress: {e.Message}");
         }
-        return 0;
+        return new Progress(0);
     }
 
-    public void SetCurrentLevel(int val)
+    public void SaveProgress(int slot, Progress progress)
     {
-        var progress = new Progress();
-        progress.CurrentLevel = val;
-        try {
-            File.WriteAllText(PuzzleProgressFile(GetActiveSlot()), JsonUtility.ToJson(progress));
+        try
+        {
+            File.WriteAllText(PuzzleProgressFile(slot), JsonUtility.ToJson(progress));
         }
         catch (Exception e)
         {
-            Debug.LogWarning($"PersistentManager#SetCurrentLevel: {e.Message}");
+            Debug.LogWarning($"PersistentManager#SaveProgress: {e.Message}");
         }
     }
+
+    /*
+     * Debug
+     */
 
     public void Save(string file, object o, bool format=false)
     {

@@ -105,9 +105,6 @@ public class TilingSceneManager : MonoBehaviour
      */
     State _state;
     object _lock;
-    int _level;
-    Solution _solution;
-    GameMode _gameMode;
 
     /*
      * Managers
@@ -342,7 +339,7 @@ public class TilingSceneManager : MonoBehaviour
     void UpdateTileCount()
     {
         int n = _partialHexTable.Count() / 8;
-        switch (_gameMode)
+        switch (GlobalData.GameMode)
         {
             case GameMode.Creative:
                 TextTileCount.text = $"{n}";
@@ -372,10 +369,12 @@ public class TilingSceneManager : MonoBehaviour
                 break;
         }
         UpdateTileCount();
-        switch (_gameMode)
+        switch (GlobalData.GameMode)
         {
             case GameMode.Puzzle:
-                if (_partialHexTable.Count() == _answerBoard.PartialHexes.Count() && _partialHexTable.ContainsAll(_answerBoard.PartialHexes))
+                if (_partialHexTable.Count() == _answerBoard.PartialHexes.Count()
+                        && _partialHexTable.ContainsAll(_answerBoard.PartialHexes)
+                        && (!_histories.IsEmpty || !_undoHistories.IsEmpty))    // Initial state of cleared saved data.
                 {
                     _audioManager.PlaySE(_assetManager.SEPuzzleComplete);
                     PuzzleFrame.SetActive(false);
@@ -384,8 +383,8 @@ public class TilingSceneManager : MonoBehaviour
                     RemoveTiles(tiles, false);
                     foreach (var tile in PlacedTiles.Children())
                         tile.AddComponent<RotatingProjectile>();
-                    _persistentManager.SetCurrentLevel(Math.Max(_level, _persistentManager.GetActiveSlotCurrentLevel()));
-                    _persistentManager.DeletePuzzleSolution(_level);
+                    _persistentManager.SaveProgress(GlobalData.Slot, new Progress(Math.Max(GlobalData.Level, _persistentManager.LoadProgress(GlobalData.Slot).CurrentLevel)));
+                    _persistentManager.SaveSolution(UpdatedSolution());
                     ChangeState(State.Solved);
                     return false;
                 }
@@ -402,22 +401,25 @@ public class TilingSceneManager : MonoBehaviour
         StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.Tiling, 0.5f));
     }
 
+    Solution UpdatedSolution()
+    {
+        Debug.Log($"TilingSceneManager#UpdatedSolution: {GlobalData.Solution}");
+        GlobalData.Solution.Board = new Board(PlacedTiles.Children().Select(x => x.GetComponent<Tile>().ExportMemory()).ToArray(), _colorPaletteColorImages.Select(x => x.color).ToArray());
+        GlobalData.Solution.UpdatedAt = DateTime.UnixTimeNow();
+        return GlobalData.Solution;
+    }
+
     void LoadPrevScene(bool withSave)
     {
-        if (withSave)
-        {
-            _solution.Board = new Board(PlacedTiles.Children().Select(x => x.GetComponent<Tile>().ExportMemory()).ToArray(), _colorPaletteColorImages.Select(x => x.color).ToArray());
-            _solution.UpdatedAt = DateTime.UnixTimeNow();
-        }
         System.Action action = LoadingManager.OnLoadNone;
-        switch (_gameMode)
+        switch (GlobalData.GameMode)
         {
             case GameMode.Creative:
-                if (withSave) action = () => _persistentManager.SaveCreativeSolution(_solution);
+                if (withSave) action = () => _persistentManager.SaveSolution(UpdatedSolution());
                 StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.Menu, minLoadingTime: 1f, action: action));
                 break;
             case GameMode.Puzzle:
-                if (withSave) _persistentManager.SavePuzzleSolution(_level, _solution);
+                if (withSave) _persistentManager.SaveSolution(UpdatedSolution());
                 StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.PuzzleMenu));
                 break;
         }
@@ -539,21 +541,33 @@ public class TilingSceneManager : MonoBehaviour
         ExitConfirmOKButton.onClick.AddListener(() => LoadPrevScene(false));
         ExitConfirmCancelButton.onClick.AddListener(() => ChangeState(State.None));
         ContinueToMenuButton.onClick.AddListener(() => LoadPrevScene(false));
-        foreach (var slider in ColorPickerSliders)
-            slider.onValueChanged.AddListener(OnColorPaletteSliderChange);
-        foreach (var input in ColorPickerInputs)
-            input.onEndEdit.AddListener(OnColorPaletteInputChange);
-        _gameMode = GlobalData.GameMode;
-        switch (_gameMode)
+        // color picker.
+        {
+            foreach (var slider in ColorPickerSliders)
+                slider.onValueChanged.AddListener(OnColorPaletteSliderChange);
+            foreach (var input in ColorPickerInputs)
+                input.onEndEdit.AddListener(OnColorPaletteInputChange);
+            var SavedPaletteColors = GlobalData.Solution.Board.ColorPalette;
+            _colorPaletteColorImages = new Image[ColorPaletteColorButtons.Length];
+            for (int i = 0; i < ColorPaletteColorButtons.Length; i++)
+            {
+                int j = i;    // for closure
+                Toggle toggle = ColorPaletteColorButtons[i];
+                _colorPaletteColorImages[i] = toggle.GetComponentInChildren<Image>();
+                _colorPaletteColorImages[i].color = SavedPaletteColors[i];
+                toggle.onValueChanged.AddListener((isOn) => OnColorPaletteColorToggle(j, isOn));
+            }
+            ColorPaletteColorButtons[0].isOn = false;
+            ColorPaletteColorButtons[0].isOn = true;     // onValueChanged.Invoke is not working :(
+        }
+        switch (GlobalData.GameMode)
         {
             case GameMode.Creative:
-                _solution = GlobalData.Solution;
                 RestartButton.gameObject.SetActive(false);    // The restart button only available in puzzle mode.
                 break;
             case GameMode.Puzzle:
                 {
-                    _level = GlobalData.Level;
-                    switch (_level)
+                    switch (GlobalData.Level)
                     {
                         case 1:
                         case 4:
@@ -561,7 +575,7 @@ public class TilingSceneManager : MonoBehaviour
                             Hint.SetActive(true);
                             var tmp = Hint.GetComponentInChildren<TextMeshProUGUI>();
                             if (tmp != null)
-                                tmp.text = LocalizationSettings.StringDatabase.GetTableEntry("default", $"hint_level_{_level}").Entry.Value;
+                                tmp.text = LocalizationSettings.StringDatabase.GetTableEntry("default", $"hint_level_{GlobalData.Level}").Entry.Value;
                             var hintCloseButton = Hint.GetComponentInChildren<Button>();
                             if (hintCloseButton != null)
                                 hintCloseButton.onClick.AddListener(() => Hint.SetActive(false));
@@ -570,11 +584,8 @@ public class TilingSceneManager : MonoBehaviour
                             Hint.SetActive(false);
                             break;
                     }
-                    Debug.Log($"TilingSceneManager#Start: selected level {_level}");
-                    _solution = _persistentManager.LoadPuzzleSolution(_level);
-                    if (_solution == null) _solution = new Solution($"solution{_level}");
-                    _answerBoard = _assetManager.LoadBoard(_level);
-                    StartCoroutine(_assetManager.LoadPuzzleFrameAsync(_level, Color.gray, (sprite) => {
+                    _answerBoard = _assetManager.LoadBoard(GlobalData.Level);
+                    StartCoroutine(_assetManager.LoadPuzzleFrameAsync(GlobalData.Level, Color.gray, (sprite) => {
                         PuzzleFrame.SetActive(true);
                         var renderer = PuzzleFrame.GetComponent<SpriteRenderer>();
                         renderer.sprite = sprite;
@@ -582,30 +593,19 @@ public class TilingSceneManager : MonoBehaviour
                 }
                 break;
             default:
-                Debug.LogWarning($"TilingSceneManager#Start: Unexpected GameMode {_gameMode}");
-                // _gameMode = GameMode.Creative;
-                _gameMode = GameMode.Puzzle;
+                Debug.LogWarning($"TilingSceneManager#Start: Unexpected GameMode {GlobalData.GameMode}");
+                // GlobalData.GameMode = GameMode.Creative;
+                GlobalData.GameMode = GameMode.Puzzle;
                 LoadPrevScene(false);
                 return;
         }
         if (GlobalData.IsRestart) GlobalData.IsRestart = false;
-        else if (_solution.Board.PlacedTiles != null)
+        else if (GlobalData.Solution.Board.PlacedTiles != null)
         {
-            var memories = _solution.Board.PlacedTiles;
+            var memories = GlobalData.Solution.Board.PlacedTiles;
             UpdateBoard(Action.Put, memories);
             PutTiles(MakeTiles(memories));
         }
-        var SavedPaletteColors = _solution.Board.ColorPalette;
-        _colorPaletteColorImages = new Image[ColorPaletteColorButtons.Length];
-        for (int i = 0; i < ColorPaletteColorButtons.Length; i++)
-        {
-            int j = i;    // for closure
-            Toggle toggle = ColorPaletteColorButtons[i];
-            _colorPaletteColorImages[i] = toggle.GetComponentInChildren<Image>();
-            _colorPaletteColorImages[i].color = SavedPaletteColors[i];
-            toggle.onValueChanged.AddListener((isOn) => OnColorPaletteColorToggle(j, isOn));
-        }
-        OnColorPaletteColorToggle(0, true);    // initial selected color.
         UpdateTileCount();
 #if UNITY_EDITOR
 #else
@@ -1136,12 +1136,9 @@ public class TilingSceneManager : MonoBehaviour
 
     IEnumerator CaptureScreenshotCoroutine()
     {
-        string folderPath = Path.Combine(Application.persistentDataPath, "ss");
-        if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
         Canvas.SetActive(false);
         yield return new WaitForEndOfFrame();
-        string filename = $"InfiniteEinsteinTiles-{System.DateTime.Now:yyyy-MM-ddTHH-mm-ss}.png";
-        string path = Path.Combine(folderPath, filename);
+        string path = Path.Combine(_persistentManager.ScreenshotDir, $"{System.DateTime.Now:yyyy-MM-ddTHH-mm-ss}.png");
         ScreenCapture.CaptureScreenshot(path);
         _notificationManager.Notify($"Screenshot saved: {path}");
         yield return null;

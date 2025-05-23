@@ -17,7 +17,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         None,
         Menu,
         Setting,
-        Loading,
+        Solutions,
     }
 
     /*
@@ -31,13 +31,19 @@ public class PuzzleMenuSceneManager : MonoBehaviour
      * Menu
      */
     public GameObject MenuPanel;
-    public GameObject SettingPanel;
     public Button MenuOpenButton;
     public Button MenuCloseButton;
+
+    public GameObject SettingPanel;
     public Button SettingOpenButton;
     public Button SettingCloseButton;
+
     public Button ReturnToMenuButton;
+
     public Button QuitButton;
+
+    public GameObject SolutionsPanel;
+    public Button SolutionsCloseButton;
 
     Camera _camera;
     Vector2 _mousePos;
@@ -52,6 +58,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
     PersistentManager _persistentManager;
     SettingManager _settingManager;
     SteamManager _steamManager;
+    SolutionsPanelManager _solutionsPanelManager;
 
     GameObject[] _parentsH;
     GameObject _activePuzzle;
@@ -62,7 +69,12 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         switch (to)
         {
             case State.None:
+                SolutionsPanel.SetActive(false);
                 MenuPanel.SetActive(false);
+                SolutionsPanel.SetActive(false);
+                break;
+            case State.Solutions:
+                SolutionsPanel.SetActive(true);
                 break;
             case State.Menu:
                 MenuPanel.SetActive(true);
@@ -75,8 +87,6 @@ public class PuzzleMenuSceneManager : MonoBehaviour
                 break;
             case State.Setting:
                 SettingPanel.SetActive(true);
-                break;
-            case State.Loading:
                 break;
             default:
                 Debug.LogError("Unexpected _state" + to);
@@ -100,6 +110,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         _loadingManager = this.gameObject.GetComponent<LoadingManager>();
         _persistentManager = this.gameObject.GetComponent<PersistentManager>();
         _settingManager = this.gameObject.GetComponent<SettingManager>();
+        _solutionsPanelManager = this.gameObject.GetComponent<SolutionsPanelManager>();
     }
 
     void Start()
@@ -107,13 +118,14 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         _camera = Camera.main;
         _audioManager.SetPlaylist(_assetManager.GetPlaylist(LoadingManager.Scene.PuzzleMenu)).StartBGM();
         _steamManager = GameObject.Find("/SteamManager").GetComponent<SteamManager>();
-        int currentLevel = _persistentManager.GetActiveSlotCurrentLevel();
+        int currentLevel = _persistentManager.LoadProgress(GlobalData.Slot).CurrentLevel;
         Progress.text = $"{currentLevel * 100 / GlobalData.TotalLevel}%";
         MenuOpenButton.onClick.AddListener(() => ChangeState(State.Menu));
         MenuCloseButton.onClick.AddListener(() => ChangeState(State.None));
         SettingOpenButton.onClick.AddListener(() => ChangeState(State.Setting));
         SettingCloseButton.onClick.AddListener(() => ChangeState(State.Menu));
         ReturnToMenuButton.onClick.AddListener(OnReturnToMenuButtonClick);
+        SolutionsCloseButton.onClick.AddListener(() => ChangeState(State.None));
         QuitButton.onClick.AddListener(OnPowerOff);
         _parentsH = GameObject.Find("/PlacedTiles/H").Children();
         var parentsT = GameObject.Find("/PlacedTiles/T").Children();
@@ -226,11 +238,10 @@ public class PuzzleMenuSceneManager : MonoBehaviour
                     if (Tags.match(o, Tags.LevelTile))
                     {
                         var se = _assetManager.SEOK;
-                        _audioManager.PlaySE(se);
-                        GlobalData.Level = LevelsRequiredUnlock(o.Parent()) + 1;
                         GlobalData.GameMode = GameMode.Puzzle;
-                        StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.Tiling, se.length));
-                        ChangeState(State.Loading);
+                        GlobalData.Level = LevelsRequiredUnlock(o.Parent()) + 1;
+                        _solutionsPanelManager.Reload(GlobalData.GameMode, GlobalData.Slot, GlobalData.Level);
+                        ChangeState(State.Solutions);
                     }
                     break;
                 default:
@@ -252,6 +263,10 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         {
             case State.None:
                 ChangeState(State.Menu);
+                break;
+            case State.Solutions:
+                _solutionsPanelManager.Cancel();
+                if (!SolutionsPanel.activeSelf) ChangeState(State.None);
                 break;
             case State.Menu:
                 ChangeState(State.None);
@@ -277,7 +292,6 @@ public class PuzzleMenuSceneManager : MonoBehaviour
     {
         if (!context.performed) return;
 #if UNITY_EDITOR
-        _persistentManager.SetCurrentLevel(0);
         _steamManager.ResetAllAchievements();
 #endif
     }

@@ -3,6 +3,7 @@ using UnityEngine;
 public static class GlobalData
 {
 
+    public static int Slot;    // [1, 3]
     public static int Level;    // [1, TotalLevel]
     public static int TotalLevel = 28;
 
