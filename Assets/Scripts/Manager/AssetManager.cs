@@ -103,7 +103,12 @@ public class AssetManager : MonoBehaviour
     {
         var frameSuffix = "";
         if (bgColor != Color.white) frameSuffix = "-gray";
-        return Path.Combine(Application.streamingAssetsPath, "Puzzles", "Frames", $"frame{level}{frameSuffix}.png");
+#if UNITY_STANDALONE_WIN
+            var proto = "file:///";
+#else
+            var proto = "file://";
+#endif
+        return proto + Path.Combine(Application.streamingAssetsPath, "Puzzles", "Frames", $"frame{level}{frameSuffix}.png");
     }
 
     string FrameInfoURL(int level)
