@@ -22,7 +22,6 @@ public class SolutionsPanelManager : MonoBehaviour
         DeleteConfirm,
     }
 
-    int _solutionCount = 0;
     SolutionCard _selectedSolutionCard;
     public GameObject SolutionPanel;
     public Button SolutionNewButton;
@@ -86,6 +85,23 @@ public class SolutionsPanelManager : MonoBehaviour
         SolutionDeleteCancelButton.onClick.AddListener(() => ChangeState(State.Default));
     }
 
+    void Clear()
+    {
+        SolutionEmptyState.transform.SetParent(null);
+        SolutionCards.transform.DestroyAllChildren();
+        SolutionEmptyState.transform.SetParent(SolutionCards.transform);
+    }
+
+    int SolutionCount()
+    {
+        return SolutionEmptyState.transform.parent.transform.childCount - 1;    // empty state.
+    }
+
+    bool IsEmpty()
+    {
+        return SolutionCount() == 0;
+    }
+
     public void Reload(GameMode gameMode)
     {
         if (gameMode != GameMode.Creative)
@@ -98,38 +114,17 @@ public class SolutionsPanelManager : MonoBehaviour
         _gameMode = gameMode;
         _level = level;
         _slot = slot;
-        SolutionEmptyState.transform.SetParent(null);
-        SolutionCards.transform.DestroyAllChildren();
-        SolutionEmptyState.transform.SetParent(SolutionCards.transform);
-        SolutionEmptyState.SetActive(false);
-        _solutionCount = 0;
+        Clear();
         foreach (var solution in _persistentManager.LoadSolutions(_gameMode, _slot, _level))
             MakeSolutionCard(solution);
-        if (gameMode == GameMode.Puzzle && _solutionCount == 0)
+        if (gameMode == GameMode.Puzzle && IsEmpty())
             OnSolutionNewClick();    // make default solution.
         ChangeState(State.Default);
     }
 
-    public void Cancel()
-    {
-        switch (_state)
-        {
-            case State.Default:
-                SolutionPanel.SetActive(false);
-                break;
-            case State.Rename:
-            case State.DeleteConfirm:
-                ChangeState(State.Default);
-                break;
-            default:
-                break;
-        }
-    }
-
     void MakeSolutionCard(Solution solution)
     {
-        _solutionCount++;
-        SolutionEmptyState.SetActive(false);
+        Debug.Log($"before make {SolutionEmptyState.transform.parent.transform.childCount}");
         var tileCountLabel = LocalizationSettings.StringDatabase.GetTableEntry("default", "tile_count").Entry.Value;
         var createdAtLabel = LocalizationSettings.StringDatabase.GetTableEntry("default", "creation_date").Entry.Value;
         var updatedAtLabel = LocalizationSettings.StringDatabase.GetTableEntry("default", "last_modified_date").Entry.Value;
@@ -183,12 +178,13 @@ public class SolutionsPanelManager : MonoBehaviour
                     break;
             }
         }
+        Debug.Log($"after make {SolutionEmptyState.transform.parent.transform.childCount}");
+        SolutionEmptyState.SetActive(false);
     }
 
     void DeleteSolutionCard()
     {
-        _solutionCount--;
-        SolutionEmptyState.SetActive(_solutionCount == 0);
+        SolutionEmptyState.SetActive(SolutionCount() == 1);    // NOTE: IsEmpty not working in same frame.
         Destroy(_selectedSolutionCard.gameObject);
     }
 
@@ -226,6 +222,22 @@ public class SolutionsPanelManager : MonoBehaviour
         _persistentManager.DeleteSolution(_selectedSolutionCard.Solution);
         DeleteSolutionCard();
         ChangeState(State.Default);
+    }
+
+    public void Cancel()
+    {
+        switch (_state)
+        {
+            case State.Default:
+                SolutionPanel.SetActive(false);
+                break;
+            case State.Rename:
+            case State.DeleteConfirm:
+                ChangeState(State.Default);
+                break;
+            default:
+                break;
+        }
     }
 
     public void OnDebug(InputAction.CallbackContext context)
