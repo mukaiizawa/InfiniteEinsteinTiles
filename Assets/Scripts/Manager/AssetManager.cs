@@ -108,12 +108,21 @@ public class AssetManager : MonoBehaviour
 #else
             var proto = "file://";
 #endif
-        return proto + Path.Combine(Application.streamingAssetsPath, "Puzzles", "Frames", $"frame{level}{frameSuffix}.png");
+        var path = proto + Path.Combine(Application.streamingAssetsPath, "Puzzles", "Frames", $"frame{level}{frameSuffix}.png");
+        Debug.Log($"AssetManager#FrameURL: load {path}");
+        return path;
     }
 
     string FrameInfoURL(int level)
     {
-        return Path.Combine(Application.streamingAssetsPath, "Puzzles", "Frames", $"frame-info{level}.json");
+#if UNITY_STANDALONE_WIN
+            var proto = "file:///";
+#else
+            var proto = "file://";
+#endif
+        var path = proto + Path.Combine(Application.streamingAssetsPath, "Puzzles", "Frames", $"frame-info{level}.json");
+        Debug.Log($"AssetManager#FrameURL: load {path}");
+        return path;
     }
 
     public IEnumerator LoadPuzzleFrameAsync(int level, Color bgColor, Action<Sprite> onLoadTexture)
