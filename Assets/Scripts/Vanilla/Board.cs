@@ -13,7 +13,7 @@ public class Board
 
     public Board()
     {
-        this.ColorPalette = Colors.DefaultColorPalette;
+        this.ColorPalette = Colors.MakeDefaultColorPalette();
     }
 
     public Board(TileMemory[] tiles, Color[] colors)

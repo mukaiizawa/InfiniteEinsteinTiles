@@ -15,39 +15,42 @@ public static class Colors
     public static Color SelectedTile = Parse("#ffa500");
 
     public static int PaletteSize = 30;
-    public static Color[] DefaultColorPalette =
-        new string[] {
-            "#FFFFFF",
-            "#E3E3E3",
-            "#C6C6C6",
-            "#AAAAAA",
-            "#8E8E8E",
-            "#717171",
-            "#555555",
-            "#393939",
-            "#1C1C1C",
-            "#000000",
-            "#FF0000",
-            "#FF9900",
-            "#CCFF00",
-            "#33FF00",
-            "#00FF99",
-            "#00FFFF",
-            "#0066FF",
-            "#3300FF",
-            "#CC00FF",
-            "#FF0099",
-            "#FFFFFF",
-            "#FFFFFF",
-            "#FFFFFF",
-            "#FFFFFF",
-            "#FFFFFF",
-            "#FFFFFF",
-            "#FFFFFF",
-            "#FFFFFF",
-            "#FFFFFF",
-            "#FFFFFF",
+
+    public static Color[] MakeDefaultColorPalette()
+    {
+        return new string[] {
+                "#FFFFFF",
+                "#E3E3E3",
+                "#C6C6C6",
+                "#AAAAAA",
+                "#8E8E8E",
+                "#717171",
+                "#555555",
+                "#393939",
+                "#1C1C1C",
+                "#000000",
+                "#FF0000",
+                "#FF9900",
+                "#CCFF00",
+                "#33FF00",
+                "#00FF99",
+                "#00FFFF",
+                "#0066FF",
+                "#3300FF",
+                "#CC00FF",
+                "#FF0099",
+                "#FFFFFF",
+                "#FFFFFF",
+                "#FFFFFF",
+                "#FFFFFF",
+                "#FFFFFF",
+                "#FFFFFF",
+                "#FFFFFF",
+                "#FFFFFF",
+                "#FFFFFF",
+                "#FFFFFF",
         }.Select((x) => Parse(x)).ToArray();
+    }
 
     public static Color Parse(string s)
     {

@@ -333,6 +333,27 @@ public class TilingSceneManager : MonoBehaviour
         }
         _histories.Push(Tuple.Create(action, memories, Color.white));
         _undoHistories.Clear();
+        switch (GlobalData.GameMode)
+        {
+            case GameMode.Puzzle:
+                if (_partialHexTable.Count() == _answerBoard.PartialHexes.Count() && _partialHexTable.ContainsAll(_answerBoard.PartialHexes))
+                {
+                    _audioManager.PlaySE(_assetManager.SEPuzzleComplete);
+                    PuzzleFrame.SetActive(false);
+                    var activeTiles = ActiveTiles.Children();
+                    PutTiles(CopyTiles(activeTiles));
+                    RemoveTiles(activeTiles, false);
+                    foreach (var tile in PlacedTiles.Children())
+                        tile.AddComponent<RotatingProjectile>();
+                    _persistentManager.SaveProgress(GlobalData.Slot, new Progress(Math.Max(GlobalData.Level, _persistentManager.LoadProgress(GlobalData.Slot).CurrentLevel)));
+                    _persistentManager.SaveSolution(UpdatedSolution());
+                    ChangeState(State.Solved);
+                    return false;
+                }
+                break;
+            default:
+                break;
+        }
         return true;
     }
 
@@ -369,29 +390,6 @@ public class TilingSceneManager : MonoBehaviour
                 break;
         }
         UpdateTileCount();
-        switch (GlobalData.GameMode)
-        {
-            case GameMode.Puzzle:
-                if (_partialHexTable.Count() == _answerBoard.PartialHexes.Count()
-                        && _partialHexTable.ContainsAll(_answerBoard.PartialHexes)
-                        && (!_histories.IsEmpty || !_undoHistories.IsEmpty))    // Initial state of cleared saved data.
-                {
-                    _audioManager.PlaySE(_assetManager.SEPuzzleComplete);
-                    PuzzleFrame.SetActive(false);
-                    var tiles = ActiveTiles.Children();
-                    PutTiles(CopyTiles(tiles));
-                    RemoveTiles(tiles, false);
-                    foreach (var tile in PlacedTiles.Children())
-                        tile.AddComponent<RotatingProjectile>();
-                    _persistentManager.SaveProgress(GlobalData.Slot, new Progress(Math.Max(GlobalData.Level, _persistentManager.LoadProgress(GlobalData.Slot).CurrentLevel)));
-                    _persistentManager.SaveSolution(UpdatedSolution());
-                    ChangeState(State.Solved);
-                    return false;
-                }
-                break;
-            default:
-                break;
-        }
         return true;
     }
 

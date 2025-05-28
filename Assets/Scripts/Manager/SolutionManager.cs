@@ -12,7 +12,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class SolutionsPanelManager : MonoBehaviour
+public class SolutionManager : MonoBehaviour
 {
 
     enum State
@@ -41,16 +41,28 @@ public class SolutionsPanelManager : MonoBehaviour
     public Button SolutionDeleteCancelButton;
 
     State _state;
-    GameMode _gameMode;
-    int _level;
-    int _slot;
+    List<Solution> _solutions;
 
     LoadingManager _loadingManager;
     PersistentManager _persistentManager;
 
+    public SolutionManager Init()
+    {
+        return Init(-1);
+    }
+
+    public SolutionManager Init(int level)
+    {
+        _solutions = _persistentManager.LoadSolutions(GlobalData.GameMode, GlobalData.Slot, GlobalData.Level);
+        foreach (var solution in _solutions)
+            MakeSolutionCard(solution);
+        SolutionEmptyState.SetActive(!_solutions.Any());
+        return this;
+    }
+
     void ChangeState(State to)
     {
-        Debug.Log($"SolutionsPanelManager#ChangeState: change state from {_state} to {to}");
+        Debug.Log($"SolutionManager#ChangeState: change state from {_state} to {to}");
         switch (to)
         {
             case State.Default:
@@ -83,55 +95,79 @@ public class SolutionsPanelManager : MonoBehaviour
         SolutionRenameCancelButton.onClick.AddListener(() => ChangeState(State.Default));
         SolutionDeleteOKButton.onClick.AddListener(OnSolutionDeleteOKClick);
         SolutionDeleteCancelButton.onClick.AddListener(() => ChangeState(State.Default));
-    }
-
-    void Clear()
-    {
-        SolutionEmptyState.transform.SetParent(null);
-        SolutionCards.transform.DestroyAllChildren();
-        SolutionEmptyState.transform.SetParent(SolutionCards.transform);
-    }
-
-    int SolutionCount()
-    {
-        return SolutionEmptyState.transform.parent.transform.childCount - 1;    // empty state.
-    }
-
-    bool IsEmpty()
-    {
-        return SolutionCount() == 0;
-    }
-
-    public void Reload(GameMode gameMode)
-    {
-        if (gameMode != GameMode.Creative)
-            Debug.LogError($"SolutionsPanelManager#Reload: invalid gameMode {gameMode}");
-        Reload(gameMode, -1, -1);
-    }
-
-    public void Reload(GameMode gameMode, int slot, int level)
-    {
-        _gameMode = gameMode;
-        _level = level;
-        _slot = slot;
-        Clear();
-        foreach (var solution in _persistentManager.LoadSolutions(_gameMode, _slot, _level))
-            MakeSolutionCard(solution);
-        if (gameMode == GameMode.Puzzle && IsEmpty())
-            OnSolutionNewClick();    // make default solution.
         ChangeState(State.Default);
     }
 
-    void MakeSolutionCard(Solution solution)
+    /*
+     * Solution API
+     */
+
+    string DefaultName()
     {
-        Debug.Log($"before make {SolutionEmptyState.transform.parent.transform.childCount}");
+        return LocalizationSettings.StringDatabase.GetTableEntry("default", "untitled").Entry.Value;
+    }
+
+    string UniqueName(string name)
+    {
+        var names = _solutions.Select(x => x.Name);
+        if (!names.Any(x => x == name)) return name;
+        int n = 1;
+        while (names.Any(x => x == $"{name} ({n})")) n++;
+        return $"{name} ({n})";
+    }
+
+    Solution MakeSolution()
+    {
+        var solution = new Solution(GlobalData.GameMode, GlobalData.Slot, GlobalData.Level, UniqueName(DefaultName()));
+        _persistentManager.SaveSolution(solution);
+        _solutions.Add(solution);
+        SolutionEmptyState.SetActive(false);
+        return solution;
+    }
+
+    void DeleteSolution(Solution solution)
+    {
+        _persistentManager.DeleteSolution(solution);
+        _solutions = _solutions.Where(x => x.PhysicalName != solution.PhysicalName).ToList();
+        SolutionEmptyState.SetActive(!_solutions.Any());
+    }
+
+    Solution CopySolution(Solution solution)
+    {
+        var result = new Solution(GlobalData.GameMode, GlobalData.Slot, GlobalData.Level, UniqueName(solution.Name));
+        result.Board = solution.Board;    // Safe as it is immutable.
+        result.UpdatedAt = solution.UpdatedAt;
+        _persistentManager.SaveSolution(result);
+        _solutions.Add(result);
+        return result;
+    }
+
+    public bool HasSolution()
+    {
+        return _solutions.Any();
+    }
+
+    public void OpenNewSolution()
+    {
+        OpenSolution(new Solution(GlobalData.GameMode, GlobalData.Slot, GlobalData.Level, UniqueName(DefaultName())));
+    }
+
+    void OpenSolution(Solution solution)
+    {
+        GlobalData.Solution = solution;
+        StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.Tiling));
+    }
+
+    /*
+     * UI
+     */
+
+    void UpdateSolutionCardText(SolutionCard card)
+    {
+        var solution = card.Solution;
         var tileCountLabel = LocalizationSettings.StringDatabase.GetTableEntry("default", "tile_count").Entry.Value;
         var createdAtLabel = LocalizationSettings.StringDatabase.GetTableEntry("default", "creation_date").Entry.Value;
         var updatedAtLabel = LocalizationSettings.StringDatabase.GetTableEntry("default", "last_modified_date").Entry.Value;
-        GameObject card = Instantiate(PrefabSolutionCard, SolutionCards.transform);
-        var cardComponent = card.GetComponent<SolutionCard>();
-        cardComponent.Solution = solution;
-        card.transform.SetAsFirstSibling();
         card.GetComponentInChildren<TextMeshProUGUI>().text = string.Join("\n", new string[] {
             solution.Name
             , ""
@@ -139,37 +175,35 @@ public class SolutionsPanelManager : MonoBehaviour
             , $"{createdAtLabel}: {DateTime.FromUnixTime(solution.CreatedAt)}"
             , $"{updatedAtLabel}: {DateTime.FromUnixTime(solution.UpdatedAt)}"
         });
-        foreach (var button in card.GetComponentsInChildren<Button>())
+    }
+
+    void MakeSolutionCard(Solution solution)
+    {
+        GameObject o = Instantiate(PrefabSolutionCard, SolutionCards.transform);
+        o.transform.SetAsFirstSibling();
+        var card = o.GetComponent<SolutionCard>();
+        card.Solution = solution;
+        UpdateSolutionCardText(card);
+        foreach (var button in o.GetComponentsInChildren<Button>())
         {
             switch (button.gameObject.name)
             {
                 case "Open":
-                    button.onClick.AddListener(() => {
-                        GlobalData.GameMode = _gameMode;
-                        GlobalData.Solution = solution;
-                        StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.Tiling));
-                    });
+                    button.onClick.AddListener(() => OpenSolution(solution));
                     break;
                 case "Copy":
-                    button.onClick.AddListener(() => {
-                        var name = UniqueName(solution.Name, _persistentManager.LoadSolutions(_gameMode, _slot, _level).Select(x => x.Name).ToArray());
-                        var _solution = new Solution(_gameMode, _slot, _level, name);
-                        _solution.Board = solution.Board;    // Safe as it is immutable.
-                        _solution.UpdatedAt = solution.UpdatedAt;
-                        _persistentManager.SaveSolution(_solution);
-                        MakeSolutionCard(_solution);
-                    });
+                    button.onClick.AddListener(() => MakeSolutionCard(CopySolution(solution)));
                     break;
                 case "Rename":
                     button.onClick.AddListener(() => {
-                        _selectedSolutionCard = cardComponent;
+                        _selectedSolutionCard = card;
                         SolutionRenameField.text = _selectedSolutionCard.Solution.Name;
                         ChangeState(State.Rename);
                     });
                     break;
                 case "Delete":
                     button.onClick.AddListener(() => {
-                        _selectedSolutionCard = cardComponent;
+                        _selectedSolutionCard = card;
                         ChangeState(State.DeleteConfirm);
                     });
                     break;
@@ -178,32 +212,15 @@ public class SolutionsPanelManager : MonoBehaviour
                     break;
             }
         }
-        Debug.Log($"after make {SolutionEmptyState.transform.parent.transform.childCount}");
-        SolutionEmptyState.SetActive(false);
     }
 
-    void DeleteSolutionCard()
-    {
-        SolutionEmptyState.SetActive(SolutionCount() == 1);    // NOTE: IsEmpty not working in same frame.
-        Destroy(_selectedSolutionCard.gameObject);
-    }
-
-    string UniqueName(string name, string[] names)
-    {
-        var solutions = _persistentManager.LoadSolutions(_gameMode, _slot, _level);
-        if (!names.Any(x => x == name)) return name;
-        int n = 1;
-        while (names.Any(x => x == $"{name} ({n})")) n++;
-        return $"{name} ({n})";
-    }
+    /*
+     * Event handlers
+     */
 
     void OnSolutionNewClick()
     {
-        var defaultName = LocalizationSettings.StringDatabase.GetTableEntry("default", "untitled").Entry.Value;
-        var name = UniqueName(defaultName, _persistentManager.LoadSolutions(_gameMode, _slot, _level).Select(x => x.Name).ToArray());
-        var solution = new Solution(_gameMode, _slot, _level, name);
-        _persistentManager.SaveSolution(solution);
-        MakeSolutionCard(solution);
+        MakeSolutionCard(MakeSolution());
     }
 
     void OnSolutionRenameOKClick()
@@ -212,19 +229,19 @@ public class SolutionsPanelManager : MonoBehaviour
         solution.Name = SolutionRenameField.text.Trim();
         if (string.IsNullOrEmpty(solution.Name)) 
             solution.Name = LocalizationSettings.StringDatabase.GetTableEntry("default", "untitled").Entry.Value;
+        UpdateSolutionCardText(_selectedSolutionCard);
         _persistentManager.SaveSolution(solution);
-        Reload(_gameMode, _slot, _level);
         ChangeState(State.Default);
     }
 
     void OnSolutionDeleteOKClick()
     {
-        _persistentManager.DeleteSolution(_selectedSolutionCard.Solution);
-        DeleteSolutionCard();
+        DeleteSolution(_selectedSolutionCard.Solution);
+        Destroy(_selectedSolutionCard.gameObject);
         ChangeState(State.Default);
     }
 
-    public void Cancel()
+    public void OnCancel()
     {
         switch (_state)
         {

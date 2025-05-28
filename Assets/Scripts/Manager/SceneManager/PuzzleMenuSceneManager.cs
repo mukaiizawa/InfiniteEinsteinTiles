@@ -18,6 +18,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         Menu,
         Setting,
         Solutions,
+        Loading,
     }
 
     /*
@@ -58,7 +59,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
     PersistentManager _persistentManager;
     SettingManager _settingManager;
     SteamManager _steamManager;
-    SolutionsPanelManager _solutionsPanelManager;
+    SolutionManager _solutionManager;
 
     GameObject[] _parentsH;
     GameObject _activePuzzle;
@@ -88,6 +89,8 @@ public class PuzzleMenuSceneManager : MonoBehaviour
             case State.Setting:
                 SettingPanel.SetActive(true);
                 break;
+            case State.Loading:
+                break;
             default:
                 Debug.LogError("Unexpected _state" + to);
                 break;
@@ -110,7 +113,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         _loadingManager = this.gameObject.GetComponent<LoadingManager>();
         _persistentManager = this.gameObject.GetComponent<PersistentManager>();
         _settingManager = this.gameObject.GetComponent<SettingManager>();
-        _solutionsPanelManager = this.gameObject.GetComponent<SolutionsPanelManager>();
+        _solutionManager = this.gameObject.GetComponent<SolutionManager>();
     }
 
     void Start()
@@ -238,10 +241,15 @@ public class PuzzleMenuSceneManager : MonoBehaviour
                     if (Tags.match(o, Tags.LevelTile))
                     {
                         var se = _assetManager.SEOK;
-                        GlobalData.GameMode = GameMode.Puzzle;
                         GlobalData.Level = LevelsRequiredUnlock(o.Parent()) + 1;
-                        _solutionsPanelManager.Reload(GlobalData.GameMode, GlobalData.Slot, GlobalData.Level);
-                        ChangeState(State.Solutions);
+                        if (_solutionManager.Init().HasSolution())
+                        {
+                            ChangeState(State.Solutions);
+                        }
+                        else {
+                            _solutionManager.OpenNewSolution();
+                            ChangeState(State.Loading);
+                        }
                     }
                     break;
                 default:
@@ -265,7 +273,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
                 ChangeState(State.Menu);
                 break;
             case State.Solutions:
-                _solutionsPanelManager.Cancel();
+                _solutionManager.OnCancel();
                 if (!SolutionsPanel.activeSelf) ChangeState(State.None);
                 break;
             case State.Menu:

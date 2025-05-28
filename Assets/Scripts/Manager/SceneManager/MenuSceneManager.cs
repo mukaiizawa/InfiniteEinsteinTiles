@@ -98,7 +98,7 @@ public class MenuSceneManager : MonoBehaviour
     LoadingManager _loadingManager;
     PersistentManager _persistentManager;
     SettingManager _settingManager;
-    SolutionsPanelManager _solutionsPanelManager;
+    SolutionManager _solutionManager;
 
     void ChangeState(State to)
     {
@@ -146,13 +146,14 @@ public class MenuSceneManager : MonoBehaviour
         _loadingManager = this.gameObject.GetComponent<LoadingManager>();
         _persistentManager = this.gameObject.GetComponent<PersistentManager>();
         _settingManager = this.gameObject.GetComponent<SettingManager>();
-        _solutionsPanelManager = this.gameObject.GetComponent<SolutionsPanelManager>();
+        _solutionManager = this.gameObject.GetComponent<SolutionManager>();
     }
 
     void Start()
     {
+        GlobalData.GameMode = GameMode.Creative;
         _audioManager.SetPlaylist(_assetManager.GetPlaylist(LoadingManager.Scene.Menu)).StartBGM();
-        _solutionsPanelManager.Reload(GameMode.Creative);
+        _solutionManager.Init();
         SolutionsOpenButton.onClick.AddListener(() => ChangeState(State.Solutions));
         SolutionsCloseButton.onClick.AddListener(() => ChangeState(State.None));
         for (int i = 0; i < SlotButtons.Length; i++)
@@ -208,7 +209,7 @@ public class MenuSceneManager : MonoBehaviour
                 ChangeState(State.Menu);
                 break;
             case State.Solutions:
-                _solutionsPanelManager.Cancel();
+                _solutionManager.OnCancel();
                 if (!SolutionsPanel.activeSelf) ChangeState(State.None);
                 break;
             case State.Menu:
@@ -293,7 +294,10 @@ public class MenuSceneManager : MonoBehaviour
 
     void OnClickSlot(int slot)
     {
-        StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.PuzzleMenu, 0.5f, () => GlobalData.Slot = slot));
+        StartCoroutine(_loadingManager.LoadAsync(LoadingManager.Scene.PuzzleMenu, 0.5f, () => {
+            GlobalData.GameMode = GameMode.Puzzle;
+            GlobalData.Slot = slot;
+        }));
     }
 
     IEnumerator ChangeLocale(string localeCd)
