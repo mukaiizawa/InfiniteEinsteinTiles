@@ -84,6 +84,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
                     SettingPanel.SetActive(false);
                     _persistentManager.SetBGMVolume(_settingManager.BGMSlider.value);
                     _persistentManager.SetSEVolume(_settingManager.SESlider.value);
+                    _persistentManager.SetMouseWheelSensitivity((int)_settingManager.MouseWheelSensitivitySlider.value);
                 }
                 break;
             case State.Setting:

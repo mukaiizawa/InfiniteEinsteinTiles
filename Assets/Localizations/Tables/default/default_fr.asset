@@ -283,6 +283,10 @@ MonoBehaviour:
     m_Localized: "\xCAtes-vous s\xFBr de vouloir red\xE9marrer ?"
     m_Metadata:
       m_Items: []
+  - m_Id: 6889265472774144
+    m_Localized: "Sensibilit\xE9 de la molette de la souris"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

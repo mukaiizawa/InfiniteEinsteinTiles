@@ -287,6 +287,10 @@ MonoBehaviour:
     m_Localized: Sei sicuro di voler riavviare?
     m_Metadata:
       m_Items: []
+  - m_Id: 6889265472774144
+    m_Localized: "Sensibilit\xE0 della rotella del mouse"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

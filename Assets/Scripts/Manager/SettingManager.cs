@@ -13,6 +13,7 @@ public class SettingManager : MonoBehaviour
 
     public Slider BGMSlider;
     public Slider SESlider;
+    public Slider MouseWheelSensitivitySlider;
     public Toggle FullScreenCheckbox;
     public TMP_Dropdown ResolutionList;
 
@@ -29,6 +30,7 @@ public class SettingManager : MonoBehaviour
         SESlider.value = _persistentManager.GetSEVolume();
         BGMSlider.onValueChanged.AddListener((val) => _audioManager.SetBGMVolume(val));
         SESlider.onValueChanged.AddListener((val) => _audioManager.SetSEVolume(val));
+        MouseWheelSensitivitySlider.value = _persistentManager.GetMouseWheelSensitivity();
         {
             var (w, h) = (Screen.currentResolution.width, Screen.currentResolution.height); 
             _availableResolutions = Screen.resolutions

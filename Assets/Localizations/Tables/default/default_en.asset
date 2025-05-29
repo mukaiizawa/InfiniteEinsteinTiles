@@ -298,6 +298,10 @@ MonoBehaviour:
     m_Localized: Are you sure you want to restart?
     m_Metadata:
       m_Items: []
+  - m_Id: 6889265472774144
+    m_Localized: Mouse Wheel Sensitivity
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

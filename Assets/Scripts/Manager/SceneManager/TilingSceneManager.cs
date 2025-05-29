@@ -122,8 +122,10 @@ public class TilingSceneManager : MonoBehaviour
     bool _isKeyModify1 = false;
     bool _isKeyModify2 = false;
     bool _isDrugging = false;
+    int _mouseWheelRotationMaxSensitivity;
+    int _mouseWheelRotationMinSensitivity;
+    int _mouseWheelRotationThreshold;
     int _mouseWheelRotationInputCount = 0;
-    int _mouseWheelRotationThreshold = 2;
     float _clickStartTime = 0f;
     float _dragDistanceThreshold = 8f;
     float _dragTimeThreshold = 0.4f;
@@ -469,6 +471,9 @@ public class TilingSceneManager : MonoBehaviour
                     SettingPanel.SetActive(false);
                     _persistentManager.SetBGMVolume(_settingManager.BGMSlider.value);
                     _persistentManager.SetSEVolume(_settingManager.SESlider.value);
+                    var sensitivity = (int)_settingManager.MouseWheelSensitivitySlider.value;
+                    _persistentManager.SetMouseWheelSensitivity(sensitivity);
+                    _mouseWheelRotationThreshold = _mouseWheelRotationMaxSensitivity + _mouseWheelRotationMinSensitivity - sensitivity;
                 }
                 break;
             case State.Setting:
@@ -522,6 +527,9 @@ public class TilingSceneManager : MonoBehaviour
     {
         _camera = Camera.main;
         _audioManager.SetPlaylist(_assetManager.GetPlaylist(LoadingManager.Scene.Tiling)).StartBGM();
+        _mouseWheelRotationMaxSensitivity = (int)_settingManager.MouseWheelSensitivitySlider.maxValue;
+        _mouseWheelRotationMinSensitivity = (int)_settingManager.MouseWheelSensitivitySlider.minValue;
+        _mouseWheelRotationThreshold = _mouseWheelRotationMaxSensitivity + _mouseWheelRotationMinSensitivity - _persistentManager.GetMouseWheelSensitivity();
         OriginTile.GetComponent<Button>().onClick.AddListener(OnOriginTileClick);
         MenuOpenButton.onClick.AddListener(() => ChangeState(State.Menu));
         MenuCloseButton.onClick.AddListener(() => ChangeState(State.None));

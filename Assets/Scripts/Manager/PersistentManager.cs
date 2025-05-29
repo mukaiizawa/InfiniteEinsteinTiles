@@ -24,6 +24,7 @@ public class PersistentManager : MonoBehaviour
 
     string _prefKeySE = "SEVolume";
     string _prefKeyBGM = "BGMVolume";
+    string _prefKeyMouseWheelSensitivity = "MouseWheelSensitivity";
     string _prefKeyResolution = "Resolution";
     string _prefKeyFullScreen = "FullScreen";
     string _prefKeyLocale = "Locale";
@@ -107,6 +108,17 @@ public class PersistentManager : MonoBehaviour
     public void SetBGMVolume(float val)
     {
         PlayerPrefs.SetFloat(_prefKeyBGM, val);
+        PlayerPrefs.Save();
+    }
+
+    public int GetMouseWheelSensitivity()
+    {
+        return PlayerPrefs.GetInt(_prefKeyMouseWheelSensitivity, 10);
+    }
+
+    public void SetMouseWheelSensitivity(int val)
+    {
+        PlayerPrefs.SetInt(_prefKeyMouseWheelSensitivity, val);
         PlayerPrefs.Save();
     }
 

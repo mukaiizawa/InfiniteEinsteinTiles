@@ -283,6 +283,10 @@ MonoBehaviour:
     m_Localized: Tem certeza de que deseja reiniciar?
     m_Metadata:
       m_Items: []
+  - m_Id: 6889265472774144
+    m_Localized: Sensibilidade da roda do mouse
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

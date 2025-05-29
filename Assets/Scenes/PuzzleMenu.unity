@@ -7458,6 +7458,17 @@ Transform:
   - {fileID: 2007645506}
   m_Father: {fileID: 1974305829}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &400915443 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5697257702445752848, guid: 0f10baa2dbe2c7645993369915c7be75, type: 3}
+  m_PrefabInstance: {fileID: 1372365533}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &403493378
 GameObject:
   m_ObjectHideFlags: 0
@@ -31338,6 +31349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BGMSlider: {fileID: 1780847125}
   SESlider: {fileID: 565352746}
+  MouseWheelSensitivitySlider: {fileID: 400915443}
   FullScreenCheckbox: {fileID: 830209865}
   ResolutionList: {fileID: 1047028108}
 --- !u!114 &1704219610
