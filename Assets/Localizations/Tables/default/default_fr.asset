@@ -287,6 +287,10 @@ MonoBehaviour:
     m_Localized: "Sensibilit\xE9 de la molette de la souris"
     m_Metadata:
       m_Items: []
+  - m_Id: 7447237043200000
+    m_Localized: Niveau
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

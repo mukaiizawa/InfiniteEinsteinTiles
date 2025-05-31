@@ -5,6 +5,8 @@ using System;
 
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -24,9 +26,11 @@ public class PuzzleMenuSceneManager : MonoBehaviour
     /*
      * UI
      */
-    public TextMeshProUGUI Progress;
-    public TextMeshProUGUI Congratulations;
+    public TextMeshProUGUI TextProgress;
+    public TextMeshProUGUI TextCongratulations;
     public Image Preview;
+    string _l10nLevel;
+    public TextMeshProUGUI TextLevel;
 
     /*
      * Menu
@@ -122,8 +126,9 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         _camera = Camera.main;
         _audioManager.SetPlaylist(_assetManager.GetPlaylist(LoadingManager.Scene.PuzzleMenu)).StartBGM();
         _steamManager = GameObject.Find("/SteamManager").GetComponent<SteamManager>();
+        _l10nLevel = LocalizationSettings.StringDatabase.GetTableEntry("default", "level").Entry.Value;
         int currentLevel = _persistentManager.LoadProgress(GlobalData.Slot).CurrentLevel;
-        Progress.text = $"{currentLevel * 100 / GlobalData.TotalLevel}%";
+        TextProgress.text = $"{currentLevel * 100 / GlobalData.TotalLevel}%";
         MenuOpenButton.onClick.AddListener(() => ChangeState(State.Menu));
         MenuCloseButton.onClick.AddListener(() => ChangeState(State.None));
         SettingOpenButton.onClick.AddListener(() => ChangeState(State.Setting));
@@ -138,7 +143,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         var metaTileParents = _parentsH.Concat(parentsT).Concat(parentsF).Concat(parentsP).ToArray();
         for (int level = 1; level <= currentLevel; level++)
             StartCoroutine(_assetManager.LoadPuzzleFrameAsync(level, Color.white, (sprite) => {}));
-        Congratulations.gameObject.SetActive(currentLevel == GlobalData.TotalLevel);
+        TextCongratulations.gameObject.SetActive(currentLevel == GlobalData.TotalLevel);
         foreach (var metaTileParent in metaTileParents)
         {
             var requiredLevel = LevelsRequiredUnlock(metaTileParent);
@@ -204,6 +209,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
                     if (o == null || !_parentsH.Contains(o = o.Parent()))
                     {
                         Preview.gameObject.SetActive(false);
+                        TextLevel.text = null;
                         if (_activePuzzle != null)
                         {
                             _activePuzzle.transform.GetChild(0).localScale /= _expansionScale;
@@ -212,10 +218,12 @@ public class PuzzleMenuSceneManager : MonoBehaviour
                     }
                     else if (o != _activePuzzle)
                     {
+                        var level = LevelsRequiredUnlock(o) + 1;
                         _audioManager.PlaySE(_assetManager.SEOnHoverUI);
-                        StartCoroutine(_assetManager.LoadPuzzleFrameAsync(LevelsRequiredUnlock(o) + 1, Color.white, (sprite) => {
+                        StartCoroutine(_assetManager.LoadPuzzleFrameAsync(level, Color.white, (sprite) => {
                             Preview.gameObject.SetActive(true);
                             Preview.sprite = sprite;
+                            TextLevel.text = $"{_l10nLevel} {level}";
                         }));
                         if (_activePuzzle != null)
                         {

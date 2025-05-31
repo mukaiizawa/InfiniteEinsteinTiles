@@ -289,6 +289,10 @@ MonoBehaviour:
     m_Localized: "Czu\u0142o\u015B\u0107 k\xF3\u0142ka myszy"
     m_Metadata:
       m_Items: []
+  - m_Id: 7447237043200000
+    m_Localized: Poziom
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
