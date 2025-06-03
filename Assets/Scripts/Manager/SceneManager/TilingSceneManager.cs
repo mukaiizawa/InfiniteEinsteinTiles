@@ -122,10 +122,11 @@ public class TilingSceneManager : MonoBehaviour
     bool _isKeyModify1 = false;
     bool _isKeyModify2 = false;
     bool _isDrugging = false;
-    int _mouseWheelRotationMaxSensitivity;
-    int _mouseWheelRotationMinSensitivity;
+    int _mouseWheelSensitivity;
+    int _mouseWheelMaxSensitivity;
+    int _mouseWheelMinSensitivity;
     int _mouseWheelRotationThreshold;
-    int _mouseWheelRotationInputCount = 0;
+    int _mouseWheelInputCount = 0;
     float _clickStartTime = 0f;
     float _dragDistanceThreshold = 8f;
     float _dragTimeThreshold = 0.4f;
@@ -142,7 +143,6 @@ public class TilingSceneManager : MonoBehaviour
      */
     Camera _camera;    // Camera.main is slow due to internal use of Tag.
     float _cameraSpeed = 16f;
-    float _cameraZoomSpeed = 400f;
     float _cameraMinZoom = 5f;
     float _cameraMaxZoom = 30f;
     Vector2 _cameraMoveDelta = Vector2.zero;
@@ -471,9 +471,9 @@ public class TilingSceneManager : MonoBehaviour
                     SettingPanel.SetActive(false);
                     _persistentManager.SetBGMVolume(_settingManager.BGMSlider.value);
                     _persistentManager.SetSEVolume(_settingManager.SESlider.value);
-                    var sensitivity = (int)_settingManager.MouseWheelSensitivitySlider.value;
-                    _persistentManager.SetMouseWheelSensitivity(sensitivity);
-                    _mouseWheelRotationThreshold = _mouseWheelRotationMaxSensitivity + _mouseWheelRotationMinSensitivity - sensitivity;
+                    _mouseWheelSensitivity = (int)_settingManager.MouseWheelSensitivitySlider.value;
+                    _persistentManager.SetMouseWheelSensitivity(_mouseWheelSensitivity);
+                    _mouseWheelRotationThreshold = _mouseWheelMaxSensitivity + _mouseWheelMinSensitivity - _mouseWheelSensitivity;
                 }
                 break;
             case State.Setting:
@@ -527,9 +527,10 @@ public class TilingSceneManager : MonoBehaviour
     {
         _camera = Camera.main;
         _audioManager.SetPlaylist(_assetManager.GetPlaylist(LoadingManager.Scene.Tiling)).StartBGM();
-        _mouseWheelRotationMaxSensitivity = (int)_settingManager.MouseWheelSensitivitySlider.maxValue;
-        _mouseWheelRotationMinSensitivity = (int)_settingManager.MouseWheelSensitivitySlider.minValue;
-        _mouseWheelRotationThreshold = _mouseWheelRotationMaxSensitivity + _mouseWheelRotationMinSensitivity - _persistentManager.GetMouseWheelSensitivity();
+        _mouseWheelMaxSensitivity = (int)_settingManager.MouseWheelSensitivitySlider.maxValue;
+        _mouseWheelMinSensitivity = (int)_settingManager.MouseWheelSensitivitySlider.minValue;
+        _mouseWheelSensitivity = _persistentManager.GetMouseWheelSensitivity();
+        _mouseWheelRotationThreshold = _mouseWheelMaxSensitivity + _mouseWheelMinSensitivity - _mouseWheelSensitivity;
         OriginTile.GetComponent<Button>().onClick.AddListener(OnOriginTileClick);
         MenuOpenButton.onClick.AddListener(() => ChangeState(State.Menu));
         MenuCloseButton.onClick.AddListener(() => ChangeState(State.None));
@@ -673,7 +674,7 @@ public class TilingSceneManager : MonoBehaviour
                 Vector3 screenCenterWorldPoint = _camera.ScreenToWorldPoint(new Vector2(Screen.width / 2, Screen.height / 2));
                 BackGround.transform.position = LeftBottomObliqueWorldPoint(screenCenterWorldPoint);
                 // zoom
-                _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize - _cameraZoomDelta.y * _cameraZoomSpeed * dt, _cameraMinZoom, _cameraMaxZoom);
+                _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize - _cameraZoomDelta.y * dt, _cameraMinZoom, _cameraMaxZoom);
                 break;
             default:
                 break;
@@ -710,15 +711,19 @@ public class TilingSceneManager : MonoBehaviour
 
     public void OnWheel(InputAction.CallbackContext context)
     {
-        var val = context.ReadValue<Vector2>();
-        if (_isKeyModify2) _cameraZoomDelta = val;
-        else
+        if (context.performed)
         {
-            if (context.performed) 
+            var val = context.ReadValue<Vector2>();
+            if (_isKeyModify2) _cameraZoomDelta = val * _mouseWheelSensitivity * 50;
+            else if ((_mouseWheelInputCount = _mouseWheelInputCount + 1) % _mouseWheelRotationThreshold == 0)
             {
-                if ((_mouseWheelRotationInputCount = _mouseWheelRotationInputCount + 1) % _mouseWheelRotationThreshold == 0)
-                    RotateActiveTiles(val.y > 0f? 60: -60);
+                RotateActiveTiles(val.y > 0f? 60: -60);
+                _cameraZoomDelta = Vector2.zero;
             }
+            return;
+        }
+        if (context.canceled)
+        {
             _cameraZoomDelta = Vector2.zero;
         }
     }
