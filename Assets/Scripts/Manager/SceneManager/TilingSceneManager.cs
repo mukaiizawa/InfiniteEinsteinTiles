@@ -145,8 +145,8 @@ public class TilingSceneManager : MonoBehaviour
     float _cameraSpeed = 16f;
     float _cameraMinZoom = 5f;
     float _cameraMaxZoom = 30f;
+    float _cameraZoomDelta = 0f;
     Vector2 _cameraMoveDelta = Vector2.zero;
-    Vector2 _cameraZoomDelta = Vector2.zero;
 
     /*
      * board
@@ -674,7 +674,7 @@ public class TilingSceneManager : MonoBehaviour
                 Vector3 screenCenterWorldPoint = _camera.ScreenToWorldPoint(new Vector2(Screen.width / 2, Screen.height / 2));
                 BackGround.transform.position = LeftBottomObliqueWorldPoint(screenCenterWorldPoint);
                 // zoom
-                _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize - _cameraZoomDelta.y * dt, _cameraMinZoom, _cameraMaxZoom);
+                _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize - _cameraZoomDelta * dt, _cameraMinZoom, _cameraMaxZoom);
                 break;
             default:
                 break;
@@ -714,17 +714,17 @@ public class TilingSceneManager : MonoBehaviour
         if (context.performed)
         {
             var val = context.ReadValue<Vector2>();
-            if (_isKeyModify2) _cameraZoomDelta = val * _mouseWheelSensitivity * 50;
+            if (_isKeyModify2) _cameraZoomDelta = Mathf.Sign(val.y) * _mouseWheelSensitivity * 50;
             else if ((_mouseWheelInputCount = _mouseWheelInputCount + 1) % _mouseWheelRotationThreshold == 0)
             {
                 RotateActiveTiles(val.y > 0f? 60: -60);
-                _cameraZoomDelta = Vector2.zero;
+                _cameraZoomDelta = 0f;
             }
             return;
         }
         if (context.canceled)
         {
-            _cameraZoomDelta = Vector2.zero;
+            _cameraZoomDelta = 0f;
         }
     }
 
