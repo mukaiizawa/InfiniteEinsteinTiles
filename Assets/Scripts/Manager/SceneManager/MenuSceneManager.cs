@@ -53,10 +53,12 @@ public class MenuSceneManager : MonoBehaviour
     static string[] _creditSpecialThanksTo = new string[] {
         "Kai Kimura",
         "Ken'ichi Tokuoka",
+        "Koji Ueta",
         "Miki Yonemura",
         "Mituki Miharu aka Haru",
         "Nobuaki Akasaka",
         "Shinya Kato",
+        "Yuta Maruoka",
     };
 
     /* Languages */
