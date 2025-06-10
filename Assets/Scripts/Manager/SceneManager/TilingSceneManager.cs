@@ -94,6 +94,7 @@ public class TilingSceneManager : MonoBehaviour
     Image _currentColorPaletteImage;
     Image[] _colorPaletteColorImages;
     public Button ColorPaletteOpenButton;
+    public Button ColorPaletteCloseButton;
     public Button PipetteButton;
     public Toggle[] ColorPaletteColorButtons;
     public Image ColorPickerDisplay;
@@ -547,6 +548,7 @@ public class TilingSceneManager : MonoBehaviour
         CameraButton.onClick.AddListener(() => StartCoroutine(CaptureScreenshotCoroutine()));
         RulerButton.onValueChanged.AddListener(OnRulerToggle);
         ColorPaletteOpenButton.onClick.AddListener(OnColorPaletteOpenButtonClick);
+        ColorPaletteCloseButton.onClick.AddListener(() => ChangeState(State.None));
         PipetteButton.onClick.AddListener(() => ChangeState(State.Pipette));
         RestartButton.onClick.AddListener(() => ChangeState(State.ConfirmRestart));
         RestartConfirmOKButton.onClick.AddListener(ReloadScene);
