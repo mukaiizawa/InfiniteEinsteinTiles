@@ -531,6 +531,14 @@ public class TilingSceneManager : MonoBehaviour
         _mouseWheelMinSensitivity = (int)_settingManager.MouseWheelSensitivitySlider.minValue;
         _mouseWheelSensitivity = _persistentManager.GetMouseWheelSensitivity();
         _mouseWheelRotationThreshold = _mouseWheelMaxSensitivity + _mouseWheelMinSensitivity - _mouseWheelSensitivity;
+#if UNITY_EDITOR
+        if (GlobalData.GameMode == GameMode.Nil)
+        {
+            GlobalData.GameMode = GameMode.Creative;
+            LoadPrevScene(false);
+            return;
+        }
+#endif
         OriginTile.GetComponent<Button>().onClick.AddListener(OnOriginTileClick);
         MenuOpenButton.onClick.AddListener(() => ChangeState(State.Menu));
         MenuCloseButton.onClick.AddListener(() => ChangeState(State.None));
