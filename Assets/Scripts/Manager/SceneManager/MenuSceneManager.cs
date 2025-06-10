@@ -101,6 +101,7 @@ public class MenuSceneManager : MonoBehaviour
     PersistentManager _persistentManager;
     SettingManager _settingManager;
     SolutionManager _solutionManager;
+    SteamManager _steamManager;
 
     void ChangeState(State to)
     {
@@ -157,6 +158,7 @@ public class MenuSceneManager : MonoBehaviour
         GlobalData.GameMode = GameMode.Creative;
         _audioManager.SetPlaylist(_assetManager.GetPlaylist(LoadingManager.Scene.Menu)).StartBGM();
         _solutionManager.Init();
+        _steamManager = GameObject.Find("/SteamManager").GetComponent<SteamManager>();
         SolutionsOpenButton.onClick.AddListener(() => ChangeState(State.Solutions));
         SolutionsCloseButton.onClick.AddListener(() => ChangeState(State.None));
         for (int i = 0; i < SlotButtons.Length; i++)
@@ -195,6 +197,7 @@ public class MenuSceneManager : MonoBehaviour
 
     void OnPowerOff()
     {
+        _steamManager.Close();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

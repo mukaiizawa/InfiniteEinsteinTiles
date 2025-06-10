@@ -298,6 +298,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
 
     void OnPowerOff()
     {
+        _steamManager.Close();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

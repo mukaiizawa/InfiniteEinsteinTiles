@@ -49,7 +49,11 @@ public class SteamManager : MonoBehaviour
 
     public void Close()
     {
-        if (_connected) SteamClient.Shutdown();
+        if (_connected)
+        {
+            SteamClient.Shutdown();
+            _connected = false;
+        }
     }
 
     bool Achievement(int level, out Achievement result)
