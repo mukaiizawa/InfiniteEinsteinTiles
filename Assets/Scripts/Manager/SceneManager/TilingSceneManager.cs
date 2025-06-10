@@ -1101,15 +1101,15 @@ public class TilingSceneManager : MonoBehaviour
         _currentColorPaletteImage.color = color;
     }
 
-    float ParseFloatOrDefault(string val, float defaultValue)
+    float ParseColorPaletteInput(TMP_InputField input)
     {
-        if (float.TryParse(val, out float result)) return result;
-        return defaultValue;
+        if (!float.TryParse(input.text, out float result)) return 0f;
+        return Mathf.Clamp(result, 0f, 255f);
     }
 
     void OnColorPaletteInputChange(string _)
     {
-        var rbg = ColorPickerInputs.Select(x => ParseFloatOrDefault(x.text, 0f)).ToArray();
+        var rbg = ColorPickerInputs.Select(ParseColorPaletteInput).ToArray();
         ChangeColorPaletteColor(new Color(rbg[0] / 255f, rbg[1] / 255f, rbg[2] / 255f));
     }
 
