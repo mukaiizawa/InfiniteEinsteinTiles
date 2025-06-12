@@ -295,6 +295,21 @@ MonoBehaviour:
     m_Localized: Livello
     m_Metadata:
       m_Items: []
+  - m_Id: 11581666376327168
+    m_Localized: "Modalit\xE0 hardcore"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11585296596770816
+    m_Localized: "Attivando questa funzione verr\xE0 aggiunto un limite di tempo
+      al puzzle. Se non lo completi entro il tempo limite, il livello ricomincer\xE0
+      dall'inizio. Non ci sono obiettivi bloccati da questa funzione. Consigliato
+      solo per streamer e per chi cerca una sfida."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11602884848558080
+    m_Localized: Tempo scaduto
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

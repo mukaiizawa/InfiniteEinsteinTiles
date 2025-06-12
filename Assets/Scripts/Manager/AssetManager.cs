@@ -55,6 +55,7 @@ public class AssetManager : MonoBehaviour
     public AudioClip SETileGrab;
     public AudioClip SETileRemove;
     public AudioClip SETileDissolve;
+    public AudioClip SEPuzzleTimeOver;
     public AudioClip SEPuzzleComplete;
 
     public AudioClip[] GetPlaylist(LoadingManager.Scene scene)

@@ -291,6 +291,22 @@ MonoBehaviour:
     m_Localized: Niveau
     m_Metadata:
       m_Items: []
+  - m_Id: 11581666376327168
+    m_Localized: Mode hardcore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11585296596770816
+    m_Localized: "L'activation de cette fonction ajoutera une limite de temps au
+      puzzle. Si vous ne le r\xE9solvez pas dans le d\xE9lai imparti, le niveau recommencera
+      depuis le d\xE9but. Aucune r\xE9ussite ne d\xE9pend de l'activation de cette
+      fonction. Recommand\xE9 uniquement pour les streamers et ceux qui recherchent
+      un d\xE9fi."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11602884848558080
+    m_Localized: "Temps \xE9coul\xE9"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

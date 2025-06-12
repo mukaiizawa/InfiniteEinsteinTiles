@@ -298,6 +298,24 @@ MonoBehaviour:
     m_Localized: "\uB808\uBCA8"
     m_Metadata:
       m_Items: []
+  - m_Id: 11581666376327168
+    m_Localized: "\uD558\uB4DC\uCF54\uC5B4 \uBAA8\uB4DC"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11585296596770816
+    m_Localized: "\uC774 \uAE30\uB2A5\uC744 \uD65C\uC131\uD654\uD558\uBA74 \uD37C\uC990\uC5D0
+      \uC2DC\uAC04 \uC81C\uD55C\uC774 \uCD94\uAC00\uB429\uB2C8\uB2E4. \uC81C\uD55C
+      \uC2DC\uAC04 \uB0B4\uC5D0 \uC644\uB8CC\uD558\uC9C0 \uC54A\uC73C\uBA74 \uB808\uBCA8\uC774
+      \uCC98\uC74C\uBD80\uD130 \uC2DC\uC791\uB429\uB2C8\uB2E4. \uC774 \uAE30\uB2A5\uC744
+      \uD65C\uC131\uD654\uD558\uC9C0 \uC54A\uC544\uB3C4 \uC7A0\uAE34 \uC5C5\uC801\uC740
+      \uC5C6\uC2B5\uB2C8\uB2E4. \uAC8C\uC784 \uC2A4\uD2B8\uB9AC\uBA38 \uBC0F \uB3C4\uC804\uC744
+      \uC6D0\uD558\uB294 \uBD84\uB4E4\uAED8\uB9CC \uCD94\uCC9C\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11602884848558080
+    m_Localized: "\uC2DC\uAC04 \uCD08\uACFC"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

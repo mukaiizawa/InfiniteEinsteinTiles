@@ -15,6 +15,18 @@ MonoBehaviour:
   m_TableCollectionName: default
   m_TableCollectionNameGuidString: d545b90e5be3a914f940bc5b44a565dd
   m_Entries:
+  - m_Id: 11602884848558080
+    m_Key: time_over
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11585296596770816
+    m_Key: hardcore_mode_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11581666376327168
+    m_Key: hardcore_mode
+    m_Metadata:
+      m_Items: []
   - m_Id: 7447237043200000
     m_Key: level
     m_Metadata:

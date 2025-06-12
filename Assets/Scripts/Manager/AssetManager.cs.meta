@@ -36,6 +36,7 @@ MonoImporter:
   - SETileGrab: {fileID: 8300000, guid: 1bf568b6eb40e6246a4745fa8f977f85, type: 3}
   - SETileRemove: {fileID: 8300000, guid: 73f61013f8dd761449212b26a4def8cf, type: 3}
   - SETileDissolve: {fileID: 8300000, guid: 460732aab1e52dc4dbab6248ad22cc15, type: 3}
+  - SEPuzzleTimeOver: {fileID: 8300000, guid: c325d251cc874994f96a2afd80f4e82d, type: 3}
   - SEPuzzleComplete: {fileID: 8300000, guid: 1076a9b210157734b8dff6c49da103c1, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}

@@ -293,6 +293,21 @@ MonoBehaviour:
     m_Localized: Poziom
     m_Metadata:
       m_Items: []
+  - m_Id: 11581666376327168
+    m_Localized: Tryb hardcore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11585296596770816
+    m_Localized: "W\u0142\u0105czenie tej funkcji doda limit czasu do uk\u0142adanki.
+      Je\u015Bli nie uko\u0144czysz jej w wyznaczonym czasie, poziom rozpocznie si\u0119
+      od pocz\u0105tku. Nie ma osi\u0105gni\u0119\u0107 zwi\u0105zanych z t\u0105
+      funkcj\u0105. Polecane tylko dla streamer\xF3w i os\xF3b szukaj\u0105cych wyzwania."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11602884848558080
+    m_Localized: "Czas min\u0105\u0142"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

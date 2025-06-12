@@ -28,6 +28,7 @@ public class PersistentManager : MonoBehaviour
     string _prefKeyResolution = "Resolution";
     string _prefKeyFullScreen = "FullScreen";
     string _prefKeyLocale = "Locale";
+    string _prefKeyHardCore = "HardcoreMode";
 
     void Start()
     {
@@ -87,6 +88,18 @@ public class PersistentManager : MonoBehaviour
     {
         PlayerPrefs.SetString(_prefKeyLocale, val);
         PlayerPrefs.Save();
+    }
+
+    public bool IsHardcoreMode(int slot)
+    {
+        return PlayerPrefs.GetInt(_prefKeyHardCore + slot, 0) == 1;
+    }
+
+    public bool SetHardcoreMode(int slot, bool b)
+    {
+        PlayerPrefs.SetInt(_prefKeyHardCore + slot, b? 1: 0);
+        PlayerPrefs.Save();
+        return b;
     }
 
     public float GetSEVolume()

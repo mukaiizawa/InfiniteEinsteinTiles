@@ -295,6 +295,21 @@ MonoBehaviour:
     m_Localized: Nivel
     m_Metadata:
       m_Items: []
+  - m_Id: 11581666376327168
+    m_Localized: Modo hardcore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11585296596770816
+    m_Localized: "Activar esta funci\xF3n a\xF1adir\xE1 un l\xEDmite de tiempo al
+      rompecabezas. Si no lo completas dentro del tiempo l\xEDmite, el nivel volver\xE1
+      a empezar. No hay logros bloqueados por activar esta funci\xF3n. Recomendado
+      solo para streamers y quienes busquen un desaf\xEDo."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11602884848558080
+    m_Localized: "Se acab\xF3 el tiempo"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

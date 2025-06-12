@@ -306,6 +306,21 @@ MonoBehaviour:
     m_Localized: Level
     m_Metadata:
       m_Items: []
+  - m_Id: 11581666376327168
+    m_Localized: Hardcore mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11585296596770816
+    m_Localized: Enabling this feature will add a time limit to the puzzle. If you
+      don't complete it within the time limit, the level will restart from the beginning.
+      There are no achievements locked behind enabling this feature. Recommended
+      only for streamers and those seeking a challenge.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11602884848558080
+    m_Localized: Time's up
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

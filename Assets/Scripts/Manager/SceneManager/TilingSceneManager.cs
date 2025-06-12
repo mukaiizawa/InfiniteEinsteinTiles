@@ -41,6 +41,7 @@ public class TilingSceneManager : MonoBehaviour
         Paint,
         Pipette,
         Solved,
+        TimeOver,
     }
 
     /*
@@ -60,6 +61,8 @@ public class TilingSceneManager : MonoBehaviour
     public bool UICursorEnter;
     public bool UICursorExit;
     public GameObject Canvas;
+    float _remainingTime;
+    public TextMeshProUGUI TextTimer;
     public TextMeshProUGUI TextTileCount;
     public TextMeshProUGUI TextMode;
     public GameObject UsageNone;
@@ -71,6 +74,7 @@ public class TilingSceneManager : MonoBehaviour
     public GameObject ConfirmExitPanel;
     public GameObject SettingPanel;
     public GameObject SolvedPanel;
+    public GameObject TimeOverPanel;
     public GameObject ColorPalettePanel;
     public Button CameraButton;
     public Toggle RulerButton;
@@ -86,6 +90,7 @@ public class TilingSceneManager : MonoBehaviour
     public Button ExitConfirmCancelButton;
     public Button SaveAndExitButton;
     public Button ContinueToMenuButton;    // solved.
+    public Button ContinueToMenuButton2;    // time over.
 
     /*
      * Color Palette
@@ -290,6 +295,15 @@ public class TilingSceneManager : MonoBehaviour
         return tiles;
     }
 
+    void ScatterTiles()
+    {
+        var activeTiles = ActiveTiles.Children();
+        PutTiles(CopyTiles(activeTiles));
+        RemoveTiles(activeTiles, false);
+        foreach (var tile in PlacedTiles.Children())
+            tile.AddComponent<RotatingProjectile>();
+    }
+
     /*
      * history api
      */
@@ -342,12 +356,8 @@ public class TilingSceneManager : MonoBehaviour
                 if (_partialHexTable.Count() == _answerBoard.PartialHexes.Count() && _partialHexTable.ContainsAll(_answerBoard.PartialHexes))
                 {
                     _audioManager.PlaySE(_assetManager.SEPuzzleComplete);
+                    ScatterTiles();
                     PuzzleFrame.SetActive(false);
-                    var activeTiles = ActiveTiles.Children();
-                    PutTiles(CopyTiles(activeTiles));
-                    RemoveTiles(activeTiles, false);
-                    foreach (var tile in PlacedTiles.Children())
-                        tile.AddComponent<RotatingProjectile>();
                     _persistentManager.SaveProgress(GlobalData.Slot, new Progress(Math.Max(GlobalData.Level, _persistentManager.LoadProgress(GlobalData.Slot).CurrentLevel)));
                     _persistentManager.SaveSolution(UpdatedSolution());
                     ChangeState(State.Solved);
@@ -489,6 +499,12 @@ public class TilingSceneManager : MonoBehaviour
             case State.Solved:
                 SolvedPanel.SetActive(true);
                 break;
+            case State.TimeOver:
+                MenuPanel.SetActive(false);
+                SettingPanel.SetActive(false);
+                ColorPalettePanel.SetActive(false);
+                TimeOverPanel.SetActive(true);
+                break;
             case State.Blueprint:
             case State.Grabbing:
             case State.Selecting:
@@ -540,6 +556,7 @@ public class TilingSceneManager : MonoBehaviour
             return;
         }
 #endif
+        TextTimer.gameObject.SetActive(GlobalData.IsHardcoreMode);
         OriginTile.GetComponent<Button>().onClick.AddListener(OnOriginTileClick);
         MenuOpenButton.onClick.AddListener(() => ChangeState(State.Menu));
         MenuCloseButton.onClick.AddListener(() => ChangeState(State.None));
@@ -555,9 +572,11 @@ public class TilingSceneManager : MonoBehaviour
         RestartConfirmCancelButton.onClick.AddListener(() => ChangeState(State.None));
         ExitWithoutSaveButton.onClick.AddListener(() => ChangeState(State.ConfirmExit));
         SaveAndExitButton.onClick.AddListener(() => LoadPrevScene(true));
+        SaveAndExitButton.gameObject.SetActive(!GlobalData.IsHardcoreMode);    // disable save button in hardcore.
         ExitConfirmOKButton.onClick.AddListener(() => LoadPrevScene(false));
         ExitConfirmCancelButton.onClick.AddListener(() => ChangeState(State.None));
         ContinueToMenuButton.onClick.AddListener(() => LoadPrevScene(false));
+        ContinueToMenuButton2.onClick.AddListener(() => LoadPrevScene(false));
         // color picker.
         {
             foreach (var slider in ColorPickerSliders)
@@ -584,6 +603,55 @@ public class TilingSceneManager : MonoBehaviour
                 break;
             case GameMode.Puzzle:
                 {
+                    // timer
+                    switch (GlobalData.Level)
+                    {
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        case 6:
+                        case 7:
+                        case 8:
+                            _remainingTime = 60f;
+                            break;
+                        case 15:
+                        case 16:
+                        case 17:
+                        case 18:
+                        case 19:
+                        case 20:
+                            _remainingTime = 90f;
+                            break;
+                        case 9:
+                        case 10:
+                            _remainingTime = 120f;
+                            break;
+                        case 11:
+                        case 12:
+                        case 21:
+                        case 23:
+                            _remainingTime = 180f;
+                            break;
+                        case 13:
+                        case 14:
+                        case 22:
+                        case 24:
+                            _remainingTime = 300f;
+                            break;
+                        case 25:
+                        case 26:
+                        case 27:
+                            _remainingTime = 600f;
+                            break;
+                        case 28:
+                            _remainingTime = 3600f;
+                            break;
+                        default:
+                            break;
+                    }
+                    // hint
                     switch (GlobalData.Level)
                     {
                         case 1:
@@ -611,8 +679,7 @@ public class TilingSceneManager : MonoBehaviour
                 break;
             default:
                 Debug.LogWarning($"TilingSceneManager#Start: Unexpected GameMode {GlobalData.GameMode}");
-                // GlobalData.GameMode = GameMode.Creative;
-                GlobalData.GameMode = GameMode.Puzzle;
+                GlobalData.GameMode = GameMode.Creative;
                 LoadPrevScene(false);
                 return;
         }
@@ -633,9 +700,37 @@ public class TilingSceneManager : MonoBehaviour
         ChangeState(State.None);
     }
 
+    void FixedUpdate()
+    {
+        var min = 0;
+        var sec = 0;
+        TextTimer.color = _state == State.Solved? Colors.OK: _remainingTime < 30? Colors.NG: Color.white;
+        if (_remainingTime > 0)
+        {
+            min = Mathf.FloorToInt(_remainingTime / 60);
+            sec = Mathf.FloorToInt(_remainingTime % 60);
+        }
+        TextTimer.text = $"{min:D2}:{sec:D2}";
+    }
+
     void Update()
     {
         var dt = Time.deltaTime;
+        switch (_state)
+        {
+            case State.Solved:
+            case State.TimeOver:
+                return;
+            default:
+                break;
+        }
+        if ((_remainingTime -= dt) < 0 && GlobalData.IsHardcoreMode && _state != State.TimeOver)
+        {
+            _audioManager.PlaySE(_assetManager.SEPuzzleTimeOver);
+            ScatterTiles();
+            ChangeState(State.TimeOver);
+            return;
+        }
         if (_isKeyModify1) dt *= 2;
         _mouseScreenPos = Mouse.current.position.ReadValue();
         _mousePos = _camera.ScreenToWorldPoint(_mouseScreenPos);

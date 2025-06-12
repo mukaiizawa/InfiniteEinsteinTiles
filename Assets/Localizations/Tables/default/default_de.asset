@@ -296,6 +296,22 @@ MonoBehaviour:
     m_Localized: Level
     m_Metadata:
       m_Items: []
+  - m_Id: 11581666376327168
+    m_Localized: Hardcore-Modus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11585296596770816
+    m_Localized: "Wenn diese Funktion aktiviert ist, wird ein Zeitlimit f\xFCr das
+      Puzzle hinzugef\xFCgt. Wenn du es nicht innerhalb der Zeit l\xF6st, beginnt
+      das Level von vorne. Es gibt keine Errungenschaften, die an diese Funktion
+      gebunden sind. Empfohlen nur f\xFCr Streamer und Herausforderungen suchende
+      Spieler."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11602884848558080
+    m_Localized: Zeit abgelaufen
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -26,6 +26,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
     /*
      * UI
      */
+    public Toggle HardcoreToggle;
     public TextMeshProUGUI TextProgress;
     public TextMeshProUGUI TextCongratulations;
     public Image Preview;
@@ -128,6 +129,8 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         _steamManager = GameObject.Find("/SteamManager").GetComponent<SteamManager>();
         _l10nLevel = LocalizationSettings.StringDatabase.GetTableEntry("default", "level").Entry.Value;
         int currentLevel = _persistentManager.LoadProgress(GlobalData.Slot).CurrentLevel;
+        HardcoreToggle.isOn = GlobalData.IsHardcoreMode = _persistentManager.IsHardcoreMode(GlobalData.Slot);
+        HardcoreToggle.onValueChanged.AddListener((isOn) => GlobalData.IsHardcoreMode = _persistentManager.SetHardcoreMode(GlobalData.Slot, isOn));
         TextProgress.text = $"{currentLevel * 100 / GlobalData.TotalLevel}%";
         MenuOpenButton.onClick.AddListener(() => ChangeState(State.Menu));
         MenuCloseButton.onClick.AddListener(() => ChangeState(State.None));
@@ -251,7 +254,7 @@ public class PuzzleMenuSceneManager : MonoBehaviour
                     {
                         var se = _assetManager.SEOK;
                         GlobalData.Level = LevelsRequiredUnlock(o.Parent()) + 1;
-                        if (_solutionManager.Init().HasSolution())
+                        if (_solutionManager.Init().HasSolution() && !GlobalData.IsHardcoreMode)
                         {
                             ChangeState(State.Solutions);
                         }

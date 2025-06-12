@@ -291,6 +291,21 @@ MonoBehaviour:
     m_Localized: "N\xEDvel"
     m_Metadata:
       m_Items: []
+  - m_Id: 11581666376327168
+    m_Localized: Modo hardcore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11585296596770816
+    m_Localized: "Ativar esta fun\xE7\xE3o adicionar\xE1 um limite de tempo ao quebra-cabe\xE7a.
+      Se voc\xEA n\xE3o conclu\xED-lo dentro do tempo limite, o n\xEDvel come\xE7ar\xE1
+      do in\xEDcio. N\xE3o h\xE1 conquistas bloqueadas por esta fun\xE7\xE3o. Recomendado
+      apenas para streamers e para aqueles que buscam um desafio."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11602884848558080
+    m_Localized: O tempo acabou
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
