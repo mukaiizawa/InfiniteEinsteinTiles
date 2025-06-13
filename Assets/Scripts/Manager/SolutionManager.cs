@@ -48,12 +48,9 @@ public class SolutionManager : MonoBehaviour
 
     public SolutionManager Init()
     {
-        return Init(-1);
-    }
-
-    public SolutionManager Init(int level)
-    {
         _solutions = _persistentManager.LoadSolutions(GlobalData.GameMode, GlobalData.Slot, GlobalData.Level);
+        foreach (var card in SolutionCards.Children())
+            if (card != SolutionEmptyState) Destroy(card);
         foreach (var solution in _solutions)
             MakeSolutionCard(solution);
         SolutionEmptyState.SetActive(!_solutions.Any());
