@@ -610,39 +610,35 @@ public class TilingSceneManager : MonoBehaviour
                         case 2:
                         case 3:
                         case 4:
-                        case 5:
-                        case 6:
-                        case 7:
-                        case 8:
+                        case 5:    // 25s
+                        case 6:    // 20s
+                        case 16:    // 25s
                             _remainingTime = 60f;
                             break;
-                        case 15:
-                        case 16:
-                        case 17:
-                        case 18:
-                        case 19:
-                        case 20:
-                            _remainingTime = 90f;
-                            break;
-                        case 9:
-                        case 10:
-                            _remainingTime = 120f;
-                            break;
-                        case 11:
-                        case 12:
-                        case 21:
-                        case 23:
+                        case 7:    // 32s
+                        case 8:    // 22s
+                        case 9:    // 40s
+                        case 11:    // 42s
+                        case 12:    // 40s
+                        case 17:    // 36s
+                        case 21:    // 36s
                             _remainingTime = 180f;
                             break;
-                        case 13:
-                        case 14:
-                        case 22:
-                        case 24:
+                        case 10:    // 66s
+                        case 13:    // 107s
+                        case 14:    // 119s
+                        case 15:    // 144s
+                        case 18:    // 44s
+                        case 19:    // 89s
+                        case 20:    // 46s
+                        case 23:    // 57s
+                        case 22:    // 86s
+                        case 24:    // 44s
+                        case 25:    // 187s
                             _remainingTime = 300f;
                             break;
-                        case 25:
-                        case 26:
-                        case 27:
+                        case 26:    // 413s
+                        case 27:    // 114s
                             _remainingTime = 600f;
                             break;
                         case 28:
