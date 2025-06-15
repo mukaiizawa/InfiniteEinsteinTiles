@@ -6114,8 +6114,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 12.53, y: -154.38}
-  m_SizeDelta: {x: 401.03, y: 155.07}
+  m_AnchoredPosition: {x: -3.76, y: -133.42}
+  m_SizeDelta: {x: 326.78, y: 73.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &819024106
 MonoBehaviour:
@@ -6153,8 +6153,8 @@ MonoBehaviour:
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 0, g: 0, b: 0, a: 1}
+    bottomRight: {r: 0, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -10261,7 +10261,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -100, y: 0}
-  m_SizeDelta: {x: 200, y: -106}
+  m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1432624802
 MonoBehaviour:
@@ -10286,7 +10286,7 @@ MonoBehaviour:
   m_text: TileCount
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a9fe2fc7945e7641897c2892eec08ac, type: 2}
-  m_sharedMaterial: {fileID: 5004965335630940682, guid: 3a9fe2fc7945e7641897c2892eec08ac, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 029c745ceaadeae4e9f5f305a2c3c0bc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10318,7 +10318,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -12726,8 +12726,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 5.3301, y: -77.535}
-  m_SizeDelta: {x: 344.95, y: 155.08}
+  m_AnchoredPosition: {x: -1.12, y: -48.227}
+  m_SizeDelta: {x: 332.06, y: 96.475}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1704219598
 GameObject:
