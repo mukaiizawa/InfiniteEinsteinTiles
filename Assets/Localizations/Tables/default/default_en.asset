@@ -51,8 +51,8 @@ MonoBehaviour:
     m_Localized: Tile Count
     m_Metadata:
       m_Items: []
-  - m_Id: 10158687322939393
-    m_Localized: Zoom
+  - m_Id: 13429306319740928
+    m_Localized: Add selection / deselect
     m_Metadata:
       m_Items: []
   - m_Id: 10147767003684864
@@ -327,8 +327,8 @@ MonoBehaviour:
       succeed."
     m_Metadata:
       m_Items: []
-  - m_Id: 13412667587076096
-    m_Localized: Add to or remove from selection
+  - m_Id: 10158687322939393
+    m_Localized: Zoom
     m_Metadata:
       m_Items: []
   references:

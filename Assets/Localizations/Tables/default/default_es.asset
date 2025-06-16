@@ -43,8 +43,8 @@ MonoBehaviour:
     m_Localized: "N\xFAmero de losetas"
     m_Metadata:
       m_Items: []
-  - m_Id: 10158687322939393
-    m_Localized: Zoom
+  - m_Id: 13429306319740928
+    m_Localized: "Agregar a la selecci\xF3n / deseleccionar"
     m_Metadata:
       m_Items: []
   - m_Id: 10147767003684864
@@ -315,8 +315,8 @@ MonoBehaviour:
       hacerlo.  \r\nIncluso si hoy no es el d\xEDa, ma\xF1ana seguro lo lograr\xE1s."
     m_Metadata:
       m_Items: []
-  - m_Id: 13412667587076096
-    m_Localized: "Seleccionar adicionalmente o eliminar de la selecci\xF3n"
+  - m_Id: 10158687322939393
+    m_Localized: Zoom
     m_Metadata:
       m_Items: []
   references:

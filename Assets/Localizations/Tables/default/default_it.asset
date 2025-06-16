@@ -43,8 +43,8 @@ MonoBehaviour:
     m_Localized: Numero di tessere
     m_Metadata:
       m_Items: []
-  - m_Id: 10158687322939393
-    m_Localized: Zoom
+  - m_Id: 13429306319740928
+    m_Localized: Aggiungi alla selezione / deseleziona
     m_Metadata:
       m_Items: []
   - m_Id: 10147767003684864
@@ -315,8 +315,8 @@ MonoBehaviour:
       \r\nAnche se oggi non \xE8 il giorno giusto, domani ce la farai sicuramente."
     m_Metadata:
       m_Items: []
-  - m_Id: 13412667587076096
-    m_Localized: Seleziona in aggiunta o rimuovi dalla selezione
+  - m_Id: 10158687322939393
+    m_Localized: Zoom
     m_Metadata:
       m_Items: []
   references:

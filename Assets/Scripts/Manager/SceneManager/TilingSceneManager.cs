@@ -993,15 +993,6 @@ public class TilingSceneManager : MonoBehaviour
                             return;
                         }
                         break;
-                    case State.Selected:
-                        if (_isKeyModify2)
-                        {
-                            UnselectTiles(CollectSelectedTiles());
-                            _selectStartPos = _mousePos;
-                            ChangeState(State.Selecting);
-                            return;
-                        }
-                        break;
                     default:
                         break;
                 }
@@ -1038,15 +1029,23 @@ public class TilingSceneManager : MonoBehaviour
                         break;
                     case State.Selected:
                         {
-                            var o = ClickedObject();
-                            if (Tags.match(o, Tags.Tile))
+                            if (_isKeyModify2)
                             {
-                               SelectTiles(new GameObject[] { o });
+                                var o = ClickedObject();
+                                if (Tags.match(o, Tags.Tile))
+                                {
+                                    SelectTiles(new GameObject[] { o });
+                                }
+                                else if (Tags.match(o, Tags.SelectedTile))
+                                {
+                                    UnselectTiles(new GameObject[] { o });
+                                    if (!ExistsSelectedTile()) ChangeState(State.None);
+                                }
                             }
-                            else if (Tags.match(o, Tags.SelectedTile))
+                            else
                             {
-                                UnselectTiles(new GameObject[] { o });
-                                if (!ExistsSelectedTile()) ChangeState(State.None);
+                                UnselectTiles(CollectSelectedTiles());
+                                ChangeState(State.None);
                             }
                         }
                         break;

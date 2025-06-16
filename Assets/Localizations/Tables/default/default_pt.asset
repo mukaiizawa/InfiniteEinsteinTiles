@@ -39,8 +39,8 @@ MonoBehaviour:
     m_Localized: "N\xFAmero de ladrilhos"
     m_Metadata:
       m_Items: []
-  - m_Id: 10158687322939393
-    m_Localized: Zoom
+  - m_Id: 13429306319740928
+    m_Localized: "Adicionar \xE0 sele\xE7\xE3o / desmarcar"
     m_Metadata:
       m_Items: []
   - m_Id: 10147767003684864
@@ -312,8 +312,8 @@ MonoBehaviour:
       certeza conseguir\xE1."
     m_Metadata:
       m_Items: []
-  - m_Id: 13412667587076096
-    m_Localized: "Selecionar adicionalmente ou remover da sele\xE7\xE3o"
+  - m_Id: 10158687322939393
+    m_Localized: Zoom
     m_Metadata:
       m_Items: []
   references:

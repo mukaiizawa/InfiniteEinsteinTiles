@@ -15,48 +15,16 @@ MonoBehaviour:
   m_TableCollectionName: default
   m_TableCollectionNameGuidString: d545b90e5be3a914f940bc5b44a565dd
   m_Entries:
-  - m_Id: 13412667587076096
-    m_Key: add_or_remove_selection
-    m_Metadata:
-      m_Items: []
-  - m_Id: 13404421560246272
-    m_Key: hint_level_28
-    m_Metadata:
-      m_Items: []
-  - m_Id: 11602884848558080
-    m_Key: time_over
-    m_Metadata:
-      m_Items: []
-  - m_Id: 11585296596770816
-    m_Key: hardcore_mode_description
-    m_Metadata:
-      m_Items: []
-  - m_Id: 11581666376327168
-    m_Key: hardcore_mode
-    m_Metadata:
-      m_Items: []
-  - m_Id: 7447237043200000
-    m_Key: level
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6889265472774144
-    m_Key: mouse_wheel_sensitivity
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2814824287608832
-    m_Key: restart
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2816513375772672
-    m_Key: restart_confirm
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2814824312774656
-    m_Key: restart_confirm_message
+  - m_Id: 10158687322939393
+    m_Key: zoom
     m_Metadata:
       m_Items: []
   - m_Id: 1815980817031168
     m_Key: academic_paper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13429306319740928
+    m_Key: add_or_deselect
     m_Metadata:
       m_Items: []
   - m_Id: 798657884758016
@@ -143,8 +111,20 @@ MonoBehaviour:
     m_Key: grab
     m_Metadata:
       m_Items: []
+  - m_Id: 11581666376327168
+    m_Key: hardcore_mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11585296596770816
+    m_Key: hardcore_mode_description
+    m_Metadata:
+      m_Items: []
   - m_Id: 15121970022883328
     m_Key: hint_level_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13404421560246272
+    m_Key: hint_level_28
     m_Metadata:
       m_Items: []
   - m_Id: 15122424656076800
@@ -165,6 +145,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1069765926913
     m_Key: last_modified_date
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7447237043200000
+    m_Key: level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6889265472774144
+    m_Key: mouse_wheel_sensitivity
     m_Metadata:
       m_Items: []
   - m_Id: 10147767033044996
@@ -231,6 +219,18 @@ MonoBehaviour:
     m_Key: resolution
     m_Metadata:
       m_Items: []
+  - m_Id: 2814824287608832
+    m_Key: restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2816513375772672
+    m_Key: restart_confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2814824312774656
+    m_Key: restart_confirm_message
+    m_Metadata:
+      m_Items: []
   - m_Id: 16573020307234816
     m_Key: return_to_desktop
     m_Metadata:
@@ -287,16 +287,16 @@ MonoBehaviour:
     m_Key: tile_count
     m_Metadata:
       m_Items: []
+  - m_Id: 11602884848558080
+    m_Key: time_over
+    m_Metadata:
+      m_Items: []
   - m_Id: 10147767033045002
     m_Key: undo
     m_Metadata:
       m_Items: []
   - m_Id: 3637982829780992
     m_Key: untitled
-    m_Metadata:
-      m_Items: []
-  - m_Id: 10158687322939393
-    m_Key: zoom
     m_Metadata:
       m_Items: []
   m_Metadata:

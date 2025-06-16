@@ -44,8 +44,8 @@ MonoBehaviour:
     m_Localized: Kachelanzahl
     m_Metadata:
       m_Items: []
-  - m_Id: 10158687322939393
-    m_Localized: Zoom
+  - m_Id: 13429306319740928
+    m_Localized: "Auswahl hinzuf\xFCgen / Auswahl aufheben"
     m_Metadata:
       m_Items: []
   - m_Id: 10147767003684864
@@ -320,6 +320,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 13412667587076096
     m_Localized: "Zus\xE4tzlich ausw\xE4hlen oder aus der Auswahl entfernen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10158687322939393
+    m_Localized: Zoom
     m_Metadata:
       m_Items: []
   references:
