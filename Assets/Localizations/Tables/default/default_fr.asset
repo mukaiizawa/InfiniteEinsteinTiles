@@ -313,6 +313,10 @@ MonoBehaviour:
       le bon jour, demain vous r\xE9ussirez s\xFBrement."
     m_Metadata:
       m_Items: []
+  - m_Id: 13412667587076096
+    m_Localized: "Ajouter ou retirer de la s\xE9lection"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

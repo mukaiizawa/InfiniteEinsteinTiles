@@ -312,6 +312,10 @@ MonoBehaviour:
       certeza conseguir\xE1."
     m_Metadata:
       m_Items: []
+  - m_Id: 13412667587076096
+    m_Localized: "Selecionar adicionalmente ou remover da sele\xE7\xE3o"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

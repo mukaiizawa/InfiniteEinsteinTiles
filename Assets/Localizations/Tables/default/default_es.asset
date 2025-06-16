@@ -315,6 +315,10 @@ MonoBehaviour:
       hacerlo.  \r\nIncluso si hoy no es el d\xEDa, ma\xF1ana seguro lo lograr\xE1s."
     m_Metadata:
       m_Items: []
+  - m_Id: 13412667587076096
+    m_Localized: "Seleccionar adicionalmente o eliminar de la selecci\xF3n"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

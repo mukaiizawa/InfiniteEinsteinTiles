@@ -318,6 +318,10 @@ MonoBehaviour:
       schaffen."
     m_Metadata:
       m_Items: []
+  - m_Id: 13412667587076096
+    m_Localized: "Zus\xE4tzlich ausw\xE4hlen oder aus der Auswahl entfernen"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

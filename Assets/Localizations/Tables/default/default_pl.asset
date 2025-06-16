@@ -314,6 +314,10 @@ MonoBehaviour:
       si\u0119 nie uda, jutro na pewno si\u0119 powiedzie."
     m_Metadata:
       m_Items: []
+  - m_Id: 13412667587076096
+    m_Localized: "Wybierz dodatkowo lub usu\u0144 z zaznaczenia"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

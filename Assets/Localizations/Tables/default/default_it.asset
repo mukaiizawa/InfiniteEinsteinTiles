@@ -315,6 +315,10 @@ MonoBehaviour:
       \r\nAnche se oggi non \xE8 il giorno giusto, domani ce la farai sicuramente."
     m_Metadata:
       m_Items: []
+  - m_Id: 13412667587076096
+    m_Localized: Seleziona in aggiunta o rimuovi dalla selezione
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

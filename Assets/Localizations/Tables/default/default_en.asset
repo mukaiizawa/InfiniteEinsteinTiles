@@ -327,6 +327,10 @@ MonoBehaviour:
       succeed."
     m_Metadata:
       m_Items: []
+  - m_Id: 13412667587076096
+    m_Localized: Add to or remove from selection
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

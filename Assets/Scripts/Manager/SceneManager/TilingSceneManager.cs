@@ -175,6 +175,12 @@ public class TilingSceneManager : MonoBehaviour
     {
         return XGameObject.AtWorldPoint(_clickedPos);
     }
+
+    bool ExistsSelectedTile()
+    {
+        return GameObject.FindWithTag(Tags.SelectedTile) != null;
+    }
+
     GameObject[] CollectSelectedTiles()
     {
         return GameObject.FindGameObjectsWithTag(Tags.SelectedTile);
@@ -1027,13 +1033,22 @@ public class TilingSceneManager : MonoBehaviour
                             {
                                 GrabTiles(new GameObject[]{ o }, true);
                                 ChangeState(State.Grabbing);
-                                return;
                             }
                         }
                         break;
                     case State.Selected:
-                        UnselectTiles(CollectSelectedTiles());
-                        ChangeState(State.None);
+                        {
+                            var o = ClickedObject();
+                            if (Tags.match(o, Tags.Tile))
+                            {
+                               SelectTiles(new GameObject[] { o });
+                            }
+                            else if (Tags.match(o, Tags.SelectedTile))
+                            {
+                                UnselectTiles(new GameObject[] { o });
+                                if (!ExistsSelectedTile()) ChangeState(State.None);
+                            }
+                        }
                         break;
                     case State.Blueprint:
                         {
@@ -1101,7 +1116,6 @@ public class TilingSceneManager : MonoBehaviour
                     default:
                         break;
                 }
-                return;
             }
         }
     }
