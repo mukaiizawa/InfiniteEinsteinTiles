@@ -306,6 +306,12 @@ MonoBehaviour:
     m_Localized: O tempo acabou
     m_Metadata:
       m_Items: []
+  - m_Id: 13404421560246272
+    m_Localized: "N\xE3o desista!  \r\nVoc\xEA j\xE1 resolveu tanto\u2014com certeza
+      conseguir\xE1.  \r\nMesmo que hoje n\xE3o seja o dia, amanh\xE3 voc\xEA com
+      certeza conseguir\xE1."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

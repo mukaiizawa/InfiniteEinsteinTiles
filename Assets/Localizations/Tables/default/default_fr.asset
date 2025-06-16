@@ -307,6 +307,12 @@ MonoBehaviour:
     m_Localized: "Temps \xE9coul\xE9"
     m_Metadata:
       m_Items: []
+  - m_Id: 13404421560246272
+    m_Localized: "Ne baissez pas les bras !  \r\nVous avez d\xE9j\xE0 r\xE9solu tant
+      de choses\u2014vous pouvez le faire.  \r\nM\xEAme si aujourd'hui n'est pas
+      le bon jour, demain vous r\xE9ussirez s\xFBrement."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

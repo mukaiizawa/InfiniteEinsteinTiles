@@ -321,6 +321,12 @@ MonoBehaviour:
     m_Localized: Time's up
     m_Metadata:
       m_Items: []
+  - m_Id: 13404421560246272
+    m_Localized: "Don't give up!  \r\nYou've solved so much already\u2014you can
+      definitely do this.  \r\nEven if today isn't the day, tomorrow you'll surely
+      succeed."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

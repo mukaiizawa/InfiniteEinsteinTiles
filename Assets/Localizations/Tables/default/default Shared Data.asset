@@ -15,6 +15,10 @@ MonoBehaviour:
   m_TableCollectionName: default
   m_TableCollectionNameGuidString: d545b90e5be3a914f940bc5b44a565dd
   m_Entries:
+  - m_Id: 13404421560246272
+    m_Key: hint_level_28
+    m_Metadata:
+      m_Items: []
   - m_Id: 11602884848558080
     m_Key: time_over
     m_Metadata:

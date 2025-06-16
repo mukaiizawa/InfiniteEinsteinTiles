@@ -310,6 +310,11 @@ MonoBehaviour:
     m_Localized: "Se acab\xF3 el tiempo"
     m_Metadata:
       m_Items: []
+  - m_Id: 13404421560246272
+    m_Localized: "\xA1No te rindas!  \r\nYa has resuelto mucho\u2014seguro que puedes
+      hacerlo.  \r\nIncluso si hoy no es el d\xEDa, ma\xF1ana seguro lo lograr\xE1s."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

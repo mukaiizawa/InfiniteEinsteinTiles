@@ -653,6 +653,7 @@ public class TilingSceneManager : MonoBehaviour
                         case 1:
                         case 4:
                         case 8:
+                        case 28:
                             Hint.SetActive(true);
                             var tmp = Hint.GetComponentInChildren<TextMeshProUGUI>();
                             if (tmp != null)

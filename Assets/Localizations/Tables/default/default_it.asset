@@ -310,6 +310,11 @@ MonoBehaviour:
     m_Localized: Tempo scaduto
     m_Metadata:
       m_Items: []
+  - m_Id: 13404421560246272
+    m_Localized: "Non mollare!  \r\nHai gi\xE0 risolto cos\xEC tanto\u2014puoi farcela. 
+      \r\nAnche se oggi non \xE8 il giorno giusto, domani ce la farai sicuramente."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

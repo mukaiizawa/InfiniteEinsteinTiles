@@ -308,6 +308,12 @@ MonoBehaviour:
     m_Localized: "Czas min\u0105\u0142"
     m_Metadata:
       m_Items: []
+  - m_Id: 13404421560246272
+    m_Localized: "Nie poddawaj si\u0119!  \r\nRozwi\u0105za\u0142e\u015B ju\u017C
+      tak wiele\u2014na pewno mo\u017Cesz to zrobi\u0107.  \r\nNawet je\u015Bli dzi\u015B
+      si\u0119 nie uda, jutro na pewno si\u0119 powiedzie."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

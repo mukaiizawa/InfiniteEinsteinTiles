@@ -312,6 +312,12 @@ MonoBehaviour:
     m_Localized: Zeit abgelaufen
     m_Metadata:
       m_Items: []
+  - m_Id: 13404421560246272
+    m_Localized: "Gib nicht auf!  \r\nDu hast schon so viel geschafft\u2014du kannst
+      das schaffen.  \r\nSelbst wenn es heute nicht klappt, morgen wirst du es bestimmt
+      schaffen."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
