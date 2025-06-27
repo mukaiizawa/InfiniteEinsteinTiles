@@ -727,7 +727,7 @@ public class TilingSceneManager : MonoBehaviour
             default:
                 break;
         }
-        if ((_remainingTime -= dt) < 0 && GlobalData.IsHardcoreMode && _state != State.TimeOver)
+        if (GlobalData.GameMode == GameMode.Puzzle && (_remainingTime -= dt) < 0 && GlobalData.IsHardcoreMode)
         {
             _audioManager.PlaySE(_assetManager.SEPuzzleTimeOver);
             ScatterTiles();
