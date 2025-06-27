@@ -562,7 +562,7 @@ public class TilingSceneManager : MonoBehaviour
             return;
         }
 #endif
-        TextTimer.gameObject.SetActive(GlobalData.IsHardcoreMode);
+        TextTimer.gameObject.SetActive(GlobalData.GameMode == GameMode.Puzzle && GlobalData.IsHardcoreMode);
         OriginTile.GetComponent<Button>().onClick.AddListener(OnOriginTileClick);
         MenuOpenButton.onClick.AddListener(() => ChangeState(State.Menu));
         MenuCloseButton.onClick.AddListener(() => ChangeState(State.None));
@@ -578,7 +578,7 @@ public class TilingSceneManager : MonoBehaviour
         RestartConfirmCancelButton.onClick.AddListener(() => ChangeState(State.None));
         ExitWithoutSaveButton.onClick.AddListener(() => ChangeState(State.ConfirmExit));
         SaveAndExitButton.onClick.AddListener(() => LoadPrevScene(true));
-        SaveAndExitButton.gameObject.SetActive(!GlobalData.IsHardcoreMode);    // disable save button in hardcore.
+        SaveAndExitButton.gameObject.SetActive(!(GlobalData.GameMode == GameMode.Puzzle && GlobalData.IsHardcoreMode));    // disable save button in hardcore.
         ExitConfirmOKButton.onClick.AddListener(() => LoadPrevScene(false));
         ExitConfirmCancelButton.onClick.AddListener(() => ChangeState(State.None));
         ContinueToMenuButton.onClick.AddListener(() => LoadPrevScene(false));
@@ -727,7 +727,7 @@ public class TilingSceneManager : MonoBehaviour
             default:
                 break;
         }
-        if (GlobalData.GameMode == GameMode.Puzzle && (_remainingTime -= dt) < 0 && GlobalData.IsHardcoreMode)
+        if ((GlobalData.GameMode == GameMode.Puzzle && GlobalData.IsHardcoreMode) && (_remainingTime -= dt) < 0)
         {
             _audioManager.PlaySE(_assetManager.SEPuzzleTimeOver);
             ScatterTiles();
