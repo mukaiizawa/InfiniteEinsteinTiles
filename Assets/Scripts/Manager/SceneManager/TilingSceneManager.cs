@@ -123,6 +123,16 @@ public class TilingSceneManager : MonoBehaviour
     SettingManager _settingManager;
 
     /*
+     * Camera
+     */
+    Camera _camera;    // Camera.main is slow due to internal use of Tag.
+    float _cameraSpeed = 16f;
+    float _cameraMinZoom = 5f;
+    float _cameraMaxZoom = 30f;
+    float _cameraZoomDelta = 0f;
+    Vector2 _cameraMoveDelta = Vector2.zero;
+
+    /*
      * Mouse & Keybord.
      */
     bool _isKeyModify1 = false;
@@ -143,16 +153,6 @@ public class TilingSceneManager : MonoBehaviour
     Vector2 _selectStartPos;
     Vector2 _selectEndPos;
     Rect _selectedArea;
-
-    /*
-     * Camera 
-     */
-    Camera _camera;    // Camera.main is slow due to internal use of Tag.
-    float _cameraSpeed = 16f;
-    float _cameraMinZoom = 5f;
-    float _cameraMaxZoom = 30f;
-    float _cameraZoomDelta = 0f;
-    Vector2 _cameraMoveDelta = Vector2.zero;
 
     /*
      * board
@@ -245,6 +245,25 @@ public class TilingSceneManager : MonoBehaviour
         }
     }
 
+    IEnumerator RotateActiveTilesAsync(GameObject[] tiles, int angle)
+    {
+        lock (_lock)
+        {
+            int frameCount = 6;
+            int anglePerFrame = angle / frameCount;
+            for (int i = 0; i < frameCount; i++)
+            {
+                ActiveTiles.transform.position = _mousePos;
+                ActiveTiles.transform.Rotate(0, 0, anglePerFrame);
+                ActiveTiles.transform.DetachChildren();
+                ActiveTiles.transform.Rotate(0, 0, -anglePerFrame);
+                foreach (GameObject tile in tiles)
+                    tile.transform.parent = ActiveTiles.transform;
+                yield return null;
+            }
+        }
+    }
+
     void RotateActiveTiles(int angle)
     {
         switch (_state)
@@ -253,13 +272,7 @@ public class TilingSceneManager : MonoBehaviour
             case State.Blueprint:
                 {
                     _audioManager.PlaySE(_assetManager.SETileRotate);
-                    var tiles = ActiveTiles.Children();
-                    ActiveTiles.transform.position = _mousePos;
-                    ActiveTiles.transform.Rotate(0, 0, angle);
-                    ActiveTiles.transform.DetachChildren();
-                    ActiveTiles.transform.Rotate(0, 0, -angle);
-                    foreach (GameObject tile in tiles)
-                        tile.transform.parent = ActiveTiles.transform;
+                    StartCoroutine(RotateActiveTilesAsync(ActiveTiles.Children(), angle));
                 }
                 break;
             default:
@@ -825,8 +838,8 @@ public class TilingSceneManager : MonoBehaviour
             if (_isKeyModify2) _cameraZoomDelta = Mathf.Sign(val.y) * _mouseWheelSensitivity * 50;
             else if ((_mouseWheelInputCount = _mouseWheelInputCount + 1) % _mouseWheelRotationThreshold == 0)
             {
-                RotateActiveTiles(val.y > 0f? 60: -60);
                 _cameraZoomDelta = 0f;
+                RotateActiveTiles(val.y > 0f? 60: -60);
             }
             return;
         }
@@ -850,20 +863,14 @@ public class TilingSceneManager : MonoBehaviour
 
     public void OnRotateRight(InputAction.CallbackContext context)
     {
-        lock (_lock)
-        {
-            if (!context.performed) return;
-            RotateActiveTiles(-60);
-        }
+        if (!context.performed) return;
+        RotateActiveTiles(-60);
     }
 
     public void OnRotateLeft(InputAction.CallbackContext context)
     {
-        lock (_lock)
-        {
-            if (!context.performed) return;
-            RotateActiveTiles(60);
-        }
+        if (!context.performed) return;
+        RotateActiveTiles(60);
     }
 
     public void OnFlip(InputAction.CallbackContext context)
