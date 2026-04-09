@@ -128,7 +128,7 @@ public class TilingSceneManager : MonoBehaviour
     Camera _camera;    // Camera.main is slow due to internal use of Tag.
     float _cameraSpeed = 16f;
     float _cameraMinZoom = 5f;
-    float _cameraMaxZoom = 30f;
+    float _cameraMaxZoom = 128f;
     float _cameraZoomDelta = 0f;
     Vector2 _cameraMoveDelta = Vector2.zero;
 
