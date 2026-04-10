@@ -66,9 +66,24 @@ public class PuzzleMenuSceneManager : MonoBehaviour
     SteamManager _steamManager;
     SolutionManager _solutionManager;
 
-    GameObject[] _parentsH;
+    HashSet<GameObject> _parentsH;
+    GameObject[] _allPuzzleParents;
     GameObject _activePuzzle;
-    Vector2 _expansionScale = new Vector2(1.2f, 1.2f);
+    SpriteRenderer[] _activeClusterRenderers;
+    Color[] _activeClusterOriginalColors;
+    Bounds _activeClusterBounds;
+    SpriteRenderer[] _dimmedRenderers;
+    Color[] _dimmedOriginalColors;
+    bool _isDimmedAll;
+    GameObject _dimAllSource;
+    GameObject[] _otherMetaParents;
+    Bounds[] _otherMetaBounds;
+    const float HoverWarmShift = 0.25f;
+    const float HoverBrightnessMultiplier = 1.5f;
+    const float HoverCoolShift = 0.2f;
+    const float HoverDimMultiplier = 0.6f;
+    static readonly Color HoverWarmColor = new Color(1f, 0.85f, 0.4f);
+    static readonly Color HoverCoolColor = new Color(0.5f, 0.7f, 1f);
 
     void ChangeState(State to)
     {
@@ -139,11 +154,12 @@ public class PuzzleMenuSceneManager : MonoBehaviour
         ReturnToMenuButton.onClick.AddListener(OnReturnToMenuButtonClick);
         SolutionsCloseButton.onClick.AddListener(() => ChangeState(State.None));
         QuitButton.onClick.AddListener(OnPowerOff);
-        _parentsH = GameObject.Find("/PlacedTiles/H").Children();
+        _parentsH = new HashSet<GameObject>(GameObject.Find("/PlacedTiles/H").Children());
         var parentsT = GameObject.Find("/PlacedTiles/T").Children();
         var parentsF = GameObject.Find("/PlacedTiles/F").Children();
         var parentsP = GameObject.Find("/PlacedTiles/P").Children();
         var metaTileParents = _parentsH.Concat(parentsT).Concat(parentsF).Concat(parentsP).ToArray();
+        _allPuzzleParents = metaTileParents;
         for (int level = 1; level <= currentLevel; level++)
             StartCoroutine(_assetManager.LoadPuzzleFrameAsync(level, Color.white, (sprite) => {}));
         TextCongratulations.gameObject.SetActive(currentLevel == GlobalData.TotalLevel);
@@ -183,7 +199,80 @@ public class PuzzleMenuSceneManager : MonoBehaviour
                 }
             }
         }
+        var otherActive = parentsT.Concat(parentsF).Concat(parentsP).Where(p => p.activeInHierarchy).ToArray();
+        _otherMetaParents = otherActive;
+        _otherMetaBounds = otherActive.Select(p => EncapsulateBounds(p.GetComponentsInChildren<SpriteRenderer>())).ToArray();
         ChangeState(State.None);
+    }
+
+    static Bounds EncapsulateBounds(SpriteRenderer[] renderers)
+    {
+        if (renderers.Length == 0) return new Bounds();
+        var b = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++) b.Encapsulate(renderers[i].bounds);
+        return b;
+    }
+
+    void ApplyHover(GameObject puzzle)
+    {
+        _activeClusterRenderers = puzzle.GetComponentsInChildren<SpriteRenderer>();
+        _activeClusterBounds = EncapsulateBounds(_activeClusterRenderers);
+        _activeClusterOriginalColors = new Color[_activeClusterRenderers.Length];
+        for (int i = 0; i < _activeClusterRenderers.Length; i++)
+        {
+            var r = _activeClusterRenderers[i];
+            _activeClusterOriginalColors[i] = r.color;
+            r.color = Colors.ChangeAlpha(Colors.ShiftAndScale(r.color, HoverWarmColor, HoverWarmShift, HoverBrightnessMultiplier), r.color.a);
+        }
+        CollectAndDimRenderers(puzzle);
+    }
+
+    void ApplyDimAll(GameObject source)
+    {
+        _dimAllSource = source;
+        CollectAndDimRenderers();
+        _isDimmedAll = true;
+    }
+
+    void CollectAndDimRenderers(GameObject exclude = null)
+    {
+        var list = new List<SpriteRenderer>();
+        foreach (var p in _allPuzzleParents)
+        {
+            if (!p.activeInHierarchy || p == exclude) continue;
+            list.AddRange(p.GetComponentsInChildren<SpriteRenderer>());
+        }
+        _dimmedRenderers = list.ToArray();
+        _dimmedOriginalColors = new Color[_dimmedRenderers.Length];
+        for (int i = 0; i < _dimmedRenderers.Length; i++)
+        {
+            var r = _dimmedRenderers[i];
+            _dimmedOriginalColors[i] = r.color;
+            r.color = Colors.ChangeAlpha(Colors.ShiftAndScale(r.color, HoverCoolColor, HoverCoolShift, HoverDimMultiplier), r.color.a);
+        }
+    }
+
+    void ClearHover()
+    {
+        if (_activePuzzle != null)
+        {
+            for (int i = 0; i < _activeClusterRenderers.Length; i++)
+                _activeClusterRenderers[i].color = _activeClusterOriginalColors[i];
+            _activeClusterRenderers = null;
+            _activeClusterOriginalColors = null;
+            _activePuzzle = null;
+        }
+        if (_dimmedRenderers != null)
+        {
+            for (int i = 0; i < _dimmedRenderers.Length; i++)
+                _dimmedRenderers[i].color = _dimmedOriginalColors[i];
+            _dimmedRenderers = null;
+            _dimmedOriginalColors = null;
+        }
+        _isDimmedAll = false;
+        _dimAllSource = null;
+        Preview.gameObject.SetActive(false);
+        TextLevel.text = null;
     }
 
     IEnumerator DissolveAsync(Material material)
@@ -209,31 +298,58 @@ public class PuzzleMenuSceneManager : MonoBehaviour
             case State.None:
                 {
                     var o = XGameObject.AtWorldPoint(_mousePos);
-                    if (o == null || !_parentsH.Contains(o = o.Parent()))
+                    var parent = o != null ? o.Parent() : null;
+                    bool isH = parent != null && _parentsH.Contains(parent);
+
+                    GameObject otherMeta = null;
+                    if (!isH)
                     {
-                        Preview.gameObject.SetActive(false);
-                        TextLevel.text = null;
-                        if (_activePuzzle != null)
+                        for (int i = 0; i < _otherMetaParents.Length; i++)
                         {
-                            _activePuzzle.transform.GetChild(0).localScale /= _expansionScale;
-                            _activePuzzle = null;
+                            if (_otherMetaBounds[i].Contains(new Vector3(_mousePos.x, _mousePos.y, _otherMetaBounds[i].center.z)))
+                            {
+                                otherMeta = _otherMetaParents[i];
+                                break;
+                            }
                         }
                     }
-                    else if (o != _activePuzzle)
+
+                    if (isH)
                     {
-                        var level = LevelsRequiredUnlock(o) + 1;
-                        _audioManager.PlaySE(_assetManager.SEOnHoverUI);
-                        StartCoroutine(_assetManager.LoadPuzzleFrameAsync(level, Color.white, (sprite) => {
-                            Preview.gameObject.SetActive(true);
-                            Preview.sprite = sprite;
-                            TextLevel.text = $"{_l10nLevel} {level}";
-                        }));
+                        if (parent != _activePuzzle)
+                        {
+                            ClearHover();
+                            _activePuzzle = parent;
+                            ApplyHover(parent);
+                            var level = LevelsRequiredUnlock(parent) + 1;
+                            _audioManager.PlaySE(_assetManager.SEOnHoverUI);
+                            StartCoroutine(_assetManager.LoadPuzzleFrameAsync(level, Color.white, (sprite) => {
+                                if (_activePuzzle != parent) return;
+                                Preview.gameObject.SetActive(true);
+                                Preview.sprite = sprite;
+                                TextLevel.text = $"{_l10nLevel} {level}";
+                            }));
+                        }
+                    }
+                    else if (otherMeta != null)
+                    {
+                        if (_activePuzzle != null || otherMeta != _dimAllSource)
+                        {
+                            ClearHover();
+                            ApplyDimAll(otherMeta);
+                        }
+                    }
+                    else
+                    {
                         if (_activePuzzle != null)
                         {
-                            _activePuzzle.transform.GetChild(0).localScale /= _expansionScale;
+                            if (!_activeClusterBounds.Contains(new Vector3(_mousePos.x, _mousePos.y, _activeClusterBounds.center.z)))
+                                ClearHover();
                         }
-                        _activePuzzle = o;
-                        _activePuzzle.transform.GetChild(0).localScale *= _expansionScale;
+                        else if (_isDimmedAll)
+                        {
+                            ClearHover();
+                        }
                     }
                 }
                 break;

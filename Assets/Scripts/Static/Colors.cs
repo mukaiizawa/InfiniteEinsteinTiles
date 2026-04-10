@@ -74,4 +74,10 @@ public static class Colors
         return Color.HSVToRGB(h, Mathf.Clamp01(s * multiplier), v);
     }
 
+    public static Color ShiftAndScale(Color c, Color target, float shift, float brightnessScale)
+    {
+        Color.RGBToHSV(Color.Lerp(c, target, shift), out float h, out float s, out float v);
+        return Color.HSVToRGB(h, s, Mathf.Clamp01(v * brightnessScale));
+    }
+
 }
