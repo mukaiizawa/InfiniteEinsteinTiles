@@ -111,6 +111,7 @@ public class TilingSceneManager : MonoBehaviour
      */
     State _state;
     object _lock;
+    bool _isAnimating;
 
     /*
      * Managers
@@ -247,52 +248,67 @@ public class TilingSceneManager : MonoBehaviour
 
     IEnumerator RotateActiveTilesAsync(GameObject[] tiles, int angle)
     {
-        lock (_lock)
+        _isAnimating = true;
+        int frameCount = 6;
+        int anglePerFrame = angle / frameCount;
+        for (int i = 0; i < frameCount; i++)
         {
-            int frameCount = 6;
-            int anglePerFrame = angle / frameCount;
-            for (int i = 0; i < frameCount; i++)
-            {
-                ActiveTiles.transform.position = _mousePos;
-                ActiveTiles.transform.Rotate(0, 0, anglePerFrame);
-                ActiveTiles.transform.DetachChildren();
-                ActiveTiles.transform.Rotate(0, 0, -anglePerFrame);
-                foreach (GameObject tile in tiles)
-                    tile.transform.parent = ActiveTiles.transform;
-                yield return null;
-            }
+            ActiveTiles.transform.position = _mousePos;
+            ActiveTiles.transform.Rotate(0, 0, anglePerFrame);
+            ActiveTiles.transform.DetachChildren();
+            ActiveTiles.transform.Rotate(0, 0, -anglePerFrame);
+            foreach (GameObject tile in tiles)
+                tile.transform.parent = ActiveTiles.transform;
+            yield return null;
         }
+        _isAnimating = false;
+    }
+
+    IEnumerator FlipActiveTilesAsync(GameObject[] tiles)
+    {
+        _isAnimating = true;
+        int frameCount = 6;
+        Vector3 scale = ActiveTiles.transform.localScale;
+        var scaleX = scale.x;
+        for (int i = 0; i < frameCount; i++)
+        {
+            ActiveTiles.transform.position = _mousePos;
+            scale.x = Mathf.Lerp(scaleX, -scaleX, (float)(i + 1) / frameCount);
+            ActiveTiles.transform.localScale = scale;
+            yield return null;
+        }
+        ActiveTiles.transform.DetachChildren();
+        scale.x = scaleX;
+        ActiveTiles.transform.localScale = scale;
+        foreach (GameObject tile in tiles)
+            tile.transform.parent = ActiveTiles.transform;
+        _isAnimating = false;
     }
 
     void RotateActiveTiles(int angle)
     {
-        switch (_state)
+        lock (_lock)
         {
-            case State.Grabbing:
-            case State.Blueprint:
-                {
-                    _audioManager.PlaySE(_assetManager.SETileRotate);
-                    StartCoroutine(RotateActiveTilesAsync(ActiveTiles.Children(), angle));
-                }
-                break;
-            default:
-                break;
+            if (_isAnimating) return;
+            switch (_state)
+            {
+                case State.Grabbing:
+                case State.Blueprint:
+                    {
+                        _audioManager.PlaySE(_assetManager.SETileRotate);
+                        StartCoroutine(RotateActiveTilesAsync(ActiveTiles.Children(), angle));
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
     void FlipActiveTiles()
     {
         _audioManager.PlaySE(_assetManager.SETileRotate);
-        var tiles = ActiveTiles.Children();
-        ActiveTiles.transform.position = _mousePos;
-        Vector3 scale = ActiveTiles.transform.localScale;
-        scale.x *= -1;
-        ActiveTiles.transform.localScale = scale;
-        ActiveTiles.transform.DetachChildren();
-        scale.x *= -1;
-        ActiveTiles.transform.localScale = scale;
-        foreach (GameObject tile in tiles)
-            tile.transform.parent = ActiveTiles.transform;
+        StartCoroutine(FlipActiveTilesAsync(ActiveTiles.Children()));
     }
 
     void SelectTiles(GameObject[] tiles)
@@ -877,6 +893,7 @@ public class TilingSceneManager : MonoBehaviour
     {
         lock (_lock)
         {
+            if (_isAnimating) return;
             if (!context.performed) return;
             switch (_state)
             {
@@ -987,6 +1004,7 @@ public class TilingSceneManager : MonoBehaviour
     {
         lock (_lock)
         {
+            if (_isAnimating) return;
             if (context.performed)
             {
                 Debug.Log("button down:"+Time.time);
