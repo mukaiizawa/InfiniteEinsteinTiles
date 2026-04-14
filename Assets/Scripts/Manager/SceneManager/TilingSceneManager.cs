@@ -812,6 +812,7 @@ public class TilingSceneManager : MonoBehaviour
                 BackGround.transform.position = LeftBottomObliqueWorldPoint(screenCenterWorldPoint);
                 // zoom
                 _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize - _cameraZoomDelta * dt, _cameraMinZoom, _cameraMaxZoom);
+                BackGround.SetActive(!RulerButton.isOn && _camera.orthographicSize <= 32f);
                 break;
             default:
                 break;
