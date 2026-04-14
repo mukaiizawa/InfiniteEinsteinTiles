@@ -138,7 +138,7 @@ public class TilingSceneManager : MonoBehaviour
      */
     bool _isKeyModify1 = false;
     bool _isKeyModify2 = false;
-    bool _isDrugging = false;
+    bool _isDragging = false;
     int _mouseWheelSensitivity;
     int _mouseWheelMaxSensitivity;
     int _mouseWheelMinSensitivity;
@@ -289,7 +289,7 @@ public class TilingSceneManager : MonoBehaviour
     {
         lock (_lock)
         {
-            if (_isAnimating) return;
+            if (_isAnimating || _isDragging) return;
             switch (_state)
             {
                 case State.Grabbing:
@@ -303,12 +303,6 @@ public class TilingSceneManager : MonoBehaviour
                     break;
             }
         }
-    }
-
-    void FlipActiveTiles()
-    {
-        _audioManager.PlaySE(_assetManager.SETileRotate);
-        StartCoroutine(FlipActiveTilesAsync(ActiveTiles.Children()));
     }
 
     void SelectTiles(GameObject[] tiles)
@@ -798,7 +792,7 @@ public class TilingSceneManager : MonoBehaviour
             case State.Paint:
             case State.Pipette:
                 // camera
-                if (_isDrugging && !_isCursorInUI)
+                if (_isDragging && !_isCursorInUI)
                 {
                     if (Time.time - _clickStartTime > 0.1f || Vector2.Distance(_clickedScreenPos, _mouseScreenPos) > _dragTimeThreshold)
                         _camera.transform.Translate(_clickedPos - _mousePos);
@@ -894,14 +888,15 @@ public class TilingSceneManager : MonoBehaviour
     {
         lock (_lock)
         {
-            if (_isAnimating) return;
+            if (_isAnimating || _isDragging) return;
             if (!context.performed) return;
             switch (_state)
             {
                 case State.Grabbing:
                 case State.Blueprint:
                     Debug.Log("TilingSceneManager#OnFlip");
-                    FlipActiveTiles();
+                    _audioManager.PlaySE(_assetManager.SETileRotate);
+                    StartCoroutine(FlipActiveTilesAsync(ActiveTiles.Children()));
                     break;
                 default:
                     break;
@@ -1023,7 +1018,7 @@ public class TilingSceneManager : MonoBehaviour
                         break;
                 }
                 // start drug.
-                _isDrugging = true;
+                _isDragging = true;
                 _clickStartTime = Time.time;
                 _clickedPos = _mousePos;
                 _clickedScreenPos = _mouseScreenPos;
@@ -1031,7 +1026,7 @@ public class TilingSceneManager : MonoBehaviour
             }
             if (context.canceled)
             {
-                _isDrugging = false;
+                _isDragging = false;
                 bool isDrug = (Time.time - _clickStartTime > _dragTimeThreshold) || (Vector2.Distance(_clickedScreenPos, _mouseScreenPos) > _dragDistanceThreshold);
                 switch (_state)
                 {
@@ -1254,35 +1249,39 @@ public class TilingSceneManager : MonoBehaviour
 
     public void OnCancel(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
-        switch (_state)
+        lock (_lock)
         {
-            case State.None:
-                ChangeState(State.Menu);
-                break;
-            case State.Menu:
-                ChangeState(State.None);
-                break;
-            case State.Setting:
-                ChangeState(State.Menu);
-                break;
-            case State.Selected:
-                UnselectTiles(CollectSelectedTiles());
-                ChangeState(State.None);
-                break;
-            case State.Blueprint:
-            case State.Grabbing:
-                RemoveTiles(ActiveTiles.Children(), false);
-                ChangeState(State.None);
-                break;
-            case State.Paint:
-                ChangeState(State.None);
-                break;
-            case State.Pipette:
-                ChangeState(State.Paint);
-                break;
-            default:
-                break;
+            if (_isAnimating) return;
+            if (!context.performed) return;
+            switch (_state)
+            {
+                case State.None:
+                    ChangeState(State.Menu);
+                    break;
+                case State.Menu:
+                    ChangeState(State.None);
+                    break;
+                case State.Setting:
+                    ChangeState(State.Menu);
+                    break;
+                case State.Selected:
+                    UnselectTiles(CollectSelectedTiles());
+                    ChangeState(State.None);
+                    break;
+                case State.Blueprint:
+                case State.Grabbing:
+                    RemoveTiles(ActiveTiles.Children(), false);
+                    ChangeState(State.None);
+                    break;
+                case State.Paint:
+                    ChangeState(State.None);
+                    break;
+                case State.Pipette:
+                    ChangeState(State.Paint);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
