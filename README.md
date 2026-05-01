@@ -18,3 +18,7 @@ Read [CONTRIBUTING.md](./CONTRIBUTING.md) for more information.
 
 ## License
 Unless otherwise noted, the code in this repository is licensed under `Apache-2.0`. Read [LICENSE](./LICENSE) for the full license.
+
+## See Also
+- [Infinite Einstein Tiles2](https://github.com/mukaiizawa/InfiniteEinsteinTiles2) — sequel
+- [Infinite Einstein Tiles3](https://github.com/mukaiizawa/InfiniteEinsteinTiles3) — sequel
