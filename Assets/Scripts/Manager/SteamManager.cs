@@ -56,6 +56,14 @@ public class SteamManager : MonoBehaviour
         }
     }
 
+    public bool OpenStorePage(uint appId)
+    {
+        if (!_connected || !SteamUtils.IsOverlayEnabled) return false;
+        Debug.Log($"SteamManager#OpenStorePage: open {appId}");
+        SteamFriends.OpenStoreOverlay(appId, OverlayToStoreFlag.None);
+        return true;
+    }
+
     bool Achievement(int level, out Achievement result)
     {
         if (level - 1 < 0 || level - 1 >= _achievementCount)
