@@ -12,8 +12,9 @@ public static class BuildScript
     const string ProjectRoot = @"C:\InfiniteEinsteinTiles";
     const string BuildRoot = ProjectRoot + @"\build";
     const string ExeName = "Infinite Einstein Tiles.exe";
+    const string AppName = "Infinite Einstein Tiles.app";
     const string WinOutPath = BuildRoot + @"\windows\" + ExeName;
-    const string MacOutPath = BuildRoot + @"\macOS.app";
+    const string MacOutPath = BuildRoot + @"\macOS\" + AppName;
 
     public static void BuildAllProduct()
     {
